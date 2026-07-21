@@ -1,0 +1,100 @@
+site_name: S32K Automotive Embedded Mastery Path
+site_description: A structured, module-wise automotive embedded training program from entry level to master level, built around NXP's S32K microcontroller family — real C code, CAN bus, functional safety, and ECU design from the first lesson.
+site_url: https://sigilipelli.github.io/s32k-mastery-path/
+repo_url: https://github.com/SIGILIPELLI/s32k-mastery-path
+repo_name: s32k-mastery-path
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep orange
+      accent: deep orange
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep orange
+      accent: deep orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - content.code.copy
+    - content.code.annotate
+    - search.suggest
+    - search.highlight
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - Privacy Policy: privacy.md
+  - "Level 1 · Entry":
+      - Overview: level-1/index.md
+      - "01 · Automotive Embedded & the S32K Family": level-1/01-automotive-landscape-s32k.md
+      - "02 · Toolchain Setup — S32 Design Studio": level-1/02-toolchain-s32-design-studio.md
+      - "03 · Clocks, Power & Boot": level-1/03-clocks-power-boot.md
+      - "04 · GPIO & Pin Muxing": level-1/04-gpio-pin-muxing.md
+      - "05 · UART Communication": level-1/05-uart-communication.md
+      - "06 · ADC & Sensor Inputs": level-1/06-adc-sensor-inputs.md
+      - "07 · CAN Fundamentals": level-1/07-can-fundamentals.md
+      - "08 · Timers & PWM": level-1/08-timers-pwm.md
+      - "09 · Safety & Robustness Basics": level-1/09-safety-robustness.md
+      - "10 · Capstone — CAN Sensor Node": level-1/10-capstone-can-sensor-node.md
+  - "Level 2 · Intermediate":
+      - Overview: level-2/index.md
+      - "01 · FlexCAN Deep Dive — Mailboxes & Filtering": level-2/01-flexcan-deep-dive.md
+      - "02 · eDMA — Direct Memory Access": level-2/02-edma.md
+      - "03 · LPSPI & LPI2C — Off-Chip Peripherals": level-2/03-lpspi-lpi2c.md
+      - "04 · FreeRTOS on S32K": level-2/04-freertos-s32k.md
+      - "05 · Low-Power Modes & Wakeup Sources": level-2/05-low-power-modes.md
+      - "06 · Flash, FlexNVM & EEPROM Emulation": level-2/06-flash-flexnvm-eeprom.md
+      - "07 · S32K1 to S32K3 Migration": level-2/07-s32k1-to-s32k3.md
+      - "08 · Bootloader Basics & Reprogramming": level-2/08-bootloader-basics.md
+      - "09 · UDS Diagnostics Intro (ISO 14229)": level-2/09-uds-diagnostics.md
+      - "10 · Project — Multi-Node CAN Network": level-2/10-project-multi-node-can.md
+  - "Level 3 · Advanced":
+      - Overview: level-3/index.md
+      - "01 · AUTOSAR Classic — MCAL, BSW & RTE": level-3/01-autosar-classic.md
+      - "02 · Real-Time Drivers (RTD) & MCAL Config": level-3/02-rtd-mcal-config.md
+      - "03 · CAN FD Networks & DBC Workflows": level-3/03-can-fd-dbc.md
+      - "04 · LIN & FlexIO": level-3/04-lin-flexio.md
+      - "05 · Safety Mechanisms — SBC & External Watchdogs": level-3/05-sbc-external-watchdog.md
+      - "06 · MPU & Freedom from Interference": level-3/06-mpu-freedom-from-interference.md
+      - "07 · Secure Boot & the HSE Security Engine": level-3/07-secure-boot-hse.md
+      - "08 · Automotive Ethernet & Gateways": level-3/08-automotive-ethernet-gateways.md
+      - "09 · Measurement & Calibration (XCP)": level-3/09-xcp-measurement-calibration.md
+      - "10 · Project — Diagnostic-Capable Body Controller": level-3/10-project-body-controller.md
+  - "Level 4 · Master":
+      - Overview: level-4/index.md
+      - "01 · Multi-Core S32K3 & Lockstep": level-4/01-multicore-lockstep.md
+      - "02 · ASIL-D Development Workflow": level-4/02-asil-d-workflow.md
+      - "03 · MISRA C & Static Analysis in Practice": level-4/03-misra-static-analysis.md
+      - "04 · OTA & Reprogramming Stacks": level-4/04-ota-reprogramming.md
+      - "05 · Cybersecurity — ISO/SAE 21434 & SecOC": level-4/05-cybersecurity-secoc.md
+      - "06 · AUTOSAR OS & Timing Analysis": level-4/06-autosar-os-timing.md
+      - "07 · HIL Testing & CI for ECU Firmware": level-4/07-hil-testing-ci.md
+      - "08 · Production ECU Hardware Architecture": level-4/08-production-ecu-architecture.md
+      - "09 · Manufacturing, EOL Test & Traceability": level-4/09-manufacturing-eol-test.md
+      - "10 · Capstone — Production-Grade Zone ECU": level-4/10-capstone-zone-ecu.md
