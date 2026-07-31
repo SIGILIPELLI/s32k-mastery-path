@@ -24,9 +24,9 @@ lesson 1 covers all three options honestly.
 | Level | Focus | Modules |
 |-------|-------|---------|
 | [Level 1 · Entry](level-1/index.md) | The automotive landscape, S32 Design Studio, clocks, GPIO, UART, ADC, CAN fundamentals, timers/PWM, safety basics | 9 topics + 1 capstone |
-| [Level 2 · Intermediate](level-2/index.md) | FlexCAN deep dive, eDMA, LPSPI/LPI2C, FreeRTOS, low-power modes, flash/EEPROM, bootloaders, UDS diagnostics | 9 topics + 1 project |
-| [Level 3 · Advanced](level-3/index.md) | AUTOSAR Classic, RTD/MCAL, CAN FD & DBC, LIN, safety mechanisms, MPU, secure boot/HSE, XCP | 9 topics + 1 project |
-| [Level 4 · Master](level-4/index.md) | Multi-core lockstep, ASIL-D workflow, MISRA, OTA stacks, cybersecurity, HIL/CI, production ECU architecture | 9 topics + 1 capstone |
+| Level 2 · Intermediate (coming soon) | FlexCAN deep dive, eDMA, LPSPI/LPI2C, FreeRTOS, low-power modes, flash/EEPROM, bootloaders, UDS diagnostics | 9 topics + 1 project |
+| Level 3 · Advanced (coming soon) | AUTOSAR Classic, RTD/MCAL, CAN FD & DBC, LIN, safety mechanisms, MPU, secure boot/HSE, XCP | 9 topics + 1 project |
+| Level 4 · Master (coming soon) | Multi-core lockstep, ASIL-D workflow, MISRA, OTA stacks, cybersecurity, HIL/CI, production ECU architecture | 9 topics + 1 capstone |
 
 ## How to use this site
 
