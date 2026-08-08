@@ -62,8 +62,19 @@ nav:
       - "08 · Timers & PWM": level-1/08-timers-pwm.md
       - "09 · Safety & Robustness Basics": level-1/09-safety-robustness.md
       - "10 · Capstone — CAN Sensor Node": level-1/10-capstone-can-sensor-node.md
+  - "Level 2 · Intermediate":
+      - Overview: level-2/index.md
+      - "FlexCAN Deep Dive — Mailboxes & Filtering": level-2/01-flexcan-deep-dive.md
+      - "eDMA — Direct Memory Access": level-2/02-edma.md
+      - "LPSPI & LPI2C — Off-Chip Peripherals": level-2/03-lpspi-lpi2c.md
+      - "FreeRTOS on S32K": level-2/04-freertos-s32k.md
+      - "Low-Power Modes & Wakeup Sources": level-2/05-low-power-modes.md
+      - "Flash, FlexNVM & EEPROM Emulation": level-2/06-flash-flexnvm-eeprom.md
+      - "S32K1 to S32K3 Migration": level-2/07-s32k1-to-s32k3.md
+      - "Bootloader Basics & Reprogramming": level-2/08-bootloader-basics.md
+      - "UDS Diagnostics Intro (ISO 14229)": level-2/09-uds-diagnostics.md
+      - "Project — Multi-Node CAN Network": level-2/10-project-multi-node-can.md
 # --- auto-pruned stub levels (see AdSense low-value-content fix) ---
 exclude_docs: |
-  level-2/*.md
   level-3/*.md
   level-4/*.md
