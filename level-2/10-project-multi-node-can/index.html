@@ -1,0 +1,2103 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A structured, module-wise automotive embedded training program from entry level to master level, built around NXP's S32K microcontroller family — real C code, CAN bus, functional safety, and ECU design from the first lesson.">
+      
+      
+      
+        <link rel="canonical" href="https://sigilipelli.github.io/s32k-mastery-path/level-2/10-project-multi-node-can/">
+      
+      
+        <link rel="prev" href="../09-uds-diagnostics/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Project — Multi-Node CAN Network - S32K Automotive Embedded Mastery Path</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="S32K Automotive Embedded Mastery Path">
+  <meta property="og:title" content="Project — Multi-Node CAN Network">
+  <meta property="og:description" content="A structured, module-wise automotive embedded training program from entry level to master level — free, built around NXP's S32K microcontroller family: real C code, CAN bus, functional safety, and ECU design.">
+  <meta property="og:url" content="https://sigilipelli.github.io/s32k-mastery-path/level-2/10-project-multi-node-can/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Project — Multi-Node CAN Network">
+  <meta name="twitter:description" content="A structured, module-wise automotive embedded training program from entry level to master level — free, built around NXP's S32K microcontroller family: real C code, CAN bus, functional safety, and ECU design.">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9440969811959397"
+     crossorigin="anonymous"></script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#project-multi-node-can-network" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="S32K Automotive Embedded Mastery Path" class="md-header__button md-logo" aria-label="S32K Automotive Embedded Mastery Path" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            S32K Automotive Embedded Mastery Path
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Project — Multi-Node CAN Network
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SIGILIPELLI/s32k-mastery-path" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    s32k-mastery-path
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../privacy/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Privacy Policy
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../level-1/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Level 1 · Entry
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Level 2 · Intermediate
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="S32K Automotive Embedded Mastery Path" class="md-nav__button md-logo" aria-label="S32K Automotive Embedded Mastery Path" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    S32K Automotive Embedded Mastery Path
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SIGILIPELLI/s32k-mastery-path" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    s32k-mastery-path
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy Policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 1 · Entry
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 1 · Entry
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/01-automotive-landscape-s32k/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 · Automotive Embedded & the S32K Family
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/02-toolchain-s32-design-studio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 · Toolchain Setup — S32 Design Studio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/03-clocks-power-boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · Clocks, Power & Boot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/04-gpio-pin-muxing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · GPIO & Pin Muxing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/05-uart-communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · UART Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/06-adc-sensor-inputs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · ADC & Sensor Inputs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/07-can-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · CAN Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/08-timers-pwm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · Timers & PWM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/09-safety-robustness/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Safety & Robustness Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/10-capstone-can-sensor-node/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 · Capstone — CAN Sensor Node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 2 · Intermediate
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 2 · Intermediate
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-flexcan-deep-dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FlexCAN Deep Dive — Mailboxes & Filtering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-edma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    eDMA — Direct Memory Access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-lpspi-lpi2c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LPSPI & LPI2C — Off-Chip Peripherals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-freertos-s32k/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FreeRTOS on S32K
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-low-power-modes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Low-Power Modes & Wakeup Sources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-flash-flexnvm-eeprom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flash, FlexNVM & EEPROM Emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-s32k1-to-s32k3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S32K1 to S32K3 Migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-bootloader-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bootloader Basics & Reprogramming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-uds-diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UDS Diagnostics Intro (ISO 14229)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project — Multi-Node CAN Network
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project — Multi-Node CAN Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The system
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-catalogue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Message catalogue
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expected-message-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected message flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shared-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shared definitions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#receiving-with-the-rx-fifo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Receiving with the RX FIFO
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fault-handling-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fault-handling matrix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automotive-concerns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automotive concerns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stretch-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stretch goals
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The system
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-catalogue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Message catalogue
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expected-message-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected message flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shared-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shared definitions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#receiving-with-the-rx-fifo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Receiving with the RX FIFO
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fault-handling-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fault-handling matrix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automotive-concerns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automotive concerns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stretch-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stretch goals
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="project-multi-node-can-network">Project — Multi-Node CAN Network<a class="headerlink" href="#project-multi-node-can-network" title="Permanent link">&para;</a></h1>
+<p>Level 1's capstone was one node talking to a bench tool. Everything in
+Level 2 — mailboxes and filters, DMA, an RTOS, low power, flash, the
+bootloader, UDS — exists because real ECUs share a bus with modules
+written by other teams, booting at different times and failing
+independently. This project builds that: <strong>three nodes, one 500 kbit/s
+bus, a defined message catalogue, and a fault-handling matrix that states
+what each node does when any other goes quiet.</strong> The firmware is the easy
+half; the communication matrix and the timeout behaviour are the half that
+gets reviewed.</p>
+<h2 id="the-system">The system<a class="headerlink" href="#the-system" title="Permanent link">&para;</a></h2>
+<p>A simplified cooling-fan subsystem:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>                     CAN 500 kbit/s, 120 Ω at each end
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>     ┌────────────┬─────────────────┬─────────────────┬────────────┐
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    120Ω          │                 │                 │           120Ω
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>           ┌──────┴──────┐   ┌──────┴──────┐   ┌──────┴──────┐
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>           │ SENSOR node │   │ACTUATOR node│   │GATEWAY node │
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>           │   S32K144   │   │   S32K144   │   │   S32K144   │
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>           ├─────────────┤   ├─────────────┤   ├─────────────┤
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>           │ NTC via ADC │   │ FTM PWM→fan │   │ Arbitrates  │
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>           │ 10 ms sample│   │ Tacho input │   │ Owns UDS    │
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>           │ TX 0x310    │   │ RX 0x311    │   │ TX 0x100/311│
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>           │ RX 0x100    │   │ TX 0x312    │   │ RX 0x310/312│
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>           └─────────────┘   └─────────────┘   └─────────────┘
+</code></pre></div>
+<p>The sensor measures, the gateway decides, the actuator drives. No node
+trusts another's liveness: each supervises the frames it consumes and has
+a defined fallback when they stop.</p>
+<h2 id="message-catalogue">Message catalogue<a class="headerlink" href="#message-catalogue" title="Permanent link">&para;</a></h2>
+<p>Lower ID wins arbitration, so the ID allocation <em>is</em> the priority scheme.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Producer</th>
+<th>Consumers</th>
+<th>Period</th>
+<th>DLC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x100</code></td>
+<td><code>NetworkMode</code></td>
+<td>Gateway</td>
+<td>Sensor, Actuator</td>
+<td>500 ms</td>
+<td>2</td>
+</tr>
+<tr>
+<td><code>0x200</code></td>
+<td><code>NodeFault</code></td>
+<td>any</td>
+<td>Gateway</td>
+<td>event, ≥ 100 ms gap</td>
+<td>4</td>
+</tr>
+<tr>
+<td><code>0x310</code></td>
+<td><code>SensorStatus</code></td>
+<td>Sensor</td>
+<td>Gateway</td>
+<td>100 ms</td>
+<td>8</td>
+</tr>
+<tr>
+<td><code>0x311</code></td>
+<td><code>ActuatorCommand</code></td>
+<td>Gateway</td>
+<td>Actuator</td>
+<td>100 ms</td>
+<td>4</td>
+</tr>
+<tr>
+<td><code>0x312</code></td>
+<td><code>ActuatorStatus</code></td>
+<td>Actuator</td>
+<td>Gateway</td>
+<td>100 ms</td>
+<td>6</td>
+</tr>
+<tr>
+<td><code>0x7DF</code>/<code>0x7E0</code>/<code>0x7E8</code></td>
+<td>UDS (module 9)</td>
+<td>tester / Gateway</td>
+<td>Gateway / tester</td>
+<td>on request</td>
+<td>≤ 8</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>0x310</code> SensorStatus</strong> — Level 1's layout carried forward:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Signal</th>
+<th>Type</th>
+<th>Scale</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0–15</td>
+<td><code>CoolantTemp</code></td>
+<td>int16</td>
+<td>0.1 °C</td>
+<td>−40.0…150.0 °C</td>
+</tr>
+<tr>
+<td>16–31</td>
+<td><code>SupplyVoltage</code></td>
+<td>uint16</td>
+<td>1 mV</td>
+<td>Node's own rail</td>
+</tr>
+<tr>
+<td>32</td>
+<td><code>SensorValid</code></td>
+<td>bool</td>
+<td>—</td>
+<td>Plausibility result</td>
+</tr>
+<tr>
+<td>36–39</td>
+<td><code>AliveCounter</code></td>
+<td>uint4</td>
+<td>—</td>
+<td>Wraps 0→15</td>
+</tr>
+<tr>
+<td>48–55</td>
+<td><code>Checksum</code></td>
+<td>uint8</td>
+<td>—</td>
+<td>XOR of bytes 0–6 plus the ID</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>0x311</code> ActuatorCommand</strong> carries <code>FanTargetPct</code> (uint8, 0–100),
+<code>AliveCounter</code> (uint4), <code>RequestedMode</code> (uint2: 0 normal, 1 degraded,
+2 safe) and a checksum. <strong><code>0x312</code> ActuatorStatus</strong> returns <code>FanActualPct</code>
+(uint8), <code>FanSpeedRpm</code> (uint16 from the tacho capture), <code>AliveCounter</code>,
+an <code>OutputStageFault</code> bit and a checksum. <strong><code>0x100</code> NetworkMode</strong> carries
+a 2-bit mode (0 run, 1 degraded, 2 safe, 3 sleep-request) plus an alive
+counter; <strong><code>0x200</code> NodeFault</strong> carries the reporting node's ID, a fault
+code and a fault counter.</p>
+<h2 id="expected-message-flow">Expected message flow<a class="headerlink" href="#expected-message-flow" title="Permanent link">&para;</a></h2>
+<p>One healthy 100 ms cycle. The offsets are deliberate — if every node
+transmitted on its own 100 ms boundary they would collide every cycle and
+the lowest-priority frame would jitter systematically.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a> t (ms)  0    10   20   30   40   50   60   70   80   90   100
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>         │    │    │    │    │    │    │    │    │    │    │
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> Sensor  ├─0x310                                            ├─0x310
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>         │  ADC sampled every 10 ms, frame sent on the tick
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a> Gateway │    ├─0x100 (every 5th cycle)
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>         │         ├─0x311  built from the 0x310 seen at t=0
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a> Actuator│              ├─0x312  reports the PWM applied at t≈22 ms
+</code></pre></div>
+<p>The end-to-end latency the gateway must budget for:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sensor sample → 0x310 TX      ≤ 10 ms   (sampling phase)
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>0x310 on the wire             ≈ 0.26 ms (8-byte frame at 500 kbit/s)
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>gateway processes → 0x311     = 20 ms   (fixed offset)
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>0x311 on the wire             ≈ 0.26 ms
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>actuator applies PWM          ≤ 10 ms   (its own tick)
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>                              ─────────
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>worst case                    ≈ 41 ms
+</code></pre></div>
+<p>Write that number down — it is the first thing a systems engineer asks
+for, and it changes the moment anyone adds a queue. Bus load deserves the
+same treatment:</p>
+<table>
+<thead>
+<tr>
+<th>Frame</th>
+<th>Rate</th>
+<th>Worst-case bits</th>
+<th>Bits/s</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x310</code> (8 B)</td>
+<td>10 Hz</td>
+<td>~130</td>
+<td>1300</td>
+</tr>
+<tr>
+<td><code>0x311</code> (4 B)</td>
+<td>10 Hz</td>
+<td>~98</td>
+<td>980</td>
+</tr>
+<tr>
+<td><code>0x312</code> (6 B)</td>
+<td>10 Hz</td>
+<td>~114</td>
+<td>1140</td>
+</tr>
+<tr>
+<td><code>0x100</code> (2 B)</td>
+<td>2 Hz</td>
+<td>~82</td>
+<td>164</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td></td>
+<td><strong>≈ 3.6 kbit/s → 0.7 % of 500 kbit/s</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Worst-case bits include standard-frame overhead plus maximum bit stuffing.
+Under 1 % sounds like infinite headroom; the point of computing it is that
+when someone proposes a 20 ms trace frame carrying 64 bytes, you answer
+with a number instead of an opinion.</p>
+<h2 id="shared-definitions">Shared definitions<a class="headerlink" href="#shared-definitions" title="Permanent link">&para;</a></h2>
+<p>Every node compiles the same header. That is not tidiness — it is how you
+guarantee three teams agree on byte 4.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cm">/* can_matrix.h — shared by all three nodes, single source of truth */</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="cp">#define ID_NETWORK_MODE      0x100u</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="cp">#define ID_NODE_FAULT        0x200u</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="cp">#define ID_SENSOR_STATUS     0x310u</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="cp">#define ID_ACTUATOR_COMMAND  0x311u</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="cp">#define ID_ACTUATOR_STATUS   0x312u</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="cp">#define PERIOD_MS_STATUS     100u</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="cp">#define TIMEOUT_MS_STATUS    300u    </span><span class="cm">/* three missed cycles            */</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="n">NET_MODE_RUN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0u</span><span class="p">,</span><span class="w"> </span><span class="n">NET_MODE_DEGRADED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1u</span><span class="p">,</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="n">NET_MODE_SAFE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2u</span><span class="p">,</span><span class="w"> </span><span class="n">NET_MODE_SLEEP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3u</span><span class="p">,</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="p">}</span><span class="w"> </span><span class="n">net_mode_t</span><span class="p">;</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="cm">/* The ID is folded in, so a frame delivered under the wrong identifier</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="cm">   — a mis-set filter, a copy-paste in another node — fails the check</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="cm">   instead of being silently accepted.                               */</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="nf">can_checksum</span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">n</span><span class="p">)</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="p">{</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="p">)(</span><span class="n">id</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFFu</span><span class="p">)</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="p">)(</span><span class="n">id</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0u</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="p">}</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w">  </span><span class="n">lastAlive</span><span class="p">;</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">age_ms</span><span class="p">;</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">    </span><span class="kt">bool</span><span class="w">     </span><span class="n">valid</span><span class="p">;</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="p">}</span><span class="w"> </span><span class="n">sig_health_t</span><span class="p">;</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="cm">/* Called from each node&#39;s 10 ms task, once per consumed signal. */</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">sig_supervise</span><span class="p">(</span><span class="n">sig_health_t</span><span class="w"> </span><span class="o">*</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">timeout_ms</span><span class="p">)</span>
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a><span class="p">{</span>
+<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a><span class="w">    </span><span class="n">h</span><span class="o">-&gt;</span><span class="n">age_ms</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">10u</span><span class="p">;</span>
+<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">age_ms</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">timeout_ms</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">h</span><span class="o">-&gt;</span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">h</span><span class="o">-&gt;</span><span class="n">valid</span><span class="p">;</span>
+<a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="receiving-with-the-rx-fifo">Receiving with the RX FIFO<a class="headerlink" href="#receiving-with-the-rx-fifo" title="Permanent link">&para;</a></h2>
+<p>The gateway consumes three IDs, so it uses module 1's RX FIFO rather than
+three mailboxes and three interrupts:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">static</span><span class="w"> </span><span class="n">flexcan_state_t</span><span class="w">   </span><span class="n">canState</span><span class="p">;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">static</span><span class="w"> </span><span class="n">flexcan_msgbuff_t</span><span class="w"> </span><span class="n">rxMsg</span><span class="p">;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">static</span><span class="w"> </span><span class="n">flexcan_id_table_t</span><span class="w"> </span><span class="n">gwFilters</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">isRemoteFrame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">isExtendedFrame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ID_SENSOR_STATUS</span><span class="w">   </span><span class="p">},</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">isRemoteFrame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">isExtendedFrame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ID_ACTUATOR_STATUS</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">isRemoteFrame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">isExtendedFrame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ID_NODE_FAULT</span><span class="w">      </span><span class="p">},</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="cm">/* Pad with a repeat of a used ID — never 0x000, which would accept</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="cm">       the highest-priority frame on the bus (module 1).              */</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="n">ID_NODE_FAULT</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="n">ID_NODE_FAULT</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="n">ID_NODE_FAULT</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="n">ID_NODE_FAULT</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="n">ID_NODE_FAULT</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="p">};</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">gw_can_cb</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">instance</span><span class="p">,</span><span class="w"> </span><span class="n">flexcan_event_type_t</span><span class="w"> </span><span class="n">event</span><span class="p">,</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">                      </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">buffIdx</span><span class="p">,</span><span class="w"> </span><span class="n">flexcan_state_t</span><span class="w"> </span><span class="o">*</span><span class="n">state</span><span class="p">)</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="p">{</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">buffIdx</span><span class="p">;</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">state</span><span class="p">;</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">FLEXCAN_EVENT_RXFIFO_COMPLETE</span><span class="p">:</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">        </span><span class="n">gw_queue_frame</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rxMsg</span><span class="p">);</span><span class="w">                    </span><span class="cm">/* copy out, return */</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">        </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">FLEXCAN_DRV_RxFifo</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rxMsg</span><span class="p">);</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">FLEXCAN_EVENT_RXFIFO_OVERFLOW</span><span class="p">:</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">        </span><span class="n">g_rxOverflows</span><span class="o">++</span><span class="p">;</span><span class="w">                           </span><span class="cm">/* a frame was lost */</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">    </span><span class="k">default</span><span class="o">:</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="p">}</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="kt">void</span><span class="w"> </span><span class="nf">gw_can_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="p">{</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="w">    </span><span class="n">flexcan_user_config_t</span><span class="w"> </span><span class="n">cfg</span><span class="p">;</span>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="w">    </span><span class="n">FLEXCAN_DRV_GetDefaultConfig</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cfg</span><span class="p">);</span>
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="w">    </span><span class="n">cfg</span><span class="p">.</span><span class="n">max_num_mb</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mi">16u</span><span class="p">;</span>
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="w">    </span><span class="n">cfg</span><span class="p">.</span><span class="n">is_rx_fifo_needed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a><span class="w">    </span><span class="n">cfg</span><span class="p">.</span><span class="n">num_id_filters</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">FLEXCAN_RX_FIFO_ID_FILTERS_8</span><span class="p">;</span>
+<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a><span class="w">    </span><span class="n">cfg</span><span class="p">.</span><span class="n">flexcanMode</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="n">FLEXCAN_NORMAL_MODE</span><span class="p">;</span>
+<a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a><span class="w">    </span><span class="n">cfg</span><span class="p">.</span><span class="n">payload</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="n">FLEXCAN_PAYLOAD_SIZE_8</span><span class="p">;</span>
+<a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>
+<a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a><span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">FLEXCAN_DRV_Init</span><span class="p">(</span><span class="n">INST_CAN0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">canState</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cfg</span><span class="p">);</span>
+<a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a><span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">FLEXCAN_DRV_ConfigRxFifo</span><span class="p">(</span><span class="n">INST_CAN0</span><span class="p">,</span>
+<a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a><span class="w">                                   </span><span class="n">FLEXCAN_RX_FIFO_ID_FORMAT_A</span><span class="p">,</span><span class="w"> </span><span class="n">gwFilters</span><span class="p">);</span>
+<a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a><span class="w">    </span><span class="n">FLEXCAN_DRV_SetRxFifoGlobalMask</span><span class="p">(</span><span class="n">INST_CAN0</span><span class="p">,</span><span class="w"> </span><span class="n">FLEXCAN_MSG_ID_STD</span><span class="p">,</span>
+<a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a><span class="w">                                    </span><span class="p">(</span><span class="mh">0x7FFu</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">18</span><span class="p">));</span><span class="w">   </span><span class="cm">/* exact match  */</span>
+<a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a><span class="w">    </span><span class="n">FLEXCAN_DRV_InstallEventCallback</span><span class="p">(</span><span class="n">INST_CAN0</span><span class="p">,</span><span class="w"> </span><span class="n">gw_can_cb</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a><span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">FLEXCAN_DRV_RxFifo</span><span class="p">(</span><span class="n">INST_CAN0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rxMsg</span><span class="p">);</span>
+<a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a><span class="p">}</span>
+</code></pre></div>
+<p>Validation happens in the task, never in the callback:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">bool</span><span class="w"> </span><span class="nf">gw_accept_sensor_status</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">flexcan_msgbuff_t</span><span class="w"> </span><span class="o">*</span><span class="n">m</span><span class="p">)</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">dataLen</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">8u</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">can_checksum</span><span class="p">(</span><span class="n">ID_SENSOR_STATUS</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="mi">6u</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">        </span><span class="n">g_checksumErrors</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w">                     </span><span class="cm">/* corrupted or mis-routed  */</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">alive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x0Fu</span><span class="p">;</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alive</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">g_sensorHealth</span><span class="p">.</span><span class="n">lastAlive</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w">                     </span><span class="cm">/* stale repeat, not fresh  */</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="n">g_sensorHealth</span><span class="p">.</span><span class="n">lastAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alive</span><span class="p">;</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="n">g_sensorHealth</span><span class="p">.</span><span class="n">age_ms</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">0u</span><span class="p">;</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="n">g_sensorHealth</span><span class="p">.</span><span class="n">valid</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="n">g_temp_dC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int16_t</span><span class="p">)((</span><span class="kt">uint16_t</span><span class="p">)</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">|</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">                          </span><span class="p">((</span><span class="kt">uint16_t</span><span class="p">)</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">));</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">((</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x01u</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0u</span><span class="p">);</span><span class="w">  </span><span class="cm">/* SensorValid bit          */</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="fault-handling-matrix">Fault-handling matrix<a class="headerlink" href="#fault-handling-matrix" title="Permanent link">&para;</a></h2>
+<p>This table is the real deliverable. Every row is a failure a reviewer will
+ask about, and every cell is a decision you have to defend.</p>
+<table>
+<thead>
+<tr>
+<th>Failure</th>
+<th>Detected by</th>
+<th>Detection time</th>
+<th>Response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sensor node silent</td>
+<td>Gateway: <code>0x310</code> age &gt; 300 ms</td>
+<td>≤ 300 ms</td>
+<td>Fan to 100 % (fail-safe cooling), send <code>0x200</code>, set DTC</td>
+</tr>
+<tr>
+<td>Sensor reports invalid</td>
+<td><code>SensorValid</code> = 0</td>
+<td>1 cycle</td>
+<td>Same — an implausible reading is not a low reading</td>
+</tr>
+<tr>
+<td>Gateway silent</td>
+<td>Actuator: <code>0x311</code> age &gt; 300 ms</td>
+<td>≤ 300 ms</td>
+<td>Hold last command 1 s, then ramp to the safe default</td>
+</tr>
+<tr>
+<td>Actuator silent</td>
+<td>Gateway: <code>0x312</code> age &gt; 300 ms</td>
+<td>≤ 300 ms</td>
+<td>Send <code>0x200</code>, set DTC, keep transmitting <code>0x311</code></td>
+</tr>
+<tr>
+<td>Checksum failures</td>
+<td>Any consumer</td>
+<td>immediate</td>
+<td>Discard and count; 5 consecutive = treat as silence</td>
+</tr>
+<tr>
+<td>Alive counter frozen</td>
+<td>Any consumer</td>
+<td>2 cycles</td>
+<td>Producer's task has hung — treat as silence</td>
+</tr>
+<tr>
+<td>Bus-off</td>
+<td><code>ESR1[BOFFINT]</code></td>
+<td>≤ 1 frame</td>
+<td>Safe state, rate-limited recovery (module 1), latch after 3</td>
+</tr>
+<tr>
+<td>Node reset</td>
+<td>Its own <code>RCM-&gt;SRS</code></td>
+<td>at boot</td>
+<td>Outputs safe before CAN init; report cause in <code>0x200</code></td>
+</tr>
+<tr>
+<td>Both terminators removed</td>
+<td>Rising <code>ECR</code> counts</td>
+<td>≤ 1 s</td>
+<td>All nodes reach bus-off independently and go safe</td>
+</tr>
+</tbody>
+</table>
+<p>The important asymmetry: <strong>the actuator holds the last command for 1 s
+before defaulting, while the gateway acts within 300 ms.</strong> A brief gateway
+glitch should not slam the fan; a genuinely absent gateway must not leave
+the fan under stale control forever. Where that boundary sits is a system
+decision, and writing it down is what makes it reviewable.</p>
+<h2 id="automotive-concerns">Automotive concerns<a class="headerlink" href="#automotive-concerns" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Nodes boot at different times, and that is normal.</strong> The gateway sees
+  nothing from the actuator for a few hundred milliseconds after key-on.
+  Start every supervisor in a "not yet valid" state with a startup grace
+  period, distinct from "was valid, went silent" — they deserve different
+  DTCs.</li>
+<li><strong>Alive counter plus checksum is the minimum for anything that moves an
+  actuator.</strong> The checksum catches corruption; the alive counter catches a
+  producer whose task has hung while its DMA or mailbox keeps re-sending
+  the same bytes. Neither alone is sufficient — together they are what an
+  end-to-end protection profile formalises.</li>
+<li><strong>Include the ID in the checksum.</strong> A mailbox configured with the wrong
+  ID, or a copy-pasted transmit routine in another node, produces
+  perfectly valid-looking data under the wrong identifier. Folding the ID
+  in makes that failure loud instead of silent.</li>
+<li><strong>DMA and CAN compete for attention.</strong> If the sensor node scans its ADC
+  by eDMA (module 2), channel priorities and the FlexCAN interrupt
+  priority interact — a DMA error interrupt at the wrong priority can
+  preempt the CAN callback and cost you a FIFO slot. Assign channels and
+  priorities once, in a table, and review them together.</li>
+<li><strong>Flash writes stall the node.</strong> If the gateway stores a DTC while a
+  <code>0x311</code> transmission is due, the flash operation blocks for milliseconds
+  and the frame jitters. Queue DTC writes and flush them in the
+  lowest-priority task or at shutdown (module 6), never inline in a fault
+  handler.</li>
+<li><strong>A UDS session changes the whole network's behaviour.</strong> An extended
+  session forcing a fan test overrides the sensor's request, so every node
+  must know that <code>RequestedMode</code> can originate from diagnostics — and the
+  S3 timeout (module 9) must return the <em>network</em> to <code>NET_MODE_RUN</code>, not
+  just the gateway.</li>
+<li><strong>Sleep is a network decision.</strong> <code>NetworkMode</code> = 3 is a <em>request</em>; a
+  node with a pending fault or an active diagnostic session must be able
+  to veto it. Module 5's wakeup sources give you the way back — but only
+  if every node agreed to go down in the first place.</li>
+<li><strong>One termination is a detectable fault.</strong> With a single 120 Ω resistor
+  the bus often still works, until temperature or cable length makes it
+  not. Export <code>ECR</code> error-counter statistics from every node; a node with
+  persistently elevated counts on an otherwise healthy bus is telling you
+  about its own wiring.</li>
+</ul>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Topology</td>
+<td>3 nodes, one 500 kbit/s bus, 120 Ω at <strong>both</strong> physical ends only</td>
+</tr>
+<tr>
+<td>ID = priority</td>
+<td><code>0x100</code> mode · <code>0x200</code> fault · <code>0x310</code>–<code>0x312</code> cyclic · <code>0x7Ex</code> diag</td>
+</tr>
+<tr>
+<td>Periods</td>
+<td>100 ms cyclic, 500 ms network mode, event faults with a ≥ 100 ms gap</td>
+</tr>
+<tr>
+<td>Phasing</td>
+<td>Offset producers by 10–20 ms so cyclic frames do not collide every cycle</td>
+</tr>
+<tr>
+<td>Timeout</td>
+<td>300 ms = three missed cycles, for every consumed signal</td>
+</tr>
+<tr>
+<td>Protection</td>
+<td>Alive counter (staleness) <strong>and</strong> ID-inclusive checksum (corruption)</td>
+</tr>
+<tr>
+<td>Latency budget</td>
+<td>≈ 41 ms sample → actuator applied; recompute if a queue is added</td>
+</tr>
+<tr>
+<td>Bus load</td>
+<td>≈ 0.7 % — compute it before anyone proposes a trace frame</td>
+</tr>
+<tr>
+<td>Gateway RX</td>
+<td>RX FIFO, 8-element format-A table, no <code>0x000</code> padding entries</td>
+</tr>
+<tr>
+<td>Callback rule</td>
+<td>Copy and re-arm; checksum, alive and range checks belong in the task</td>
+</tr>
+<tr>
+<td>Fail-safe</td>
+<td>Fan to 100 % on lost or invalid temperature — safe direction, not zero</td>
+</tr>
+<tr>
+<td>Shared header</td>
+<td><code>can_matrix.h</code> compiled by all three nodes — one source of truth</td>
+</tr>
+<tr>
+<td>Bench tools</td>
+<td>3 × S32K144 EVB (or 2 EVBs + PCAN-USB), <code>candump -t z</code>, <code>cansend</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Build the network. (1) Write <code>can_matrix.h</code> and the message catalogue as a
+document <em>before</em> any node code, and have someone read it back to you — if
+they can implement byte 4 without asking a question, the table is done.
+(2) Bring up the sensor node and the gateway first, with <code>candump</code> playing
+the actuator; confirm <code>0x310</code> at 100 ms ±2 ms, <code>0x311</code> phased 20 ms behind
+it, and both alive counters advancing without a skip over ten thousand
+frames. (3) Add the actuator node with its own tick and tacho capture,
+then measure the real end-to-end latency: toggle a GPIO in the sensor node
+when it samples and another in the actuator node when it applies PWM, put
+both on a scope, and explain any difference from your 41 ms budget.
+(4) Work through the fault-handling matrix row by row on the bench —
+unplug the sensor node, freeze the gateway in the debugger, transmit a
+hand-built frame with a bad checksum, remove a terminator. Each row must
+produce the documented response within the documented time, and you must
+<em>observe</em> it, not infer it. (5) Instrument every node with <code>ECR</code> error
+counters, RX FIFO overflow counts and checksum-failure counts exported in
+<code>0x200</code>, then run the network for an hour; any non-zero counter at the end
+is a defect with an hour of evidence attached.</p>
+<h2 id="stretch-goals">Stretch goals<a class="headerlink" href="#stretch-goals" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Add the bootloader and UDS from modules 8 and 9 to the gateway</strong>, then
+  reflash it over CAN while the other two nodes keep running. The
+  actuator's hold-then-default behaviour during the reprogramming window
+  is the moment those two modules stop being theory.</li>
+<li><strong>Move the sensor node's ADC scan to eDMA</strong> (module 2) with a ping-pong
+  buffer, and show on a scope that CAN transmission jitter drops because
+  the CPU no longer services per-conversion interrupts.</li>
+<li><strong>Put one node on FreeRTOS</strong> (module 4) with separate CAN-RX, control
+  and diagnostic tasks, and demonstrate that the priority assignment holds
+  the 100 ms period under a deliberately overloaded low-priority task.</li>
+<li><strong>Implement network sleep and wake</strong> (module 5): the gateway requests
+  sleep with <code>NetworkMode</code> = 3, each node acknowledges or vetoes, all
+  three enter VLPS with FlexCAN Pretended Networking armed, and one
+  <code>0x100</code> frame wakes the network. Measure one node's current before and
+  after.</li>
+<li><strong>Add a fourth node from a different codebase</strong> — a Raspberry Pi with a
+  CAN HAT simulating the actuator in Python. If your matrix is good, that
+  node integrates from the document alone, which is exactly the test the
+  document exists to pass.</li>
+<li><strong>Introduce CAN FD on the same topology</strong> (module 7's migration notes
+  apply): raise the data phase to 2 Mbit/s, extend <code>0x310</code> to a 64-byte
+  payload carrying a sensor history, and recompute the bus load and the
+  latency budget from scratch.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.indexes", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

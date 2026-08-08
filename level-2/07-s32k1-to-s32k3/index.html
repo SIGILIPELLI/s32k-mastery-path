@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://sigilipelli.github.io/s32k-mastery-path/level-1/09-safety-robustness/">
+        <link rel="canonical" href="https://sigilipelli.github.io/s32k-mastery-path/level-2/07-s32k1-to-s32k3/">
       
       
-        <link rel="prev" href="../08-timers-pwm/">
+        <link rel="prev" href="../06-flash-flexnvm-eeprom/">
       
       
-        <link rel="next" href="../10-capstone-can-sensor-node/">
+        <link rel="next" href="../08-bootloader-basics/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>09 · Safety & Robustness Basics - S32K Automotive Embedded Mastery Path</title>
+        <title>S32K1 to S32K3 Migration - S32K Automotive Embedded Mastery Path</title>
       
     
     
@@ -64,11 +64,11 @@
   
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="S32K Automotive Embedded Mastery Path">
-  <meta property="og:title" content="09 · Safety & Robustness Basics">
+  <meta property="og:title" content="S32K1 to S32K3 Migration">
   <meta property="og:description" content="A structured, module-wise automotive embedded training program from entry level to master level — free, built around NXP's S32K microcontroller family: real C code, CAN bus, functional safety, and ECU design.">
-  <meta property="og:url" content="https://sigilipelli.github.io/s32k-mastery-path/level-1/09-safety-robustness/">
+  <meta property="og:url" content="https://sigilipelli.github.io/s32k-mastery-path/level-2/07-s32k1-to-s32k3/">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="09 · Safety & Robustness Basics">
+  <meta name="twitter:title" content="S32K1 to S32K3 Migration">
   <meta name="twitter:description" content="A structured, module-wise automotive embedded training program from entry level to master level — free, built around NXP's S32K microcontroller family: real C code, CAN bus, functional safety, and ECU design.">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9440969811959397"
      crossorigin="anonymous"></script>
@@ -92,7 +92,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#09-safety-robustness-basics" class="md-skip">
+        <a href="#s32k1-to-s32k3-migration" class="md-skip">
           Skip to content
         </a>
       
@@ -126,7 +126,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              09 · Safety & Robustness Basics
+              S32K1 to S32K3 Migration
             
           </span>
         </div>
@@ -275,13 +275,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../level-1/" class="md-tabs__link">
           
   
   
@@ -299,11 +297,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../level-2/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -420,6 +420,380 @@
       
   
   
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 1 · Entry
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 1 · Entry
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/01-automotive-landscape-s32k/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 · Automotive Embedded & the S32K Family
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/02-toolchain-s32-design-studio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 · Toolchain Setup — S32 Design Studio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/03-clocks-power-boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · Clocks, Power & Boot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/04-gpio-pin-muxing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · GPIO & Pin Muxing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/05-uart-communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · UART Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/06-adc-sensor-inputs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · ADC & Sensor Inputs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/07-can-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · CAN Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/08-timers-pwm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · Timers & PWM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/09-safety-robustness/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Safety & Robustness Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1/10-capstone-can-sensor-node/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 · Capstone — CAN Sensor Node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -467,7 +841,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <div class="md-nav__link md-nav__container">
@@ -478,7 +852,7 @@
   <span class="md-ellipsis">
     
   
-    Level 1 · Entry
+    Level 2 · Intermediate
   
 
     
@@ -489,18 +863,18 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Level 1 · Entry
+    Level 2 · Intermediate
   
 
           </label>
@@ -515,14 +889,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../01-automotive-landscape-s32k/" class="md-nav__link">
+      <a href="../01-flexcan-deep-dive/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    01 · Automotive Embedded & the S32K Family
+    FlexCAN Deep Dive — Mailboxes & Filtering
   
 
     
@@ -543,14 +917,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-toolchain-s32-design-studio/" class="md-nav__link">
+      <a href="../02-edma/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    02 · Toolchain Setup — S32 Design Studio
+    eDMA — Direct Memory Access
   
 
     
@@ -571,14 +945,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../03-clocks-power-boot/" class="md-nav__link">
+      <a href="../03-lpspi-lpi2c/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    03 · Clocks, Power & Boot
+    LPSPI & LPI2C — Off-Chip Peripherals
   
 
     
@@ -599,14 +973,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../04-gpio-pin-muxing/" class="md-nav__link">
+      <a href="../04-freertos-s32k/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    04 · GPIO & Pin Muxing
+    FreeRTOS on S32K
   
 
     
@@ -627,14 +1001,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../05-uart-communication/" class="md-nav__link">
+      <a href="../05-low-power-modes/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    05 · UART Communication
+    Low-Power Modes & Wakeup Sources
   
 
     
@@ -655,70 +1029,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../06-adc-sensor-inputs/" class="md-nav__link">
+      <a href="../06-flash-flexnvm-eeprom/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    06 · ADC & Sensor Inputs
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../07-can-fundamentals/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    07 · CAN Fundamentals
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../08-timers-pwm/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    08 · Timers & PWM
+    Flash, FlexNVM & EEPROM Emulation
   
 
     
@@ -755,7 +1073,7 @@
   <span class="md-ellipsis">
     
   
-    09 · Safety & Robustness Basics
+    S32K1 to S32K3 Migration
   
 
     
@@ -773,7 +1091,7 @@
   <span class="md-ellipsis">
     
   
-    09 · Safety & Robustness Basics
+    S32K1 to S32K3 Migration
   
 
     
@@ -799,10 +1117,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#iso-26262-in-one-page" class="md-nav__link">
+  <a href="#the-headline-differences" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ISO 26262 in one page
+        The headline differences
       
     </span>
   </a>
@@ -810,10 +1128,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#watchdogs-supervision-not-ritual" class="md-nav__link">
+  <a href="#peripheral-vocabulary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Watchdogs: supervision, not ritual
+        Peripheral vocabulary
       
     </span>
   </a>
@@ -821,10 +1139,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#crc-data-integrity" class="md-nav__link">
+  <a href="#memory-map" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CRC: data integrity
+        Memory map
       
     </span>
   </a>
@@ -832,10 +1150,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ecc-and-other-silicon-safety-nets" class="md-nav__link">
+  <a href="#from-the-sdk-to-rtd" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ECC and other silicon safety nets
+        From the SDK to RTD
       
     </span>
   </a>
@@ -843,10 +1161,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#defensive-firmware-patterns" class="md-nav__link">
+  <a href="#boot-the-ivt-and-the-baf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Defensive firmware patterns
+        Boot: the IVT and the BAF
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safety-and-security-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safety and security hardware
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration checklist
       
     </span>
   </a>
@@ -891,325 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../10-capstone-can-sensor-node/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    10 · Capstone — CAN Sensor Node
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
-        
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../../level-2/" class="md-nav__link ">
-              
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Level 2 · Intermediate
-  
-
-    
-  </span>
-  
-  
-
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Level 2 · Intermediate
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../level-2/01-flexcan-deep-dive/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    FlexCAN Deep Dive — Mailboxes & Filtering
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../level-2/02-edma/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    eDMA — Direct Memory Access
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../level-2/03-lpspi-lpi2c/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    LPSPI & LPI2C — Off-Chip Peripherals
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../level-2/04-freertos-s32k/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    FreeRTOS on S32K
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../level-2/05-low-power-modes/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Low-Power Modes & Wakeup Sources
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../level-2/06-flash-flexnvm-eeprom/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Flash, FlexNVM & EEPROM Emulation
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../level-2/07-s32k1-to-s32k3/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    S32K1 to S32K3 Migration
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../level-2/08-bootloader-basics/" class="md-nav__link">
+      <a href="../08-bootloader-basics/" class="md-nav__link">
         
   
   
@@ -1237,7 +1259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../level-2/09-uds-diagnostics/" class="md-nav__link">
+      <a href="../09-uds-diagnostics/" class="md-nav__link">
         
   
   
@@ -1265,7 +1287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../level-2/10-project-multi-node-can/" class="md-nav__link">
+      <a href="../10-project-multi-node-can/" class="md-nav__link">
         
   
   
@@ -1320,10 +1342,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#iso-26262-in-one-page" class="md-nav__link">
+  <a href="#the-headline-differences" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ISO 26262 in one page
+        The headline differences
       
     </span>
   </a>
@@ -1331,10 +1353,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#watchdogs-supervision-not-ritual" class="md-nav__link">
+  <a href="#peripheral-vocabulary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Watchdogs: supervision, not ritual
+        Peripheral vocabulary
       
     </span>
   </a>
@@ -1342,10 +1364,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#crc-data-integrity" class="md-nav__link">
+  <a href="#memory-map" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CRC: data integrity
+        Memory map
       
     </span>
   </a>
@@ -1353,10 +1375,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ecc-and-other-silicon-safety-nets" class="md-nav__link">
+  <a href="#from-the-sdk-to-rtd" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ECC and other silicon safety nets
+        From the SDK to RTD
       
     </span>
   </a>
@@ -1364,10 +1386,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#defensive-firmware-patterns" class="md-nav__link">
+  <a href="#boot-the-ivt-and-the-baf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Defensive firmware patterns
+        Boot: the IVT and the BAF
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safety-and-security-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safety and security hardware
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration checklist
       
     </span>
   </a>
@@ -1416,240 +1460,389 @@
   
 
 
-<h1 id="09-safety-robustness-basics">09 · Safety &amp; Robustness Basics<a class="headerlink" href="#09-safety-robustness-basics" title="Permanent link">&para;</a></h1>
-<p>An infotainment bug is annoying; a brake-controller bug can kill. That
-asymmetry is why automotive firmware culture is different, and why the S32K
-ships hardware you won't find on hobby MCUs: watchdogs designed for
-supervision, ECC on memory, CRC engines, clock and voltage monitors. This
-module gives you the working vocabulary of <strong>ISO 26262</strong> in one page, then
-makes it concrete: watchdog usage done right, CRC for data integrity, ECC,
-and the defensive-firmware patterns that appear in the capstone and in
-every production code base you'll ever read.</p>
-<h2 id="iso-26262-in-one-page">ISO 26262 in one page<a class="headerlink" href="#iso-26262-in-one-page" title="Permanent link">&para;</a></h2>
-<p><strong>ISO 26262</strong> is the functional-safety standard for road-vehicle E/E
-systems. "Functional safety" means: <em>the system avoids unreasonable risk
-caused by malfunctions</em> — not "never fails," but "fails in a controlled,
-analyzed way."</p>
-<p>The core workflow: for each hazard (e.g. "unintended full brake
-application at highway speed"), assess three factors — <strong>Severity</strong>,
-<strong>Exposure</strong> (how often the driving situation occurs), and
-<strong>Controllability</strong> (can a driver catch it?) — and derive an <strong>ASIL</strong>:</p>
+<h1 id="s32k1-to-s32k3-migration">S32K1 to S32K3 Migration<a class="headerlink" href="#s32k1-to-s32k3-migration" title="Permanent link">&para;</a></h1>
+<p>Everything so far has been S32K1: a Cortex-M4F, the S32 SDK, <code>PCC</code> clock
+gates, <code>PORT</code>/<code>GPIO</code>, and driver calls shaped like <code>FLEXCAN_DRV_Init</code>.
+NXP's current generation is <strong>S32K3</strong>, and it is not an incremental part
+change — it is a different core, a different peripheral vocabulary, a
+different driver stack, and a different boot process. Teams migrating for
+the first time consistently underestimate it. This module is the map: what
+carries over unchanged, what is renamed, what is genuinely new, and what
+will stop your first build cold.</p>
+<h2 id="the-headline-differences">The headline differences<a class="headerlink" href="#the-headline-differences" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Level</th>
-<th>Meaning</th>
-<th>Example systems</th>
+<th>Aspect</th>
+<th>S32K1xx</th>
+<th>S32K3xx</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>QM</td>
-<td>Quality-managed, no special safety measures</td>
-<td>Infotainment, seat memory</td>
+<td>Core</td>
+<td>Cortex-M0+ (S32K11x) or Cortex-M4F (S32K14x)</td>
+<td>Cortex-M7, single / dual / lockstep</td>
 </tr>
 <tr>
-<td>ASIL A</td>
-<td>Lowest safety integrity</td>
-<td>Rear lights</td>
+<td>Max frequency</td>
+<td>80 MHz RUN, up to 112 MHz HSRUN on S32K14x</td>
+<td>160 MHz on most parts; up to 240 MHz on the largest</td>
 </tr>
 <tr>
-<td>ASIL B</td>
-<td>Moderate</td>
-<td>Instrument cluster, many body functions</td>
+<td>Caches / TCM</td>
+<td>None</td>
+<td>I-cache, D-cache, ITCM and DTCM</td>
 </tr>
 <tr>
-<td>ASIL C</td>
-<td>High</td>
-<td>Adaptive cruise elements</td>
+<td>Safety target</td>
+<td>Systems up to ASIL B</td>
+<td>Systems up to ASIL D (lockstep, FCCU, self-test)</td>
 </tr>
 <tr>
-<td>ASIL D</td>
-<td>Highest — most rigorous processes and mechanisms</td>
-<td>Braking, steering, airbags</td>
+<td>Driver stack</td>
+<td><strong>S32 SDK</strong> — <code>PERIPH_DRV_Function()</code></td>
+<td><strong>RTD</strong> (Real-Time Drivers) — AUTOSAR MCAL + low-level IP layer</td>
+</tr>
+<tr>
+<td>Configuration</td>
+<td>Processor Expert / S32 Config Tools</td>
+<td>S32 Configuration Tools (MCAL-style, <code>.epc</code>)</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>CSEc (FlexNVM-backed key store)</td>
+<td><strong>HSE</strong> — a separate security core running NXP firmware</td>
+</tr>
+<tr>
+<td>Boot</td>
+<td>Vector table at 0x0000_0000, straight to your reset handler</td>
+<td><strong>BAF</strong> validates an <strong>IVT</strong>, then jumps to your image</td>
 </tr>
 </tbody>
 </table>
-<p>Higher ASIL ⇒ stricter everything: requirements tracing, MC/DC test
-coverage, hardware diagnostic coverage, independence of reviews. Two ideas
-you'll meet constantly:</p>
-<ul>
-<li><strong>Safe state.</strong> Every safety concept defines where to go on failure —
-  often "outputs off." A wiper ECU's safe state is <em>wipers parked</em>, not
-  <em>wipers at maximum</em>. Firmware's job is to <em>detect</em> faults and <em>reach</em> the
-  safe state, every time. (For steering there is no "off" — that's why
-  higher redundancy exists — but for Level 1 designs, outputs-off thinking
-  is the right habit.)</li>
-<li><strong>Decomposition &amp; mechanisms.</strong> ASIL requirements are met by layering
-  mechanisms: lockstep cores (S32K3), ECC, watchdogs, plausibility checks,
-  monitoring. The S32K1 targets up to ASIL B systems; S32K3 up to ASIL D.</li>
-</ul>
-<h2 id="watchdogs-supervision-not-ritual">Watchdogs: supervision, not ritual<a class="headerlink" href="#watchdogs-supervision-not-ritual" title="Permanent link">&para;</a></h2>
-<p>A <strong>watchdog</strong> resets the MCU unless firmware "feeds" it periodically. From
-module 3 you know the S32K1 <strong>WDOG</strong> is <em>already running at reset</em> (~1 ms
-via the 128 kHz LPO). Production firmware re-enables it deliberately:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cm">/* Register-level: 100 ms timeout from the 128 kHz LPO clock */</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kt">void</span><span class="w"> </span><span class="nf">wdog_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">{</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">WDOG</span><span class="o">-&gt;</span><span class="n">CNT</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">0xD928C520u</span><span class="p">;</span><span class="w">                 </span><span class="cm">/* unlock                  */</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">WDOG</span><span class="o">-&gt;</span><span class="n">TOVAL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12800u</span><span class="p">;</span><span class="w">                      </span><span class="cm">/* 100 ms × 128 kHz        */</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">WDOG</span><span class="o">-&gt;</span><span class="n">CS</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">WDOG_CS_EN_MASK</span><span class="w">              </span><span class="cm">/* enable                  */</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">                </span><span class="o">|</span><span class="w"> </span><span class="n">WDOG_CS_CLK</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w">               </span><span class="cm">/* LPO clock               */</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">                </span><span class="o">|</span><span class="w"> </span><span class="n">WDOG_CS_UPDATE_MASK</span><span class="p">;</span><span class="w">         </span><span class="cm">/* allow later reconfig    */</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">}</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="kt">void</span><span class="w"> </span><span class="nf">wdog_feed</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">{</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="n">WDOG</span><span class="o">-&gt;</span><span class="n">CNT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xB480A602u</span><span class="p">;</span><span class="w">                   </span><span class="cm">/* refresh key             */</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="p">}</span>
+<h2 id="peripheral-vocabulary">Peripheral vocabulary<a class="headerlink" href="#peripheral-vocabulary" title="Permanent link">&para;</a></h2>
+<p>This table is the one to keep open during a port. Roughly half the
+peripherals keep their names and most of their behaviour; the other half
+are replaced by parts with a Power Architecture heritage.</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>S32K1</th>
+<th>S32K3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pin mux + GPIO</td>
+<td><code>PORT</code> (<code>PCR[n]</code>) + <code>GPIO</code> (<code>PDDR</code>/<code>PDOR</code>)</td>
+<td><strong>SIUL2</strong> (<code>MSCR[n]</code> output/mux, <code>IMCR[n]</code> input mux)</td>
+</tr>
+<tr>
+<td>Clock generation</td>
+<td><code>SCG</code> (SOSC/SIRC/FIRC/SPLL)</td>
+<td><strong>MC_CGM</strong> + <code>FXOSC</code>/<code>FIRC</code>/<code>PLL_DIG</code></td>
+</tr>
+<tr>
+<td>Clock gating / modes</td>
+<td><code>PCC</code> per-peripheral gates, <code>SMC</code> modes</td>
+<td><strong>MC_ME</strong> (mode entry) + partition clock control</td>
+</tr>
+<tr>
+<td>Watchdog</td>
+<td><code>WDOG</code></td>
+<td><strong>SWT</strong> (Software Watchdog Timer)</td>
+</tr>
+<tr>
+<td>Periodic timer</td>
+<td><code>LPIT</code></td>
+<td><code>PIT</code> and <code>STM</code> (system timer module)</td>
+</tr>
+<tr>
+<td>PWM / motor control</td>
+<td><code>FTM</code></td>
+<td><strong>eMIOS</strong></td>
+</tr>
+<tr>
+<td>DMA</td>
+<td><code>eDMA</code> + <code>DMAMUX</code></td>
+<td><code>eDMA</code> + <code>DMAMUX</code> (very similar)</td>
+</tr>
+<tr>
+<td>CAN</td>
+<td><code>FlexCAN</code> (+ CAN FD)</td>
+<td><code>FlexCAN</code> — more instances, more MBs, CAN FD standard</td>
+</tr>
+<tr>
+<td>Serial</td>
+<td><code>LPUART</code>, <code>LPSPI</code>, <code>LPI2C</code></td>
+<td>Same names, same programming model</td>
+</tr>
+<tr>
+<td>ADC</td>
+<td><code>ADC</code> (SAR) + <code>PDB</code> trigger</td>
+<td><code>ADC</code> (SAR) + <code>BCTU</code> (body cross triggering unit)</td>
+</tr>
+<tr>
+<td>Trigger routing</td>
+<td><code>TRGMUX</code></td>
+<td><code>TRGMUX</code></td>
+</tr>
+<tr>
+<td>Fault handling</td>
+<td>Individual error flags</td>
+<td><strong>FCCU</strong> (Fault Collection and Control Unit)</td>
+</tr>
+<tr>
+<td>Memory errors</td>
+<td>ECC flags per module</td>
+<td><strong>MEMU</strong> (Memory Error Management Unit)</td>
+</tr>
+<tr>
+<td>Self-test</td>
+<td>—</td>
+<td><strong>STCU2</strong> (LBIST / MBIST at startup)</td>
+</tr>
+</tbody>
+</table>
+<p>Notice what survived: LPUART, LPSPI, LPI2C, FlexCAN, eDMA, TRGMUX. If your
+S32K1 code is well layered, the drivers for those port with modest effort.
+What does <em>not</em> survive is anything touching pins, clocks, or timers —
+which, unfortunately, is everything in your board bring-up.</p>
+<h2 id="memory-map">Memory map<a class="headerlink" href="#memory-map" title="Permanent link">&para;</a></h2>
+<p>The addresses move, and this catches people whose linker scripts or
+bootloaders assume S32K1 layout:</p>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th>S32K1xx</th>
+<th>S32K3xx</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Code flash</td>
+<td><code>0x0000_0000</code></td>
+<td><code>0x0040_0000</code></td>
+</tr>
+<tr>
+<td>Data flash</td>
+<td><code>0x1000_0000</code> (FlexNVM)</td>
+<td><code>0x1000_0000</code></td>
+</tr>
+<tr>
+<td>SRAM</td>
+<td><code>0x1FFF_xxxx</code> (SRAM_L) / <code>0x2000_0000</code> (SRAM_U)</td>
+<td><code>0x2040_0000</code></td>
+</tr>
+<tr>
+<td>ITCM</td>
+<td>—</td>
+<td><code>0x0000_0000</code></td>
+</tr>
+<tr>
+<td>DTCM</td>
+<td>—</td>
+<td><code>0x2000_0000</code></td>
+</tr>
+<tr>
+<td>Factory/OTP region</td>
+<td>IFR, reached through flash commands</td>
+<td><code>0x1B00_0000</code> (UTEST), directly addressable</td>
+</tr>
+</tbody>
+</table>
+<p>The S32K3's <strong>ITCM at 0x0000_0000</strong> is a genuine trap: code that assumed
+"address 0 is flash" — a bootloader reading a vector table, say — now
+reads tightly-coupled memory instead.</p>
+<h2 id="from-the-sdk-to-rtd">From the SDK to RTD<a class="headerlink" href="#from-the-sdk-to-rtd" title="Permanent link">&para;</a></h2>
+<p>The same operation, both generations. S32K1, toggling an LED:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cm">/* S32K1 — S32 SDK */</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">PINS_DRV_Init</span><span class="p">(</span><span class="n">NUM_PINS</span><span class="p">,</span><span class="w"> </span><span class="n">g_pin_mux_InitConfigArr</span><span class="p">);</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">PINS_DRV_ClearPins</span><span class="p">(</span><span class="n">PTD</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="mi">1u</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">15</span><span class="p">));</span><span class="w">      </span><span class="cm">/* LED on  */</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">PINS_DRV_SetPins</span><span class="p">(</span><span class="n">PTD</span><span class="p">,</span><span class="w">   </span><span class="p">(</span><span class="mi">1u</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">15</span><span class="p">));</span><span class="w">      </span><span class="cm">/* LED off */</span>
 </code></pre></div>
-<p>The pattern that separates real supervision from ritual: <strong>never feed the
-dog from a timer interrupt.</strong> A timer ISR happily keeps firing while your
-main loop is wedged in a corrupted linked list — the watchdog then
-guarantees nothing. Feed it from the main loop, <em>conditionally</em>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">for</span><span class="w"> </span><span class="p">(;;)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">g_tick_10ms</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">last</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="n">last</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g_tick_10ms</span><span class="p">;</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="n">ok</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="n">sensor_task_10ms</span><span class="p">();</span><span class="w">       </span><span class="cm">/* each task returns health */</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="n">ok</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="n">can_task_10ms</span><span class="p">();</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="n">ok</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="n">outputs_task_10ms</span><span class="p">();</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ok</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">wdog_feed</span><span class="p">();</span><span class="w"> </span><span class="p">}</span><span class="w">        </span><span class="cm">/* all tasks alive &amp; sane → feed */</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">}</span>
+<p>S32K3, the same thing through RTD's two layers — the AUTOSAR MCAL API, or
+the low-level IP driver underneath it:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cm">/* S32K3 — RTD, AUTOSAR MCAL layer */</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">Port_Init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Port_Config</span><span class="p">);</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">Dio_WriteChannel</span><span class="p">(</span><span class="n">DioConf_DioChannel_LED_RED</span><span class="p">,</span><span class="w"> </span><span class="n">STD_LOW</span><span class="p">);</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="cm">/* S32K3 — RTD, low-level IP layer (leaner, non-AUTOSAR) */</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">Siul2_Port_Ip_Init</span><span class="p">(</span><span class="n">NUM_PORT_CFG</span><span class="p">,</span><span class="w"> </span><span class="n">g_pin_mux_InitConfigArr</span><span class="p">);</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">Siul2_Dio_Ip_WritePin</span><span class="p">(</span><span class="n">LED_RED_PORT</span><span class="p">,</span><span class="w"> </span><span class="n">LED_RED_PIN</span><span class="p">,</span><span class="w"> </span><span class="mi">0u</span><span class="p">);</span>
 </code></pre></div>
-<p>Also standard: check the <strong>reset cause register</strong> (S32K1: the RCM module's
-status registers) at boot — firmware that knows "I'm starting because the
-watchdog bit me" can log it, count it, and refuse to re-enter the state
-that caused it. The WDOG also supports <strong>window mode</strong> (feeding <em>too early</em>
-also resets — catches runaway loops that spin through the feed), and
-Level 3 adds <em>external</em> watchdogs with challenge-response for when the MCU
-itself is suspect.</p>
-<h2 id="crc-data-integrity">CRC: data integrity<a class="headerlink" href="#crc-data-integrity" title="Permanent link">&para;</a></h2>
-<p>RAM and buses flip bits; flash wears; CAN frames arrive from other —
-possibly buggy — ECUs. A <strong>CRC</strong> (cyclic redundancy check) is the standard
-detection tool, and the S32K has a hardware CRC unit so it's nearly free.
-Standard uses:</p>
+<p>RTD ships both: <code>*_Ip_*</code> functions are the direct hardware layer, and the
+AUTOSAR-named modules (<code>Port</code>, <code>Dio</code>, <code>Can</code>, <code>Adc</code>, <code>Mcu</code>, <code>Spi</code>) sit on
+top for projects that need MCAL conformance. For a non-AUTOSAR project the
+IP layer is closer in spirit to the S32 SDK you already know, and it is
+the sensible target for a first port.</p>
+<p>The equivalent shift for CAN: <code>FLEXCAN_DRV_Init</code> becomes either
+<code>Can_Init()</code> (MCAL) or <code>FlexCAN_Ip_Init()</code> (IP layer). The mailbox,
+filtering, and bus-off concepts from module 1 transfer completely — the
+hardware is recognisably the same FlexCAN.</p>
+<h2 id="boot-the-ivt-and-the-baf">Boot: the IVT and the BAF<a class="headerlink" href="#boot-the-ivt-and-the-baf" title="Permanent link">&para;</a></h2>
+<p>An S32K1 boots by fetching the initial stack pointer and reset vector from
+address 0. An S32K3 does not. Its <strong>BAF</strong> (Boot Assist Firmware, in ROM)
+first reads an <strong>IVT</strong> (Image Vector Table) from a fixed flash location.
+The IVT holds the application's start address, configuration words, and —
+if secure boot is enabled — the parameters the HSE uses to authenticate
+the image. <strong>A device with a blank or invalid IVT does not run your code,
+no matter how correct your application is.</strong> Your build must emit a valid
+IVT, and your flash tool must program it.</p>
+<p>Two more first-day surprises:</p>
 <ul>
-<li><strong>Flash image check:</strong> the build pipeline appends a CRC32 over the
-  application image; the bootloader (Level 2) verifies before jumping.
-  A half-flashed ECU must never run.</li>
-<li><strong>NVM/EEPROM records:</strong> calibration data stored with a CRC; corrupt ⇒
-  fall back to safe defaults, set a fault code.</li>
-<li><strong>End-to-end (E2E) protection:</strong> safety-relevant CAN signals carry an
-  in-payload CRC plus the alive counter from module 7 — protecting against
-  <em>software</em> bugs (stale buffers, frozen tasks) that CAN's own wire-CRC
-  can't see. That's the AUTOSAR E2E concept, and you'll implement a small
-  version in the capstone.</li>
+<li><strong>Reading erased flash raises an ECC error.</strong> On S32K3, uninitialized
+  flash has no valid ECC, so reading it faults rather than returning
+  <code>0xFF</code>. Bootloaders that scan for "is there an application here?" by
+  reading bytes must be rewritten to check a marker they <em>wrote</em>, never to
+  probe blank memory.</li>
+<li><strong>Flash writes are wider.</strong> The write granularity is larger than the
+  S32K1's 8-byte phrase, and page-aligned. Any NVM code from module 6
+  needs its alignment constants revisited.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cm">/* SDK-style shape: hardware CRC unit */</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">crc_user_config_t</span><span class="w"> </span><span class="n">crcCfg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* CRC-32, standard polynomial, reflection */</span><span class="w"> </span><span class="p">};</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">CRC_DRV_Init</span><span class="p">(</span><span class="mi">0u</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">crcCfg</span><span class="p">);</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kt">uint32_t</span><span class="w"> </span><span class="n">crc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CRC_DRV_GetCrcResult</span><span class="p">(</span><span class="mi">0u</span><span class="w"> </span><span class="cm">/* after feeding data words */</span><span class="p">);</span>
-</code></pre></div>
-<h2 id="ecc-and-other-silicon-safety-nets">ECC and other silicon safety nets<a class="headerlink" href="#ecc-and-other-silicon-safety-nets" title="Permanent link">&para;</a></h2>
-<p>The S32K's flash and RAM are protected by <strong>ECC</strong> (error-correcting codes):
-extra bits stored alongside data let hardware <strong>correct single-bit errors</strong>
-and <strong>detect double-bit errors</strong> on every read. Single-bit events are
-silently fixed (optionally reported); double-bit errors raise a bus fault —
-by design: <em>crashing loudly beats computing quietly with garbage</em>, because
-the watchdog + reset path then restores a known-good state. The same
-philosophy powers the chip's <strong>clock monitors</strong> (loss-of-clock detection),
-<strong>low-voltage detect</strong> (defined reset instead of brownout chaos), and on
-S32K3, <strong>lockstep cores</strong> — two cores execute every instruction and
-hardware compares results continuously.</p>
-<p>The pattern behind all of it: <strong>detect → contain → reach safe state →
-report.</strong> Memorize that chain; every mechanism in this module is one link
-of it.</p>
-<h2 id="defensive-firmware-patterns">Defensive firmware patterns<a class="headerlink" href="#defensive-firmware-patterns" title="Permanent link">&para;</a></h2>
-<p>Habits that mark automotive-grade C, all reappearing in the capstone:</p>
+<h2 id="safety-and-security-hardware">Safety and security hardware<a class="headerlink" href="#safety-and-security-hardware" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Verify your init.</strong> Read back critical configuration; if the PLL never
-  locks or the CAN controller won't synchronize, act (retry, degrade,
-  safe state) — don't sail on.</li>
-<li><strong>Plausibility-check inputs</strong> (module 6): range, rate-of-change, and
-  cross-channel agreement; debounce faults before reacting; substitute safe
-  values; record a <strong>DTC</strong> (diagnostic trouble code — Level 2's UDS reads
-  them out).</li>
-<li><strong>Timeout every external dependency</strong> (module 7): a consumed CAN signal
-  that stops arriving must flip to "invalid" after a defined time, with
-  defined behavior.</li>
-<li><strong>Default cases that mean something.</strong> Every <code>switch</code> on a state variable
-  has a <code>default:</code> that treats the impossible as a fault — because ECC just
-  taught you memory <em>can</em> lie.</li>
-<li><strong>Initialize outputs to safe, and on any fault, return them to safe.</strong>
-  First lines of <code>main()</code> after clock init: outputs off, <em>then</em> bring up
-  the world.</li>
-<li><strong>MISRA C</strong> (Level 4): the industry's C subset — no dynamic allocation
-  after init, checked conversions, no undefined behavior. Start the habit
-  now: compile with <code>-Wall -Wextra</code> and treat warnings as errors.</li>
+<li><strong>Lockstep.</strong> On lockstep parts, two Cortex-M7 cores execute the same
+  instruction stream and hardware compares the results every cycle. A
+  mismatch goes to the FCCU. This is the mechanism behind the ASIL D
+  claim, and it costs you the second core — a dual-core part in lockstep
+  is a single-core part with checking.</li>
+<li><strong>FCCU.</strong> A central collector for fault sources (lockstep mismatch, ECC
+  errors, clock monitors, self-test failures) with configurable reactions:
+  interrupt, reset, or driving an external <strong>error-out pin</strong> that tells
+  the rest of the system this ECU is untrustworthy.</li>
+<li><strong>STCU2.</strong> Runs logic and memory built-in self-tests at startup (and,
+  optionally, periodically) — real coverage numbers for the hardware
+  metrics ISO 26262 requires, at the cost of boot time you must budget.</li>
+<li><strong>MEMU.</strong> Records and reports ECC events across memories so software can
+  distinguish a corrected single-bit event (log it, watch the rate) from
+  an uncorrectable one (fault reaction).</li>
+<li><strong>HSE.</strong> A separate security subsystem running NXP-supplied firmware,
+  handling key storage, secure boot, and cryptographic services. It
+  replaces CSEc and is considerably more capable — and it must be
+  provisioned, which is a production-process question, not just a firmware
+  one.</li>
 </ul>
+<h2 id="migration-checklist">Migration checklist<a class="headerlink" href="#migration-checklist" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Separate your code into <strong>hardware-dependent</strong> and
+   <strong>application</strong> layers <em>before</em> migrating. The application logic —
+   filtering, state machines, CAN signal packing, diagnostics — should
+   port unchanged. If it does not, that is the finding, not the port.</li>
+<li>Rebuild the bring-up layer first: clocks (MC_CGM/MC_ME), pins (SIUL2),
+   watchdog (SWT), a timer, and a UART. Get "hello" out of a serial port
+   before touching anything else.</li>
+<li>Produce a valid IVT and confirm the part actually boots your image.</li>
+<li>Port CAN next — it is the most familiar peripheral and gives you a
+   diagnostic channel.</li>
+<li>Revisit every timing assumption. Caches, TCM, and 160 MHz change
+   execution times in both directions; code that "was fast enough" needs
+   re-measuring, not re-assuming.</li>
+<li>Enable the safety hardware deliberately: decide the FCCU reaction for
+   each fault source and write it down. Defaults are not a safety concept.</li>
+</ol>
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Item</th>
-<th>Notes</th>
+<th>S32K1</th>
+<th>S32K3</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>ISO 26262</td>
-<td>Functional-safety standard; hazard → S/E/C assessment → ASIL</td>
+<td>Core</td>
+<td>Cortex-M4F @ ≤112 MHz</td>
+<td>Cortex-M7 @ 160 MHz+, lockstep options</td>
 </tr>
 <tr>
-<td>ASIL</td>
-<td>A (lowest) … D (highest); QM = no safety requirement</td>
+<td>Drivers</td>
+<td>S32 SDK <code>FLEXCAN_DRV_Init</code></td>
+<td>RTD: <code>Can_Init</code> (MCAL) or <code>FlexCAN_Ip_Init</code> (IP)</td>
 </tr>
 <tr>
-<td>Safe state</td>
-<td>Defined degraded/off condition every fault path must reach</td>
+<td>Pins</td>
+<td><code>PORT-&gt;PCR[n]</code> + <code>PTx</code></td>
+<td><code>SIUL2</code> <code>MSCR[n]</code> / <code>IMCR[n]</code></td>
 </tr>
 <tr>
-<td>S32K positioning</td>
-<td>K1: up to ASIL B systems · K3: up to ASIL D (lockstep)</td>
+<td>Clocks</td>
+<td><code>SCG</code> + <code>PCC</code></td>
+<td><code>MC_CGM</code> + <code>MC_ME</code></td>
 </tr>
 <tr>
-<td>WDOG</td>
-<td>Feed from <strong>main loop only</strong>, conditionally on task health</td>
+<td>Watchdog</td>
+<td><code>WDOG</code></td>
+<td><code>SWT</code></td>
 </tr>
 <tr>
-<td>WDOG keys</td>
-<td>Unlock <code>0xD928C520</code>, refresh <code>0xB480A602</code>; window mode catches early feeds</td>
+<td>PWM</td>
+<td><code>FTM</code></td>
+<td><code>eMIOS</code></td>
 </tr>
 <tr>
-<td>Reset cause</td>
-<td>Check RCM status at boot — know <em>why</em> you're restarting</td>
+<td>Periodic timer</td>
+<td><code>LPIT</code></td>
+<td><code>PIT</code> / <code>STM</code></td>
 </tr>
 <tr>
-<td>CRC uses</td>
-<td>Flash image, NVM records, E2E protection of CAN signals</td>
+<td>ADC trigger</td>
+<td><code>PDB</code></td>
+<td><code>BCTU</code></td>
 </tr>
 <tr>
-<td>ECC</td>
-<td>HW corrects 1-bit, detects 2-bit errors; double-bit ⇒ fault, not garbage</td>
+<td>Unchanged</td>
+<td>LPUART, LPSPI, LPI2C, FlexCAN, eDMA, TRGMUX</td>
+<td>same</td>
 </tr>
 <tr>
-<td>Detect chain</td>
-<td>detect → contain → safe state → report</td>
+<td>Code flash base</td>
+<td><code>0x0000_0000</code></td>
+<td><code>0x0040_0000</code> (ITCM now at 0)</td>
 </tr>
 <tr>
-<td>E2E on CAN</td>
-<td>Payload CRC + alive counter defeats stale/frozen-sender bugs</td>
+<td>Boot</td>
+<td>Vector table at 0</td>
+<td>BAF validates the <strong>IVT</strong> first</td>
+</tr>
+<tr>
+<td>Erased flash</td>
+<td>Reads <code>0xFF</code></td>
+<td><strong>ECC error on read</strong></td>
+</tr>
+<tr>
+<td>Safety</td>
+<td>ECC, WDOG, clock monitor</td>
+<td>+ FCCU, MEMU, STCU2, lockstep</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>CSEc</td>
+<td><strong>HSE</strong> firmware-based subsystem</td>
 </tr>
 </tbody>
 </table>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
-<p>Do a miniature safety analysis of module 8's radiator-fan example (coolant
-sensor → PWM fan): (1) list five distinct faults across sensor, harness,
-MCU, and fan (e.g. NTC open circuit, task overrun, fan stalled); (2) for
-each, name the <em>detection mechanism</em> from this module and the <em>reaction</em>,
-and define the system's safe state — justify whether it's fan-off or
-fan-full-on (hint: what does an engine prefer when uncertain?); (3) then
-write <code>outputs_task_10ms()</code> in C: it must apply the commanded duty only
-when sensor data is valid and fresh, otherwise drive the safe state and
-latch a fault flag — and return <code>bool</code> health suitable for the conditional
-watchdog feed shown above.</p>
+<p>You do not need an S32K3 board to do the valuable part of this module.
+(1) Take your Level 1 capstone and produce a <strong>port assessment</strong>: go
+file by file and classify every function as portable, needs-rework, or
+rewrite, with the S32K3 peripheral named for each rewrite. The ratio you
+end up with is a direct measure of how well-layered your code was. (2)
+Rewrite one bring-up function — pin initialization — twice: once as it is
+today with <code>PINS_DRV_*</code>, once as it would be with <code>Siul2_Port_Ip_*</code> and
+<code>Siul2_Dio_Ip_*</code>, and note every assumption that broke. (3) Write the
+timing-review list: which of your timing assumptions came from the 80 MHz
+M4F, and how would you re-measure each on a cached M7? (4) Draft the FCCU
+reaction table for your node: for lockstep mismatch, uncorrectable ECC,
+clock loss, and self-test failure, state the reaction (interrupt / reset /
+error-out) and justify it against your safe state from module 9. If you do
+have an S32K3 evaluation board, add: get a UART "hello" out with RTD, and
+document exactly how many steps it took to produce a bootable IVT — that
+number is the real answer to "how hard is the migration?"</p>
 
 
 
