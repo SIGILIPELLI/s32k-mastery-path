@@ -16,8 +16,3 @@ hardware safety mechanisms, memory protection, and secure boot.
 8. [Automotive Ethernet & Gateways](08-automotive-ethernet-gateways.md)
 9. [Measurement & Calibration (XCP)](09-xcp-measurement-calibration.md)
 10. [Project — Diagnostic-Capable Body Controller](10-project-body-controller.md)
-
-!!! info "Content status"
-    Level 3 module content is being written — every page below has its
-    scope defined and will be filled in next. [Level 1](../level-1/index.md)
-    is complete and is the prerequisite for everything here.
