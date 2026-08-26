@@ -74,7 +74,27 @@ nav:
       - "Bootloader Basics & Reprogramming": level-2/08-bootloader-basics.md
       - "UDS Diagnostics Intro (ISO 14229)": level-2/09-uds-diagnostics.md
       - "Project — Multi-Node CAN Network": level-2/10-project-multi-node-can.md
-# --- auto-pruned stub levels (see AdSense low-value-content fix) ---
-exclude_docs: |
-  level-3/*.md
-  level-4/*.md
+  - "Level 3 · Advanced":
+      - Overview: level-3/index.md
+      - "AUTOSAR Classic — MCAL, BSW & RTE": level-3/01-autosar-classic.md
+      - "Real-Time Drivers (RTD) & MCAL Config": level-3/02-rtd-mcal-config.md
+      - "CAN FD Networks & DBC Workflows": level-3/03-can-fd-dbc.md
+      - "LIN & FlexIO": level-3/04-lin-flexio.md
+      - "Safety Mechanisms — SBC & External Watchdogs": level-3/05-sbc-external-watchdog.md
+      - "MPU & Freedom from Interference": level-3/06-mpu-freedom-from-interference.md
+      - "Secure Boot & the HSE Security Engine": level-3/07-secure-boot-hse.md
+      - "Automotive Ethernet & Gateways": level-3/08-automotive-ethernet-gateways.md
+      - "Measurement & Calibration (XCP)": level-3/09-xcp-measurement-calibration.md
+      - "Project — Diagnostic-Capable Body Controller": level-3/10-project-body-controller.md
+  - "Level 4 · Master":
+      - Overview: level-4/index.md
+      - "Multi-Core S32K3 & Lockstep": level-4/01-multicore-lockstep.md
+      - "ASIL-D Development Workflow": level-4/02-asil-d-workflow.md
+      - "MISRA C & Static Analysis in Practice": level-4/03-misra-static-analysis.md
+      - "OTA & Reprogramming Stacks": level-4/04-ota-reprogramming.md
+      - "Cybersecurity — ISO/SAE 21434 & SecOC": level-4/05-cybersecurity-secoc.md
+      - "AUTOSAR OS & Timing Analysis": level-4/06-autosar-os-timing.md
+      - "HIL Testing & CI for ECU Firmware": level-4/07-hil-testing-ci.md
+      - "Production ECU Hardware Architecture": level-4/08-production-ecu-architecture.md
+      - "Manufacturing, EOL Test & Traceability": level-4/09-manufacturing-eol-test.md
+      - "Capstone — Production-Grade Zone ECU": level-4/10-capstone-zone-ecu.md
