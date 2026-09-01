@@ -1,8 +1,8 @@
 site_name: S32K Automotive Embedded Mastery Path
 site_description: A structured, module-wise automotive embedded training program from entry level to master level, built around NXP's S32K microcontroller family — real C code, CAN bus, functional safety, and ECU design from the first lesson.
-site_url: https://sigilipelli.github.io/s32k-mastery-path/
-repo_url: https://github.com/SIGILIPELLI/s32k-mastery-path
-repo_name: s32k-mastery-path
+site_url: https://sigilipelli.github.io/s32k-skillmastery/
+repo_url: https://github.com/SIGILIPELLI/s32k-skillmastery
+repo_name: s32k-skillmastery
 
 theme:
   name: material

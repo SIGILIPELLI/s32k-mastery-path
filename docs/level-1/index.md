@@ -34,8 +34,8 @@ apply watchdogs and plausibility checks, and put it all together in the
 design of a small but honest automotive ECU.
 
 If you've never touched a microcontroller before, consider skimming the
-[Embedded Systems Mastery Path](https://sigilipelli.github.io/embedded-mastery-path/)
+[Embedded Systems Mastery Path](https://sigilipelli.github.io/embedded-skillmastery/)
 Level 1 first — it covers universal basics (voltage, GPIO, serial) in a free
 browser simulator. Rusty C? The
-[C Mastery Path](https://sigilipelli.github.io/c-mastery-path/) has you
+[C Mastery Path](https://sigilipelli.github.io/c-skillmastery/) has you
 covered.
