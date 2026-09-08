@@ -214,6 +214,16 @@ exposes only a subset of the filter combinations.
 | Pretended Networking | `MCR[PNET_EN]`, `CTRL1_PN`, `FLT_ID1`, `WU_MTC` — wake on a *matching* frame |
 | Biggest saving | Transceiver standby, then pin states, then the MCU mode |
 
+## How It Actually Works
+
+Each S32K power mode corresponds to a specific set of clock domains and voltage regulator states physically switched by the SMC (System Mode Controller) and PMC (Power Management Controller) — this isn't a software "sleep flag," it's real gating hardware. In RUN, the main voltage regulator (which can supply higher current) powers the core at full clock speed. Entering VLPR (Very Low Power Run) doesn't just lower the clock — the PMC actually switches to a lower-current regulator mode, and *because* that regulator physically cannot source enough current for a fast core, hardware enforces a maximum core-clock ceiling (typically 4 MHz) as a real electrical safety limit, not a suggestion.
+
+STOP modes go further: after the `WFI` (Wait For Interrupt) instruction — a real Cortex-M4F pipeline instruction that halts instruction fetch and puts the core in a low-power state at the hardware level — the SMC sequences clock gating to entire domains, and in VLPS (Very Low Power Stop) it can also request the PMC to drop the core's internal supply rail. Waking up isn't instantaneous specifically because of this: the LLWU (Low Leakage Wake-up Unit) is a small always-on block of latches and comparators watching designated wake pins/peripherals even while the rest of the chip is powered down, and on a wake event it triggers the PMC/SMC to re-sequence power rails and re-lock the PLL *before* releasing the core to fetch its next instruction — this rail-and-clock resequencing, done in a fixed hardware order to avoid glitches, is the real source of STOP-mode wake latency.
+
+Retention SRAM banks in the deepest low-power states are kept alive by a dedicated low-current retention supply separate from the main SRAM array's read/write supply — this is why some low-power modes preserve RAM contents and others don't: it's determined by which physical supply rail feeds which SRAM bank, not by a configuration bit alone.
+
+*(Described from the S32K reference manual's SMC/PMC/LLWU chapters; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Turn your capstone node into a sleeping ECU with a defensible current

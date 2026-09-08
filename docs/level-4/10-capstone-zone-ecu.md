@@ -116,6 +116,16 @@ described between thoroughness and cost.
 | Tooling/process | — | 2 (ASIL workflow), 3 (MISRA), 7 (HIL/CI) |
 | Field/manufacturing | — | 4 (OTA rollback), 9 (EOL test) |
 
+## How It Actually Works
+
+A zone ECU integrating OTA, secure boot, MPU partitioning, and manufacturing test in one design is the point where every hardware mechanism covered across all four levels of this course has to cooperate without contradicting the others. The dual-bank OTA scheme (from the OTA module) writes new firmware into the inactive flash bank while HSE-based secure boot (from the secure-boot module) verifies it using OTP-anchored keys that can never be part of an OTA payload themselves — this separation matters because if the verification keys lived in the same flash region being updated, a compromised update could theoretically replace the very keys meant to validate it; keeping the root of trust in OTP fuses, physically outside any updatable flash region, is what closes that loop.
+
+MPU-based partitioning (from the freedom-from-interference module) has to be reconfigured or re-verified across an OTA update boundary — the MPU region table itself is part of the running image's initialization code, so a zone ECU's boot sequence must reprogram MPU regions *before* jumping into any partition's code, in the same way VTOR must be set before the first interrupt can safely occur (from the bootloader module); getting this ordering wrong reopens a freedom-from-interference gap on every single boot, not just the first one after an update.
+
+The manufacturing/EOL calibration data (unique ID, ADC trim values, from the EOL module) has to survive every one of these mechanisms untouched across the product's life — which is why that data typically lives in a flash region explicitly excluded from both the OTA-updatable banks and any MPU partition that untrusted application code can write to, a design decision that only makes sense once you've traced through how OTA, secure boot, and MPU protection each individually interact with the underlying FTFC flash controller.
+
+*(Synthesized from the S32K reference manual chapters and general automotive zone-ECU architecture concepts covered across this course; not measured on physical silicon in this course.)*
+
 ## Stretch goals
 
 (1) Extend the zone concept to a second zone (e.g. front-right, mirroring

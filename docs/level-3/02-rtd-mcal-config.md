@@ -135,6 +135,16 @@ trace than a linker error would have been.
 | Config data source | ARXML | Single source of truth; regenerate all dependents together |
 | Standard MCAL modules | `Mcu`, `Port`, `Dio`, `Can`, `Lpuart`, `Adc`, `Fee`, `Spi` | AUTOSAR standardized API names across vendors |
 
+## How It Actually Works
+
+NXP's Real-Time Drivers (RTD) MCAL configuration tool doesn't invent new hardware behavior — every generated `Port_Init()`, `Gpt_Init()`, or `Can_Init()` call is code-generating the exact same register writes (PCR MUX fields, FTM MOD/CnV registers, FlexCAN MB setup) you'd write by hand at the register level, just derived from a declarative configuration model instead of manual C. The value RTD adds is generating that configuration *consistently* across dozens of interdependent registers where a single mismatched clock-divider or interrupt-priority setting between two peripherals would otherwise be an easy manual-coding mistake.
+
+The configuration tool's dependency-checking (e.g. refusing an ADC sample-time setting that's invalid for the configured ADC clock) exists because those combinations are physically invalid at the silicon level — an ADC clock exceeding the SAR converter's rated switching frequency doesn't produce a software error, it produces conversion results that are subtly wrong (incomplete capacitor-DAC settling), so RTD encodes the same electrical constraints from the reference manual as configuration-time validation rules rather than letting them become field failures.
+
+Under the hood, RTD-generated MCAL code for interrupt-driven peripherals still installs handlers into the same NVIC vector table and uses the same priority-register bit fields as hand-written code — the generated `IntCtrl_Ip_InstallHandler()`-style calls are ultimately writing into `NVIC->IPR[]` and the vector table exactly as covered in the safety/robustness module, RTD is a code-generation convenience layer, not a different execution model.
+
+*(Described from NXP's S32K RTD/MCAL documentation and the S32K reference manual; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Convert a Level 1 bare-metal FlexCAN bring-up into RTD-shaped code,

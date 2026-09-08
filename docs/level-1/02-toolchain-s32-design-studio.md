@@ -140,6 +140,16 @@ it does.
 | Startup code | Vector table, `.data` copy, `.bss` zero, then `main()` |
 | Flash config field | `0x400`–`0x40F` — never hand-edit; wrong values can lock the chip |
 
+## How It Actually Works
+
+S32 Design Studio isn't just an IDE skin over GCC — the pieces that matter for correctness are the linker script and the debug probe's access to the CoreSight debug infrastructure baked into the Cortex-M4F.
+
+The linker script (`.ld`) partitions the S32K's memory map into regions that mirror real electrical boundaries: `.text`/`.rodata` land in program flash (read via the flash controller's wait-state-tuned interface, not a generic memory bus), `.data`/`.bss` land in SRAM_L/SRAM_U, and the vector table is placed at address 0x0 (or relocated via `VTOR` for a bootloader) because the Cortex-M4F's hardware fetches its initial stack pointer and reset vector from fixed offsets 0x0/0x4 on power-up — get the linker script wrong and the chip doesn't "crash", it silently jumps into garbage on the very first cycle.
+
+The debugger (P&E Multilink or a J-Link) talks over SWD (Serial Wire Debug), a 2-pin protocol that accesses the Cortex-M4F's Debug Access Port (DAP). The DAP is a bus master sitting on the AXBS crossbar with its own address decode — it can halt the core, single-step, and read/write memory and peripheral registers *while the core is running*, because it's electrically independent of the fetch/execute pipeline. This is also how flash programming works before any application code exists: the debugger uses the DAP to inject a small flash-driver routine into SRAM and execute it directly, bypassing the normal reset vector entirely.
+
+*(Described from the S32K reference manual and Arm CoreSight/ADIv5 specifications; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Install S32DS (or the plain Arm GNU toolchain) and build any S32K144

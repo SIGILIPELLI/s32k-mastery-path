@@ -144,6 +144,16 @@ inserted before flash-commit that was absent in the Level 2 version.
 | Gateway | 8 | Optional Ethernet bridge to a diagnostic/test bench |
 | Calibration | 9 | XCP in dev builds only, compiled out for production |
 
+## How It Actually Works
+
+A body controller integrating CAN FD, diagnostics, secure flashing, and calibration on one gateway is really a study in how independently-clocked hardware subsystems share the crossbar and interrupt fabric without stepping on each other. FlexCAN's message-buffer matching engine, the eDMA channels feeding LPUART/ADC data, and the HSE's crypto operations for secure flashing all run as separate hardware state machines with their own clock trees (as covered in the clocks module) — the CPU's job in this design is almost entirely to arbitrate *software* priorities (which task handles which completed hardware event first) rather than to drive any of these operations bit-by-bit itself.
+
+Running secure flashing (an HSE-verified firmware update) concurrently with live CAN traffic and diagnostics works only because those operations don't actually contend for the same physical resource: HSE's crypto engine runs on its own isolated core, flash programming's high-voltage charge-pump operation is asynchronous once triggered (covered in the flash module) and doesn't stall the main core's bus access to *other* peripherals, and FlexCAN keeps receiving/transmitting via its own arbitration hardware regardless of what the main core is doing — the actual constraint is usually flash *bus* access contention (the main core can't execute code from a flash sector currently being erased/programmed), which is why bootloaders typically run the flash-write routine from RAM.
+
+Partitioning this design by integrity level (as the surrounding text describes) is only meaningful if the MPU regions actually gate every relevant bus master's access — which circles back directly to the DMA/MPU gap discussed in the freedom-from-interference module: a body controller design has to explicitly verify which bus masters the chosen S32K variant's protection hardware actually covers, not assume MPU regions protect against every possible corruption path.
+
+*(Described from S32K reference manual chapters on FlexCAN, FTFC, and HSE, synthesized for this project; not measured on physical silicon in this course.)*
+
 ## Stretch goals
 
 Extend the project past the baseline design. (1) Add a fourth SWC,

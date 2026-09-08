@@ -237,6 +237,16 @@ the first field return will teach you why.
 | Recovery | Re-init, re-transfer | Nine SCL pulses + manual STOP |
 | Typical devices | SBC, external EEPROM, gate drivers | Temperature/pressure sensors, EEPROMs |
 
+## How It Actually Works
+
+LPSPI is a synchronous shift-register protocol at the silicon level: the master's SCK output is literally the clock driving both the master's and slave's shift registers on every edge, so a bit shifts out of MOSI and a bit shifts into MISO in the same clock edge — this is why SPI has no framing bits and no baud-rate tolerance requirement (unlike UART): the clock line *is* the timing reference, generated and consumed in lock-step.
+
+CPOL/CPHA aren't arbitrary mode numbers — they configure exactly which clock edge the shift register captures data on versus which edge it changes the output. CPHA=0 samples on the first (leading) clock edge, meaning data must already be valid *before* the first clock transition — which is why CPHA=0 slaves drive their MISO line the instant chip-select goes active, before any clock edges occur at all. Getting CPOL/CPHA mismatched between master and slave isn't a "communication error" in the CAN/UART sense — it's a hardware sampling-edge misalignment that silently shifts every captured bit by one position, so data looks plausible but is systematically wrong.
+
+LPI2C is different in kind: it's a wired-AND, open-drain, multi-master bus where SCL and SDA are pulled high by external resistors and any device can only pull them *low*. Clock stretching — a slave holding SCL low to pause the master — works purely because of this open-drain electrical topology: the slave doesn't need to "know" the master's timing, it just holds the shared wire low, and the master's own hardware must sample SCL and wait for it to actually go high (not just release it) before proceeding, which is a real electrical readback, not a protocol convention. Arbitration on a multi-master I2C bus works the same wired-AND way CAN's does — a master driving high while another drives low sees the bus at low and knows it lost, so it stops driving.
+
+*(Described from the S32K reference manual's LPSPI/LPI2C chapters; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Write a defensive driver for one external device of your choosing and

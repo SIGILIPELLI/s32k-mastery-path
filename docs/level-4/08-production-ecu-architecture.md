@@ -137,6 +137,16 @@ actually implements shutoff without the other.
 | EMC/PWM frequency | Dithered/spread-spectrum PWM can be required to meet CISPR 25 limits |
 | Connector pin mapping | Should route through generated config (module 2), not hand-coded register writes |
 
+## How It Actually Works
+
+A production ECU's PCB layout has to respect real electrical constraints that this course's earlier modules only touched on individually — CAN transceiver placement and trace routing must maintain matched differential-pair impedance (typically 120Ω) because CAN's dominant/recessive arbitration mechanism (covered in the CAN fundamentals module) depends on clean, symmetric signal transitions on CAN_H/CAN_L; an impedance mismatch causes reflections that can corrupt bit-sampling at high bus speeds, especially with CAN FD's faster data-phase timing discussed in the CAN FD module.
+
+Power supply design for a production ECU typically includes multiple regulated rails feeding the S32K's separate supply domains (core logic, I/O, ADC reference) — the ADC's conversion accuracy (covered in the ADC module) is directly sensitive to noise on its dedicated reference rail, so production designs isolate the ADC reference supply with its own filtering/decoupling specifically because any switching-regulator ripple coupled onto that rail becomes a proportional error in every conversion's LSB step size, not a random glitch.
+
+EMC (electromagnetic compatibility) compliance connects back to the GPIO slew-rate discussion from the pin-muxing module at production scale: a board with dozens of fast-switching digital I/O lines has to budget its aggregate radiated emissions across the whole automotive frequency spectrum, which is why production firmware often deliberately configures slower slew rates on every non-timing-critical pin even at some switching-speed cost — a decision made at the systems level that individual peripheral modules in isolation wouldn't reveal as necessary.
+
+*(Described from general automotive ECU PCB/EMC design practices; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Review a production ECU schematic (a real automotive reference design if

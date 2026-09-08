@@ -145,6 +145,16 @@ it represents.
 | PduR | AUTOSAR's protocol data unit router — the "real" layer that does gateway routing in a full stack |
 | Master/slave PHY role | Automotive PHY clocking role, configured not autonegotiated — mismatch prevents link-up |
 
+## How It Actually Works
+
+Automotive Ethernet (100BASE-T1/1000BASE-T1) uses a single unshielded twisted pair instead of the four pairs of standard Ethernet, achieved via full-duplex transmission over the *same* wire pair simultaneously in both directions — this only works because of a hybrid/echo-cancellation circuit in the PHY that electrically subtracts the transceiver's own known transmit signal from the combined signal on the wire, mathematically recovering the received signal even though it's superimposed on the local transmit signal at the same instant — this is genuinely different physics from CAN's half-duplex, single-active-driver bus and is why automotive Ethernet PHYs are markedly more complex (and power-hungry) than a CAN transceiver.
+
+A gateway ECU bridging CAN and Ethernet domains has to solve a real impedance mismatch problem beyond protocol translation: CAN is a broadcast, priority-arbitrated bus where every frame reaches every node in one hop, while Ethernet (especially switched) is point-to-point with store-and-forward switching introducing variable latency at each hop — the gateway's software has to buffer and re-time CAN's low-jitter periodic traffic before it can be carried as, say, SOME/IP-over-UDP packets, because the underlying transport no longer offers CAN's hardware-arbitrated determinism once frames cross onto the switched Ethernet fabric.
+
+Time synchronization for coordinating CAN-domain determinism across an Ethernet backbone typically requires gPTP (IEEE 802.1AS) hardware timestamping — the Ethernet MAC/PHY hardware timestamps sync packets at the exact instant they cross the physical wire (not when software processes them), because any software-added timestamp latency (interrupt response time, OS scheduling jitter) would be orders of magnitude too imprecise for automotive real-time coordination, which needs sub-microsecond clock alignment across ECUs.
+
+*(Described from IEEE 802.3bw/802.1AS specifications and general automotive gateway architecture concepts; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Design a CAN-to-Ethernet gateway node, and implement what your hardware

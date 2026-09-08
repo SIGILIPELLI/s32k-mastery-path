@@ -153,6 +153,16 @@ ReleaseResource(SharedFlashBufferResource);
 | Core pinning | AUTOSAR OS tasks are statically assigned to one core (module 1), never migrate at runtime |
 | Regression risk | Adding/changing one task invalidates prior RTA results until recomputed |
 
+## How It Actually Works
+
+AUTOSAR OS's timing guarantees ultimately rest on the same Cortex-M4F NVIC priority-comparator hardware covered in the FreeRTOS module — but AUTOSAR OS's conformance classes (BCC1/BCC2/ECC1/ECC2) add static, compile-time-fixed scheduling tables specifically so that worst-case response time analysis (WCRTA) can be computed mathematically rather than only observed empirically. This static mapping means every task's priority-to-NVIC-priority-register assignment is fixed at build time and never changes at runtime, which is what lets a timing analysis tool prove — not just measure — that a given task will always complete before its deadline under the worst-case interrupt load, because the underlying comparator hardware's behavior (always dispatch the numerically-highest configured priority pending) is itself deterministic and fully specified.
+
+The OS-level "protection" features in ECC (memory and timing protection) rely on the same MPU hardware region-checking mechanism covered in the freedom-from-interference module for memory, plus a hardware timer (again typically FTM or a dedicated system timer) for *timing* protection — a task exceeding its configured execution-time budget is detected because a hardware compare-match interrupt fires at the budget's expiration, not because software polls elapsed time, which is what allows the OS to reliably terminate a runaway task even if that task's own code has stopped cooperating (e.g., stuck in an infinite loop) — a purely software-polled timeout could itself be starved by the same runaway task holding a higher priority.
+
+Interrupt latency analysis for AUTOSAR OS timing has to account for the actual Cortex-M4F pipeline behavior — tail-chaining (back-to-back interrupts skip the full context-save/restore overhead) and late-arrival (a higher-priority interrupt arriving during another's entry sequence gets serviced first) are real hardware pipeline optimizations in the NVIC, and worst-case timing budgets have to assume the pessimistic case where these optimizations *don't* help, because a timing analysis that assumes best-case pipeline behavior isn't a safety-valid worst-case bound.
+
+*(Described from AUTOSAR OS specification concepts and the Arm Cortex-M4 NVIC/interrupt-latency architecture; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Perform a schedulability analysis on the Level 3 body-controller's task

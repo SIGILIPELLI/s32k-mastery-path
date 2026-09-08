@@ -254,6 +254,16 @@ that is genuinely hard to debug. Skip it when:
 | Buffers | Always `volatile`; publish pointers from callbacks, never copy |
 | Allocation | One shared channel map header — conflicts are a design defect |
 
+## How It Actually Works
+
+eDMA is a second bus master sitting on the AXBS crossbar, with its own address generation hardware — it is not a CPU peripheral that the core "programs and forgets" in the sense of software; it is a separate execution engine reading Transfer Control Descriptors (TCDs) out of its own dedicated register set and independently driving read/write cycles on the crossbar.
+
+The reason a DMA transfer can move a whole array without CPU involvement is the TCD's source/destination address-offset fields: after every minor-loop transfer, hardware adds `SOFF`/`DOFF` to the source/destination addresses automatically — this is real adder hardware inside the eDMA channel, incrementing (or decrementing, or leaving flat for a FIFO source) the address registers between transfers with no instruction fetch involved. Nested loops (minor loop for one "burst", major loop for the whole transfer count) let one descriptor describe, say, "128 halfword transfers, 4 at a time, incrementing source by 2 bytes and destination by 0" entirely in silicon.
+
+Peripheral-to-DMA handshaking uses the DMAMUX crossbar-of-request-lines: each peripheral (LPUART, ADC, FlexCAN, etc.) has a hardware DMA-request signal that only pulses when its internal FIFO watermark condition is met, and DMAMUX routes that specific request line to a chosen eDMA channel's trigger input. This is a hardware AND/select fabric, not a software callback — the eDMA channel only starts moving data when the peripheral's own watermark comparator says there's real work to do, which is what lets many peripherals share a limited number of DMA channels without wasting cycles polling.
+
+*(Described from the S32K reference manual's eDMA/DMAMUX chapter; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Build a DMA-driven sensor front end and prove it is faster than the polled

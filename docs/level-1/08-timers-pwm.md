@@ -174,6 +174,16 @@ backlight** — PWM dimming, duty from an ambient light sensor.
 | Input capture | Timestamp edges with the FTM counter → period & duty measurement |
 | Unsigned wrap | `uint16_t delta = now − prev;` handles counter wraparound for free |
 
+## How It Actually Works
+
+FlexTimer (FTM) generates PWM by continuously comparing a free-running counter against per-channel compare registers using dedicated hardware comparators — there's no software loop toggling a pin. The counter (`FTM_CNT`) increments every prescaled clock tick up to `FTM_MOD`, and each channel's edge-aligned PWM output flips state the instant the counter equals `FTM_CnV`, purely through comparator logic wired straight to the pin's output latch. This is why FTM PWM frequency is rock-solid regardless of CPU load — the comparison happens every clock cycle in hardware whether or not the core is even running an interrupt handler.
+
+Updating `FTM_CnV` mid-cycle to change duty cycle would normally risk a glitch (a compare value changing while the counter is mid-count could cause the new value to be missed or double-triggered) — FTM avoids this with register-buffering: writes to `FTM_CnV` land in a shadow register, and the shadow only latches into the active compare register at the counter's next overflow (`FTM_MOD` match), guaranteeing every PWM period is glitch-free and atomic even though the CPU can write the new value at any arbitrary time.
+
+Input capture works by the inverse mechanism: an edge detector on the input pin latches the *current* counter value into `FTM_CnV` the instant a configured edge (rising/falling/both) occurs, entirely in hardware — this is how FTM measures pulse widths or frequencies with sub-microsecond precision without the CPU needing to service an interrupt fast enough to catch the exact edge; only the *processing* of the captured value happens in the ISR, not the timestamp itself.
+
+*(Described from the S32K reference manual's FlexTimer chapter; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Combine everything so far: using the 10 ms LPIT tick, make the blue LED

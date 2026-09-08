@@ -277,6 +277,16 @@ most OEM software specifications:
 | Bus-off recovery | 128 × 11 recessive bits; `MCR[BOFFREC]` **cleared** = automatic |
 | Callback discipline | Copy and return — no parsing, no blocking, no logging in the ISR |
 
+## How It Actually Works
+
+FlexCAN's message buffers (MBs) aren't a software queue abstraction — each MB is a fixed region of dedicated RAM inside the FlexCAN module itself, with a hardware matching engine that continuously compares incoming frame IDs against every RX MB's ID/mask filter in parallel, in the same clock cycle a frame's identifier finishes arriving off the wire. This parallel-compare-against-all-filters architecture is why FlexCAN can accept or reject frames at full bus speed without the CPU examining every ID that appears on the bus — filtering is done by dedicated comparator logic per buffer (or per group, when using the Rx FIFO's ID-table filtering), not a software `if` chain.
+
+The MB `CODE` field is a tiny hardware state machine, not just a status flag: CODE=`0x4` (EMPTY) tells the matching engine this RX buffer is available to be filled; the instant a matching frame is fully received (including passing CRC), hardware atomically writes the payload, timestamp, and ID into the buffer and flips CODE to `0x2` (FULL) — and it does this as one indivisible hardware transaction specifically so a CPU reading a buffer never sees a torn/half-updated frame, even if a second matching frame starts arriving on the bus in the very next bit.
+
+For transmit, arbitration among *your own* pending TX buffers (before they even reach bus arbitration against other nodes) is handled by FlexCAN's internal priority logic — when multiple local MBs are marked CODE=`0xC` (ready to transmit), the module's own arbitration picks the lowest-ID one first, matching how the CAN bus itself would arbitrate, so local buffer scheduling and network-level arbitration follow the same priority rule end to end.
+
+*(Described from the S32K reference manual's FlexCAN chapter; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Extend your Level 1 capstone node to use the RX FIFO instead of dedicated

@@ -150,6 +150,16 @@ volatile uint32_t *reg = (volatile uint32_t *)FLEXCAN0_BASE_ADDR;
 | Required | Deviation only with formal, documented, approved justification |
 | Advisory | Deviation with lighter justification, still recorded |
 
+## How It Actually Works
+
+Many MISRA C rules exist specifically because of how the Cortex-M4F's compiler and hardware actually behave in cases the C standard leaves undefined or implementation-defined — this is why MISRA compliance matters more on embedded automotive targets than it might for desktop software. For example, MISRA's rules against relying on signed integer overflow behavior aren't stylistic: on a two's-complement Cortex-M4F, signed overflow is technically undefined behavior in the C standard, and a sufficiently aggressive compiler optimization pass is permitted to assume it never happens and eliminate code paths that depend on it — code that "worked" at `-O0` can silently misbehave at `-O2` specifically because the optimizer exploited that undefined-behavior loophole, which is a real, documented compiler behavior, not a theoretical concern.
+
+Rules around volatile-qualified access to memory-mapped registers connect directly to how the CPU's load/store unit and instruction pipeline interact with peripheral registers: without `volatile`, the compiler is free to cache a register's value in a CPU register across multiple reads, or to reorder/eliminate what it thinks are redundant reads/writes — but a peripheral status register like FlexCAN's `IFLAG` can change state due to hardware events between two source-level reads that look identical to the compiler, so the *hardware's* asynchronous state-changing behavior is exactly what makes `volatile` a correctness requirement rather than a performance hint.
+
+Static analysis tools catching these violations work by building a control-flow and data-flow graph from the source and checking it against pattern rules — but they fundamentally cannot know that a given memory address is a hardware register with side effects unless it's declared with the right type/volatile qualifiers, which is why MISRA's rules are as much about making hardware-interaction *visible* to tooling as about the C language itself.
+
+*(Described from MISRA C:2012 guideline rationale and Arm Cortex-M4 compiler/architecture behavior; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Run a MISRA-style review pass on your own Level 3 body-controller code

@@ -200,6 +200,16 @@ your laptop a real bus node — that's also the capstone's bench-test tool.
 | Bit timing | 500 kbit/s typical; sample point aligned across nodes; crystal clock only |
 | No hardware? | Linux SocketCAN `vcan0` + `candump`/`cansend` |
 
+## How It Actually Works
+
+CAN's arbitration — the mechanism that lets multiple nodes transmit "simultaneously" without a collision destroying the bus — is not a software protocol layered on top of the wire; it's a direct consequence of the physical electrical levels CAN uses. A "dominant" bit (logical 0) is driven by actively pulling both CAN_H and CAN_L lines apart (CAN_H toward Vcc, CAN_L toward ground) through the transceiver's push-pull output stage; a "recessive" bit (logical 1) is just the differential pair relaxing toward a passive bias voltage through pull resistors. Because dominant is an *active* drive and recessive is *passive*, if one node drives dominant and another drives recessive at the same bit time, the bus physically settles to the dominant level — dominant always wins, deterministically, by Ohm's law, not by any negotiation.
+
+Each transmitting node also reads back the bus level it just drove (this is why FlexCAN has a "listen while transmitting" comparator on its RX pin even during TX). During arbitration on the identifier field, a node that sent recessive but reads back dominant knows a higher-priority node is also transmitting and immediately stops driving and switches to receive mode — this is bitwise, non-destructive arbitration: the highest-priority (numerically lowest) identifier wins with zero retransmission needed and zero bits lost, unlike CSMA/CD's collision-and-backoff.
+
+Bit timing itself is divided into four physical segments (SYNC_SEG, PROP_SEG, PHASE_SEG1, PHASE_SEG2) measured in time quanta derived from the CAN clock; PROP_SEG exists specifically to compensate for real propagation delay down the physical wire and through the transceiver, and the resync jump width (RJW) lets each receiver's bit-timing state machine nudge its sample point every bit to stay aligned with the dominant-bit edges it sees — this hardware resynchronization, not a shared clock, is what keeps every node on a multi-meter bus agreeing on where each bit starts.
+
+*(Described from the ISO 11898-1 CAN specification and FlexCAN reference manual chapter; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Design the message set for a two-node system: a **pedal sensor node**

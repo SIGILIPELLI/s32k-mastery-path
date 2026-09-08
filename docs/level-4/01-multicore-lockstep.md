@@ -147,6 +147,16 @@ sequence check is still necessary.
 | Reaction on lockstep fault | Immediate reset/safe-state; not a recoverable software exception |
 | Relevant standard | ISO 26262-5 (hardware architectural metrics), -6 §7 (FFI, now across cores) |
 
+## How It Actually Works
+
+Lockstep, as implemented on multicore-capable S32K parts, is not "run the same program on two cores and compare outputs in software" — it's a hardware mechanism where a checker core is a physical logic replica of the main core, deliberately delayed by a small fixed number of clock cycles (so the two cores are never switching simultaneously, which would create shared power-supply noise correlated between them and defeat the point of redundancy), and a dedicated comparator circuit checks every bus transaction — address, data, and control signals — that the checker core issues against the main core's transaction from cycles earlier. A mismatch trips a hardware fault signal that can gate the actual bus write from ever completing, meaning a detected fault can be caught *before* corrupted data reaches memory, not just logged after the fact.
+
+This comparator lives in the silicon's bus-interface logic, entirely independent of any software fault handler — which is the actual safety argument: a software comparison routine could itself be corrupted by the very same fault it's trying to detect (e.g., a stuck bit flipping the comparison routine's own logic), whereas a hardware comparator built from separate transistors performing a fixed, non-programmable XOR-and-latch operation has no execution path that a corrupted program counter or corrupted instruction fetch can subvert.
+
+The delay between main and checker core execution also has to be tuned against realistic fault models: a delay too short doesn't give correlated environmental faults (a single transient affecting both cores' shared clock or power rail at nearly the same instant) time to manifest differently in each core's output, while a delay too long increases the latency between fault occurrence and detection — this parameter is a real safety-architecture trade-off documented in the part's safety manual, not an implementation detail.
+
+*(Described from general lockstep-core safety architecture concepts and Arm/NXP safety documentation; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Design (and, on real multi-core S32K3 hardware, implement) an inter-core

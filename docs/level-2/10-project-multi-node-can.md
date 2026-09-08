@@ -319,6 +319,16 @@ decision, and writing it down is what makes it reviewable.
 | Shared header | `can_matrix.h` compiled by all three nodes — one source of truth |
 | Bench tools | 3 × S32K144 EVB (or 2 EVBs + PCAN-USB), `candump -t z`, `cansend` |
 
+## How It Actually Works
+
+Coordinating multiple independent ECUs on one CAN bus works because every node's FlexCAN module runs its own free-running bit-timing state machine, and the network only functions as "one bus" through the arbitration and resynchronization mechanisms covered in the fundamentals module — there is no master clock or master node coordinating anything at the electrical level. Each node's bit-timing logic resynchronizes every recessive-to-dominant edge it observes, using the resync jump width, which is precisely what allows nodes with independently drifting oscillators (different crystals, different temperatures) to stay bit-aligned indefinitely as long as the drift per bit stays within the configured tolerance.
+
+Message-ID allocation across the network is really a *priority* allocation at the hardware arbitration level: every node's transmit MBs continuously and independently decide "am I highest priority pending" using the same bitwise dominant-wins mechanism, so there is no central arbiter to fail — this is a genuinely distributed real-time scheduling mechanism implemented entirely in each node's comparator hardware, which is why CAN remains deterministic even as nodes are added or removed from the bus live.
+
+Detecting a node dropping off (bus-off, covered by FlexCAN's transmit/receive error counters) is itself hardware-enforced: FlexCAN increments a TX or RX error counter on every detected form/bit/stuff/CRC/ACK error according to the CAN spec's exact counter rules, and once TEC exceeds 255 the module autonomously transitions to Bus-Off and physically stops driving the bus at all — this self-isolation mechanism is what stops one node with a hardware fault (e.g. a shorted transceiver) from permanently jamming a bus that other, healthy nodes still need.
+
+*(Described from the ISO 11898-1 CAN specification and FlexCAN reference manual; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Build the network. (1) Write `can_matrix.h` and the message catalogue as a

@@ -224,6 +224,16 @@ typedef struct {
 | Wear strategy | Write on change + deadband · RAM shadow flushed on a trigger · rotating CRC'd records |
 | Protection | `FPROT0–3` (P-Flash), `FDPROT` (D-Flash), `FEPROT` (EEPROM window) |
 
+## How It Actually Works
+
+Program flash on S32K is written and erased through a Flash Memory Controller (FTFC) that performs erase and program operations at the *physical charge-storage* level: an erase operation applies a high voltage across the flash cell's floating gate for a specified duration to remove trapped charge (returning bits to 1), while programming applies a different voltage profile to inject charge onto specific cells (setting bits to 0) — this is why flash can only be erased in whole sectors and can only ever change 1→0 within a sector without a fresh erase: you cannot selectively remove charge from one cell without erasing the whole physical block it lives in.
+
+Every flash command (erase sector, program phrase, etc.) is executed by writing a command code and address/data into the FTFC's Command Interface registers and then setting the `CCIF` bit, which triggers a real hardware state machine inside FTFC to run the high-voltage programming algorithm — this is also why flash writes are asynchronous and take microseconds-to-milliseconds (physically enforced by the charge-pump ramp time), unlike SRAM writes which complete in one clock cycle.
+
+FlexNVM's split between extra program flash and FlexRAM/EEPROM emulation works by dedicating part of the flash array to be managed by hardware EEPROM emulation logic: writes to the "EEPROM" address range don't directly reprogram flash cells on every write — instead, FlexRAM (a small SRAM buffer) absorbs writes instantly, and the FTFC's internal EEPROM state machine transparently migrates data into flash sectors in the background using wear-leveling logic, which is what gives byte-addressable, high-endurance EEPROM-like behavior out of flash cells that can physically only survive a limited number of erase cycles.
+
+*(Described from the S32K reference manual's FTFC/FlexNVM chapters; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Design and implement a non-volatile store that you would defend in a

@@ -135,6 +135,16 @@ an ECU needs one more protocol than its fixed peripherals provide.
 | FlexIO use here | Extra software-defined UART/LIN channel beyond fixed LPUART count |
 | FlexIO building blocks | Shifters (data path) + Timers (baud/bit timing) |
 
+## How It Actually Works
+
+LIN is deliberately built on a single-wire, master-scheduled, UART-like physical layer specifically to be cheap: it reuses the same asynchronous bit-timing/oversampling receiver architecture as LPUART (covered earlier), but with a single master node driving all bus scheduling in software rather than distributed arbitration — there is no collision-avoidance hardware in LIN because the protocol's design assumption is that only one node (the master) ever decides who transmits next, eliminating the need for CAN-style dominant/recessive arbitration circuitry entirely, which is what makes LIN transceivers so much cheaper than CAN transceivers.
+
+LIN's break field (a deliberately-held-low period longer than a normal byte) is what tells every slave's UART-style receiver "a new frame is starting" — this works because LIN receivers watch for a low period exceeding the maximum valid frame-gap duration, a real timeout comparator, not a decoded value; it's functionally similar to how a UART start bit resynchronizes bit-timing, but scaled up to resynchronize *frame* boundaries across a bus with no separate framing signal.
+
+FlexIO is fundamentally different from a fixed-function peripheral: it's a small array of configurable shifters and timers that you *program* (via lookup tables and shift-register chaining) to emulate an arbitrary serial protocol in hardware — when used to implement LIN, FlexIO's timer generates the precise low-going break pulse and its shifter handles the byte-level UART-style framing, all without CPU involvement per bit, because FlexIO's timer/shifter pairs are literally small hardwired state machines chained together according to your configuration, executing independently of the core once configured.
+
+*(Described from the LIN 2.x specification and S32K reference manual's FlexIO chapter; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Bring up a LIN master/slave pair on two S32K boards, or a master against

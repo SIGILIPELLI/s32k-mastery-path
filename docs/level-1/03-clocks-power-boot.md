@@ -163,6 +163,16 @@ and the resulting frequencies written down in one header everyone uses:
 | WDOG unlock / refresh keys | `0xD928C520` / `0xB480A602` |
 | Run modes | RUN (80 MHz) · HSRUN (112) · VLPR (low power) · STOP/VLPS (sleep) |
 
+## How It Actually Works
+
+Clock generation on S32K is a tree of dividers and muxes feeding out of SCG (System Clock Generator), and the numbers you write into `SCG->SPLLCFG` or `SCG->SIRCCFG` map onto physical PLL feedback-divider and reference-divider hardware, not abstract "speed settings".
+
+On reset, the chip boots from SIRC (Slow Internal RC oscillator, ~8 MHz, not the fast FIRC) in a deliberately conservative default state — this exists because an external crystal takes time to start oscillating reliably (tens to hundreds of microseconds of ringing before it's stable) and a fault-tolerant automotive part cannot assume the crystal exists or works. The System PLL (SPLL) then locks onto a chosen reference — internal FIRC or the external SOSC crystal — via a phase-frequency detector and charge pump that literally compares the phase of the reference and feedback-divided output clocks and nudges a voltage-controlled oscillator until they align; the `LOCK` status bit is a real analog lock-detector circuit, not a fixed delay.
+
+Power modes (RUN → VLPR → STOP/VLPS) work by gating clock trees and, in the deeper states, powering down entire logic domains through the SMC (System Mode Controller) and PMC (Power Management Controller) — VLPR literally clamps the core clock below a threshold (typically 4 MHz) *because* the internal voltage regulator in low-power mode cannot supply enough current for the core to run its normal pipeline speed without violating the chip's timing margins. Waking from STOP requires a configured wake-up source (LPTMR, RTC, external pin via LLWU) because the peripheral clock trees needed to even recognize an interrupt are physically off until the SMC sequences them back on — this sequencing, not software, is why STOP-mode wake latency is measured in microseconds rather than being instantaneous.
+
+*(Described from the S32K reference manual's SCG/SMC/PMC chapters; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Without hardware: compute a full clock recipe for a hypothetical S32K144

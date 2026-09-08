@@ -262,6 +262,16 @@ A design isn't done until you know how you'd prove it works. With a
 | Bench tools | PCAN-USB / candleLight + `candump`/`cansend`, or SocketCAN `vcan0` for dry runs |
 | Proof, not assumption | Every safety claim above has a matching bench step that would catch it failing |
 
+## How It Actually Works
+
+This capstone's real engineering content is in how independent hardware blocks stay synchronized without the CPU stitching them together in software. The ADC's SAR conversion completes and sets a hardware "conversion complete" flag; rather than polling that flag or taking an interrupt for every sample, a properly designed node routes the ADC's DMA request line straight to an eDMA channel, which autonomously copies the result into a SRAM ring buffer using its own bus-master port on the crossbar — the CPU only wakes up (via the DMA's transfer-complete interrupt) once a whole batch is ready.
+
+Packing that batch into a CAN frame and triggering FlexCAN to send it is also a hardware handoff: writing a message buffer's control/status word and setting the CODE field to "transmit" (0xC) tells FlexCAN's message-buffer arbitration and matching logic to include that buffer in the next arbitration round on the physical bus — the actual bit-by-bit transmission (including the resynchronization and dominant/recessive arbitration described in the CAN fundamentals module) happens entirely in the FlexCAN state machine, clocked independently of the core.
+
+Timing the whole loop with FTM instead of a busy-wait or RTOS tick means the sample-and-transmit cadence is set by a free-running hardware counter reaching a compare match, not by however long the CPU happens to take executing code — this is what gives an automotive sensor node its jitter guarantee: the *sampling instant* is hardware-timed even if the *processing* that follows has some software latency.
+
+*(Described from the S32K reference manual's eDMA/FlexCAN/FTM chapters; not measured on physical silicon in this course.)*
+
 ## Exercise — and course wrap-up
 
 Implement this capstone as a single buildable S32DS (or Makefile) project,

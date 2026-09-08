@@ -142,6 +142,16 @@ its freshness value is no longer greater than the last accepted one.
 | Confidentiality | NOT provided by SecOC — payload remains plaintext on the bus |
 | Relevant standard | ISO/SAE 21434 (process), AUTOSAR SecOC specification (mechanism) |
 
+## How It Actually Works
+
+SecOC (Secure Onboard Communication, AUTOSAR's mechanism for authenticating CAN/CAN-FD frames) adds a Message Authentication Code (MAC) computed over the payload plus a freshness value, using a symmetric key and a hardware-accelerated cryptographic primitive (typically CMAC built on AES) — on S32K parts with a CSEc or HSE crypto accelerator, this computation happens in dedicated crypto hardware specifically because computing an AES-based MAC in software fast enough to keep up with CAN's frame rate on every transmitted message would consume a disproportionate share of the main core's cycles; offloading it to fixed-function crypto silicon is what makes per-message authentication practical on a real-time bus.
+
+The "freshness value" exists to defeat replay attacks (an adversary recording a legitimate frame and resending it later) — because CAN frames themselves carry no timestamp or sequence number in their base protocol, SecOC layers a monotonically-increasing counter (or truncated view of one) into the authenticated payload; verifying freshness on receipt means the receiving ECU has to track *expected* counter ranges per sender, and this state has to survive power cycles in some designs, which is why SecOC counter state is frequently stored in the same EEPROM-emulation flash region covered in the flash/FlexNVM module rather than volatile SRAM alone.
+
+Because SecOC authentication is layered *on top of* CAN's existing arbitration and framing, it inherits every constraint discussed in the CAN fundamentals and CAN FD modules — the MAC has to fit within the frame's payload alongside the actual application data, which is a genuine reason automotive designs favor CAN FD's larger 64-byte payload for SecOC-protected traffic over classic CAN's 8 bytes: there's often not enough room left for a cryptographically meaningful MAC and freshness value alongside real signal data in a classic CAN frame.
+
+*(Described from the AUTOSAR SecOC specification and general automotive HSM/crypto-accelerator concepts; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Add SecOC-style authentication to one signal from your Level 3 body

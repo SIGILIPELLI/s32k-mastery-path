@@ -219,6 +219,16 @@ turn a week of debugging into an immediate stop at a known line.
 | Watchdog | Alive bitmask across all tasks → supervisor feeds only when complete |
 | Mutual exclusion | `xSemaphoreCreateMutex` (inherits priority), not a binary semaphore |
 
+## How It Actually Works
+
+FreeRTOS's preemptive context switch on Cortex-M4F rides directly on two purpose-built hardware exceptions: SysTick (a 24-bit down-counter with its own dedicated interrupt, part of the Arm core itself, not a vendor peripheral) generates the periodic tick, and PendSV (Pended Service Call, an NVIC exception deliberately given the *lowest* configurable priority) performs the actual context switch. PendSV is set to lowest priority specifically so it never preempts a real interrupt handler mid-flight — the CPU finishes any pending higher-priority ISR first, and only then does PendSV's handler run and swap the stack pointer to the next task's saved context, which is why FreeRTOS context switches never add jitter to your other interrupt latencies.
+
+The context switch itself exploits the Cortex-M4F's dual stack-pointer hardware: MSP (Main Stack Pointer) is used automatically for exception handling, while PSP (Process Stack Pointer) is what each task actually runs on — the CPU's own exception-entry hardware pushes registers R0-R3, R12, LR, PC, and PSR onto whichever stack was active *automatically*, in hardware, before the exception handler's first instruction even executes; the RTOS's PendSV handler only needs to push the *remaining* callee-saved registers (R4-R11) manually and then swap PSP to the next task's stack — this hardware/software split is what makes an ARM context switch measured in single-digit microseconds rather than hundreds.
+
+Interrupt priority grouping (via `NVIC->AIRCR` PRIGROUP bits) determines how many priority bits separate "preempt priority" from "sub-priority," which matters directly for `configMAX_SYSCALL_INTERRUPT_PRIORITY` — FreeRTOS's critical sections work by masking interrupts *at or below* a threshold priority via `BASEPRI`, a real Cortex-M4F register that the NVIC's priority-compare hardware checks before dispatching any exception, leaving priorities above that threshold (true hard-real-time interrupts) completely unaffected even while the kernel is inside a critical section.
+
+*(Described from the Arm Cortex-M4 TRM and FreeRTOS port documentation; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Port the Level 1 capstone from its cooperative loop to FreeRTOS, and prove

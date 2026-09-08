@@ -168,6 +168,16 @@ math and the true functional clock), 2) wrong pin mux, 3) crossed TX/RX,
 | SDK calls | `LPUART_DRV_Init`, `LPUART_DRV_SendDataPolling`, `LPUART_DRV_ReceiveDataPolling` |
 | Garbage output | Baud/clock mismatch first, then mux, then wiring |
 
+## How It Actually Works
+
+The LPUART (Low Power UART) module is built around an oversampling receiver, not a simple edge-triggered shift register. The baud-rate generator divides the peripheral clock down by `SBR` (baud rate divisor) and then further by an oversampling ratio (`OSR`, typically 16), and the *receiver* samples the incoming line at that oversampled rate — sampling near the middle of each bit period rather than right at the edge. This is why LPUART tolerates a few percent of baud-rate mismatch between transmitter and receiver: as long as the accumulated timing drift across one byte (start bit + 8 data bits + stop bit) doesn't push the sample point past the bit boundary, the frame still decodes correctly.
+
+Framing works because the line idles high and the start bit is a guaranteed high-to-low transition — the receiver's edge detector uses that transition to reset its bit-timing counter to zero, which is what re-synchronizes it every single byte (this is why UART needs no shared clock line, unlike SPI). If the actual bit-time is off far enough that the stop bit's expected sample lands on a low level, the hardware sets a Framing Error flag — this is a real electrical measurement (sampling logic state at the expected stop-bit time), not a checksum.
+
+At the silicon level, LPUART's FIFO and DMA request lines let the transmit/receive shift registers hand off to memory without the CPU touching every byte: a hardware watermark comparator inside LPUART asserts a DMA request signal only when the byte count in the FIFO crosses the configured threshold, so the eDMA engine — not an interrupt handler — moves bytes in and out under its own bus mastership.
+
+*(Described from the S32K reference manual's LPUART chapter; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Build a tiny command console: your firmware prints a `> ` prompt, reads a

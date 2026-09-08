@@ -268,6 +268,16 @@ no longer contains code.
 | Watchdog | Feed inside the erase loop; disable or re-arm generously before the jump |
 | Security | CRC catches corruption only — add CSEc/HSE signature verification |
 
+## How It Actually Works
+
+A bootloader's entire job hinges on one hardware fact: the Cortex-M4F reads its initial stack pointer and reset vector from fixed physical addresses (0x0 and 0x4 by default) the instant NRST is released — there is no software choice involved at power-on, the core's fetch hardware is wired to read those two words and jump there. A bootloader occupies that fixed address range permanently; the application image lives at a different flash offset and can only run once something explicitly relocates control to it.
+
+That relocation uses the Cortex-M4F's `VTOR` (Vector Table Offset Register) — a real hardware register inside the NVIC/SCB that tells the exception-entry hardware where to fetch vector-table entries (interrupt handler addresses) from. A bootloader jumping to an application must, as one of its very first acts, reprogram `VTOR` to point at the application's vector table; skip this and every interrupt (including the first SysTick or fault) will vector into the *bootloader's* handlers even though application code is executing — a subtle bug that looks like "random crashes" but is actually a hardware address-lookup mismatch.
+
+The jump itself isn't a normal function call: it must set the Main Stack Pointer (MSP) from the application's vector table entry (word 0) and then branch to the reset handler address (word 1) with interrupts disabled during the transition — because the moment `VTOR` changes but before MSP is reloaded, a stray interrupt could poll the *new* vector table with the *old* stack still active, corrupting the transition. This ordering requirement is a direct consequence of how the exception-entry hardware reads MSP and vector-table entries as separate, sequential bus transactions.
+
+*(Described from the Arm Cortex-M4 TRM's exception model and S32K reference manual's flash chapter; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Build a bootloader you would trust with a field update. (1) Split your

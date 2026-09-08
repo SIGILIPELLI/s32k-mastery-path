@@ -148,6 +148,16 @@ otherwise — and an assessor will ask to see the trace, not just the code.
 | SPFM / LFM | Single-Point / Latent Fault Metric — ISO 26262-5 hardware coverage targets |
 | TCL | Tool Confidence Level — ISO 26262-8 §11, qualification requirement for dev/verification tools |
 
+## How It Actually Works
+
+ASIL-D's process requirements (independent verification, documented traceability, fault-injection testing) exist to compensate for a hard mathematical limit: no amount of code review can prove a system has no undetected random hardware fault path, because random hardware faults (a bit flip from a cosmic-ray-induced single-event upset, a marginal transistor degrading with age) are probabilistic events unrelated to code correctness — this is precisely why ISO 26262 requires computing hardware metrics like SPFM (Single-Point Fault Metric) and diagnostic coverage percentages against the *actual silicon's* documented safety mechanisms (lockstep comparators, ECC, ADC self-test circuits, watchdog windows — all covered in earlier modules), not just software test-pass rates.
+
+Fault injection at ASIL-D typically means physically or electrically forcing conditions the safety mechanism is supposed to catch — deliberately corrupting a bit in SRAM via a test fixture to confirm the ECC hardware actually flags it, or shorting a watchdog trigger pin to confirm the SBC's window comparator actually asserts reset — because a safety mechanism that has never been *exercised* against a real fault is an unverified claim, not a demonstrated one; this is why ASIL-D bill-of-materials for safety cases include documented FMEDA (Failure Mode, Effects, and Diagnostic Analysis) results tied to specific hardware block diagrams, not just software test coverage numbers.
+
+Independent verification requirements (a different team or organization reviewing safety-critical code) exist because the same cognitive blind spots that caused a bug are highly likely to also miss it on self-review — this is a documented human-factors argument in ISO 26262 Part 8, not a bureaucratic formality, and it interacts directly with the freedom-from-interference partitioning covered earlier: ASIL decomposition lets a system mix ASIL-D and QM (non-safety) software on one chip specifically because the MPU-enforced partition boundary is the hardware evidence that lets the safety case argue lower-integrity code cannot interfere with the higher-integrity partition.
+
+*(Described from ISO 26262 concepts (Parts 5, 8, 9); not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Take the Level 3 body-controller project and run a lightweight HARA-style

@@ -165,6 +165,16 @@ failure surfaces as a failed OTA campaign report, not a stranded vehicle.
 | Session resumability | Download must tolerate an interrupted vehicle power cycle, not assume one continuous session |
 | Preconditions | Vehicle speed / ignition state gating, enforced independently by orchestrator AND ECU bootloader |
 
+## How It Actually Works
+
+OTA reprogramming on an automotive MCU has to solve a problem the bootloader module only touched on: what happens if power is lost mid-write to the *active* application flash region? The standard hardware-level answer is a dual-bank or A/B partition scheme — the flash controller (FTFC) programs the *inactive* bank while the currently-running application, executing entirely out of the *active* bank, remains untouched and fully functional; only after the new image's integrity is verified (typically via the HSE's hardware crypto engine checking a signature, covered in the secure-boot module) does the bootloader flip a small, separately protected "active bank" selector value and reset — this selector write is deliberately the *only* step that must be atomic, because everything before it can be safely retried or aborted without bricking the ECU.
+
+That selector itself needs its own power-loss-safety property: a single-word flash write is not guaranteed atomic if power is cut exactly mid-program (partial charge injection into the floating gate can leave a cell in an indeterminate state) — production designs handle this with redundant/mirrored copies of the selector plus the same CRC/ECC mechanisms covered in the flash module, so the boot ROM or first-stage loader can detect a corrupted, torn selector write and fall back to the known-good bank rather than trusting a self-consistent-looking but actually corrupted value.
+
+Anti-rollback (covered briefly in secure boot) becomes operationally important here: OTA campaigns must ensure the monotonic version counter only increments after the new image is confirmed running correctly in the field (often via a "confirm valid" mechanism triggered by successful boot + a health check), because incrementing it too early would permanently lock out reverting to the previous known-good image if the new one has a latent defect that only shows up after deployment.
+
+*(Described from general automotive OTA/dual-bank update architecture concepts and S32K flash/HSE documentation; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Extend your Level 2 UDS bootloader with a dual-bank OTA-style activation

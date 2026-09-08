@@ -140,6 +140,16 @@ on the failed component's own communication path is not independent.
 | Common NXP SBC families | UJA116x, FS26 (safety SBC family) |
 | Relevant standard | ISO 26262-5 (hardware), independent monitoring path requirement for higher ASIL |
 
+## How It Actually Works
+
+A System Basis Chip (SBC) pairing an external watchdog with the S32K's internal WDOG exists because a single watchdog sourced from the MCU's own silicon can never fully cover MCU-internal failures — if the MCU's own clock generation or reset controller silicon fails outright, an internal watchdog built from that same silicon can fail right along with it. The SBC's watchdog runs on a completely separate die with its own oscillator and its own connection to the MCU's reset pin (or a dedicated enable/kill-switch line to the power supply), so it can force a reset or power-cycle the MCU even in failure modes where the MCU's internal fault-detection logic is itself compromised — this is the actual safety argument for external watchdogs in ASIL-rated designs, not redundancy for its own sake.
+
+Window watchdog behavior in the SBC works the same electrically-timed principle as the internal WDOG discussed earlier: a real analog/digital timer inside the SBC counts toward a limit, and the MCU must toggle a dedicated watchdog-trigger pin within a defined time window — too early or too late both trigger a fault output, because the SBC has no way to "understand" software state, only to measure real elapsed time between pin transitions against its own internal timer.
+
+SBCs also typically host the physical CAN/LIN transceivers and a hardware-based Local Interconnect voltage regulator with independent over/under-voltage monitoring — the SBC's voltage supervisor compares the actual regulated rail voltage against fixed thresholds using comparator hardware, and can independently assert a reset or enter safe-state *without* MCU software involvement, which is the point: safety mechanisms that depend on the same software they're meant to catch failing are not independent safety mechanisms under ISO 26262.
+
+*(Described from typical automotive SBC datasheets (e.g. NXP/others) and ISO 26262 Part 5 concepts; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Design (and, if you have SBC hardware, implement) a windowed external

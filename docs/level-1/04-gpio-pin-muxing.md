@@ -170,6 +170,16 @@ the SDK is never a mystery; use tables so 60-pin configs stay reviewable.
 | EVB buttons | SW2 = PTC12, SW3 = PTC13 — read high when pressed (board wiring) |
 | Debounce | Sample every ~10 ms, accept after 2–3 stable samples |
 
+## How It Actually Works
+
+The PORT/GPIO split you saw earlier is not a software convenience — it mirrors two physically separate hardware blocks. PORT contains per-pin analog/digital pad control (the actual transistors setting drive strength, pull-up/down resistor value, slew rate, and which of up to 8 alternate peripheral signals is electrically routed to that pin via an internal multiplexer tree). GPIO is a completely different block that just reads/writes the digital logic-level register once PORT has committed a pin to "GPIO function" (MUX=1).
+
+Setting a pin's PCR (Pin Control Register) MUX field doesn't "tell software to treat this as GPIO" — it physically closes one signal path in an analog multiplexer and opens all the others, so a pin muxed to UART_TX has its physical trace electrically disconnected from the GPIO output driver entirely; writing to `GPIOx->PDOR` for that pin has zero effect on the physical voltage until you re-mux it.
+
+Drive strength and slew-rate bits in the PCR aren't cosmetic — they set the effective on-resistance and gate-drive ramp of the pad's output FETs. A fast slew rate on a long PCB trace driving an inductive automotive load creates ringing (undershoot/overshoot from trace inductance and the FET's fast dV/dt) that can violate the receiving device's absolute maximum ratings or radiate EMI that fails automotive EMC testing — this is why the "slow" slew setting exists and is often mandatory on automotive designs even though it costs switching speed.
+
+*(Described from the S32K reference manual's PORT/GPIO chapters; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Write (and build, if you have the toolchain from module 2) a program where

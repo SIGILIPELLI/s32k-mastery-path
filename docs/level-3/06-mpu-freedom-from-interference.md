@@ -146,6 +146,16 @@ the escalation target for a fault this severe).
 | Relevant standard | ISO 26262-6 §7 (software architectural design, freedom from interference) |
 | ASIL decomposition | Splitting a function across QM + safety partitions relies on FFI being provable |
 
+## How It Actually Works
+
+The Cortex-M4F's MPU is a small array of hardware region-descriptor registers, each defining a base address, size, and access permissions (read/write/execute, privileged/unprivileged) — every single bus transaction the core issues (load, store, or instruction fetch) is checked against all configured regions *in the same cycle* by dedicated comparator/priority-encoder logic before the transaction is allowed onto the bus matrix; a violating access is intercepted before it ever reaches the target memory, and instead a MemManage fault fires. This is why MPU-based partitioning is a real safety mechanism, not just an organizational convention — the hardware physically refuses to let a mis-pointered write in one software partition touch another partition's memory, which a plain software convention (like "please don't write outside this array") cannot guarantee against a corrupted pointer or a runaway index.
+
+Because region checks apply to *every* bus transaction, they also cover DMA-originated writes that use the CPU's address space mapping — though on many Cortex-M4F implementations, the MPU only actually gates *core* accesses, not eDMA bus-master accesses, which is a genuine freedom-from-interference gap: eDMA is a separate bus master on the crossbar and can bypass the CPU's MPU entirely unless the specific S32K variant provides a separate peripheral-level protection mechanism for DMA — this is exactly the kind of subtlety an ASIL decomposition analysis has to account for, and part of why S32K3's more capable bus-fabric-level protection (mentioned in the S32K1-to-S32K3 module) is a genuine safety upgrade, not a marketing one.
+
+Region overlap resolution follows a fixed hardware priority rule (higher-numbered regions win in overlaps on the Arm MPU architecture) — getting this backward in configuration is a subtle bug where the *intended* restrictive region is silently overridden by a more permissive lower-priority region, producing a partition boundary that looks configured correctly in code but provides zero actual protection.
+
+*(Described from the Arm Cortex-M4 MPU architecture reference and ISO 26262 freedom-from-interference concepts; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Partition a Level 2-style multi-task application using the S32K MPU. (1)

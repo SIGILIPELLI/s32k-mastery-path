@@ -157,6 +157,16 @@ unit was verified to match that design."
 | Traceability record | Serial number + test results + firmware version, tamper-evident storage |
 | Disposition path | Rework / scrap / quarantine for units failing EOL test |
 
+## How It Actually Works
+
+End-of-line (EOL) test at manufacturing scale has to verify the same hardware safety mechanisms covered throughout this course actually work on *every individual unit*, not just a design sample — this is a fundamentally different verification burden than development-time testing. EOL test fixtures typically drive the SWD/debug-probe interface (covered in the toolchain module) to both program the initial calibration/configuration data and run a factory test-mode firmware image that deliberately exercises flash ECC, watchdog reset, and ADC reference accuracy against a precision test signal, because silicon-level defects (a marginal transistor, an incompletely-trimmed internal oscillator) can vary unit-to-unit even within one wafer lot, and only measuring each unit's actual behavior catches those.
+
+Trimming and calibration at EOL frequently involves writing factory-measured correction values into the EEPROM-emulation region (covered in the flash/FlexNVM module) — for example, storing a per-unit ADC gain/offset correction derived from applying a precision reference voltage during test and comparing against the raw conversion result, because process variation in the SAR ADC's capacitor-DAC array (covered in the ADC module) is a real, measurable manufacturing variance that firmware-level correction factors compensate for on a per-unit basis rather than assuming every chip behaves identically to the datasheet's typical values.
+
+Traceability requirements (associating a specific silicon die's test results with a specific VIN/ECU serial number) typically use the MCU's unique ID region — a factory-programmed or laser-fused unique identifier read via a fixed memory-mapped address — because ISO 26262's production requirements demand the ability to trace a field failure back to its specific manufacturing test record, which is only possible if each physical unit carries an immutable, hardware-level identity that software can read but never rewrite.
+
+*(Described from general automotive EOL/manufacturing test concepts and ISO 26262 Part 7; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Design an EOL test sequence for the Level 3 body controller. (1)

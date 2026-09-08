@@ -174,6 +174,16 @@ Habits that mark automotive-grade C, all reappearing in the capstone:
 | Detect chain | detect → contain → safe state → report |
 | E2E on CAN | Payload CRC + alive counter defeats stale/frozen-sender bugs |
 
+## How It Actually Works
+
+The Cortex-M4F's fault architecture is a hardware safety net that exists below any RTOS or application code: illegal memory accesses, unaligned accesses on strictly-aligned instructions, divide-by-zero (if enabled), and invalid instruction fetches are all detected by dedicated logic in the bus matrix and pipeline decode stage, which raise HardFault/BusFault/UsageFault exceptions through the same NVIC mechanism as a normal interrupt — this is why a well-written fault handler can read `SCB->CFSR` and `SCB->HFSR` to determine exactly *what kind* of illegal operation occurred and at what address, because the hardware latches that diagnostic information into fixed registers at the moment of the fault, before software ever runs.
+
+The independent Watchdog (WDOG) on S32K runs from its own clock domain, separate from the core clock — this is deliberate: if the SCG's PLL loses lock or a software bug hangs the core clock itself, a watchdog sourced from the same clock would hang too and never bite. WDOG's internal counter increments in hardware every tick regardless of CPU state, and if the "refresh" sequence (writing two specific magic values to `WDOG->CNT` within a windowed time interval) doesn't happen, WDOG asserts a reset request directly to the reset controller — a purely hardware-timed dead-man's switch that works even if the CPU is fully wedged in an infinite loop with interrupts disabled.
+
+The windowed refresh requirement (not just "kick it before timeout") exists to catch a specific failure mode: a corrupted program counter that happens to loop through the refresh code too *quickly* — refreshing too early inside the window is treated as a fault just like refreshing too late, closing that failure path.
+
+*(Described from the Arm Cortex-M4 TRM and S32K reference manual's WDOG chapter; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Do a miniature safety analysis of module 8's radiator-fan example (coolant

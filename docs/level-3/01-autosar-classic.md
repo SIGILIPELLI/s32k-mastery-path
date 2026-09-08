@@ -168,6 +168,16 @@ the same ARXML schema.
 | ARXML | S32 Configuration Tools / DaVinci Configurator | RTE generator, MCAL generator |
 | `Can_ConfigType` | Configuration tool, from ARXML | `Can_Init()` |
 
+## How It Actually Works
+
+AUTOSAR Classic's layered architecture (Application → RTE → BSW → MCAL) maps onto real hardware boundaries more directly than it might appear from the API surface. The MCAL (Microcontroller Abstraction Layer) is the only software permitted to touch S32K peripheral registers directly — every `Dio_WriteChannel()` or `Can_Write()` call ultimately executes the exact same PORT-mux, GPIO-latch, or FlexCAN-message-buffer operations covered in earlier modules; AUTOSAR doesn't change what the silicon does, it standardizes the software contract sitting on top of it.
+
+The RTE (Runtime Environment) generates code that turns AUTOSAR's "virtual function bus" (SWCs communicating via ports) into direct function calls or, for cross-core/cross-partition communication, actual shared-memory reads/writes guarded by the same MPU regions used for freedom-from-interference — this is why RTE-generated code looks deceptively simple: the complexity of guaranteeing memory safety between independently-developed software components is pushed down into the same MPU hardware region-checking mechanism the CPU already uses for fault detection, not invented fresh by AUTOSAR.
+
+The OS layer (AUTOSAR OS, based on OSEK) schedules tasks using the same underlying Cortex-M4F hardware mechanisms as FreeRTOS — PendSV-equivalent context switching, NVIC priority levels mapped to OSEK task priorities, and SysTick or FTM-based time bases — but AUTOSAR OS additionally enforces static, compile-time-known worst-case execution ordering (fixed task-to-priority mapping, no dynamic priority changes) specifically because ISO 26262 timing analysis requires provable, not merely observed, worst-case behavior; this determinism requirement is what shapes AUTOSAR OS's stricter API compared to a general-purpose RTOS.
+
+*(Described from the AUTOSAR Classic Platform specifications and S32K reference manual; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Take your Level 1 CAN-bus capstone node and re-express its architecture

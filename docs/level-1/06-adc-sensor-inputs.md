@@ -192,6 +192,16 @@ defensive-firmware picture, and the capstone uses this exact pattern.
 | EMA filter | `filt += (raw − filt) >> 3` |
 | Plausibility | Near-rail readings = wiring fault → debounce, substitute, DTC |
 
+## How It Actually Works
+
+The S32K's ADC is a Successive Approximation Register (SAR) converter, and its conversion time is a direct, physical consequence of that architecture: each conversion resolves one bit at a time via a binary search, so a 12-bit conversion takes roughly 12+ internal clock cycles (plus sample time) no matter what the input voltage is — this is fundamentally different from, and faster than, a dual-slope or sigma-delta ADC, but it means resolution and speed trade off in a fixed, computable way (`ADC_CLK` cycles per bit).
+
+Internally, a SAR ADC works by charging a capacitor-DAC array to the sampled input voltage, then a comparator tests that charge against a reference voltage produced by successively toggling capacitor-DAC bits from MSB to LSB — each comparator decision either keeps or clears that bit, converging on the digital code in binary-search fashion. This is why "sample time" (`ADC_SC1`/`ADC_CFG` sample-time bits) matters: the sampling capacitor needs enough time to actually charge to the source's voltage through the source impedance, and a high-impedance sensor (say, a resistive divider from a thermistor) needs a longer sample window than a low-impedance op-amp buffer output — undersampling shows up as a systematic reading error, not a random one, because the cap never fully charges.
+
+The reference voltage (VREFH/VREFL or an internal bandgap) sets the LSB step size directly: `LSB = (VREFH - VREFL) / 2^N`. Any noise or drift on that reference propagates linearly into every conversion — this is the electrical reason automotive designs often add a dedicated, decoupled reference and averaging/oversampling in software rather than trusting a single raw sample.
+
+*(Described from the S32K reference manual's ADC chapter; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Write a `sensor.c` module for a coolant-temperature input: every call to

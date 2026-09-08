@@ -135,6 +135,16 @@ static inline void BCM_DoorStatus_pack(uint8_t *data, bool fl, bool fr, float sp
 | `+` / `-` | Unsigned / signed |
 | `physical = raw * factor + offset` | Decode formula |
 
+## How It Actually Works
+
+CAN FD's speed gain comes from a genuine change in bit-timing hardware, not just a faster clock: the arbitration phase (identifier field) runs at the classic bit rate because arbitration *requires* every node to see a dominant bit within one bit-time of driving it — the round-trip propagation delay across the physical bus length sets a hard ceiling on arbitration speed. Once arbitration is won and the BRS (Bit Rate Switch) bit is sent, FlexCAN's bit-timing state machine — a second, separate set of timing-segment registers for the data phase — switches to a faster clock division specifically because no arbitration (and thus no propagation-delay-bound resynchronization) is needed during the data phase; only the single transmitting node is driving the bus, so the data-phase bit rate is limited by transceiver switching speed and cable characteristics, not arbitration physics.
+
+CAN FD's CRC also changes because the FD frame format and higher data-phase bit rate would make the classic CRC's stuffing-bit ambiguity a real problem — CAN FD uses a longer CRC (17 or 21 bits depending on payload length) computed by dedicated CRC hardware inside FlexCAN's FD-capable message-buffer logic, and a modified bit-stuffing scheme (stuff-bit counting) that lets the receiver detect a specific class of stuffing errors the classic scheme couldn't.
+
+A DBC file's scaling factors (`/ 0.1 offset -40` style signal definitions) aren't hardware at all — they're a pure software convention mapping the raw integer bits FlexCAN's message buffer actually stores into physical units; the ECU's application code has to explicitly apply that same scale/offset math when packing/unpacking signals, because FlexCAN's hardware only ever moves and matches raw bytes, with zero awareness of what a "temperature" or "RPM" signal means.
+
+*(Described from ISO 11898-1 (CAN FD amendment) and the FlexCAN FD reference manual chapter; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Take a CAN network you already defined informally (frame IDs and byte

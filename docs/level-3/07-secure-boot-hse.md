@@ -140,6 +140,16 @@ secure boot chain is trust-anchoring a system with an unlocked side door.
 | Key provisioning | One-time manufacturing step writing OEM keys into HSE-protected NVM |
 | Relevant standards | ISO/SAE 21434 (cybersecurity process), NIST SP 800-57 (key management, referenced generically) |
 
+## How It Actually Works
+
+Secure boot's root of trust has to originate somewhere the attacker cannot rewrite, and on S32K that's typically a small block of one-time-programmable (OTP) fuses or a masked boot ROM burned at fabrication — this is why it's called a *hardware* root of trust: unlike flash, OTP fuses are physically permanent (blown by an irreversible high-voltage process, not erasable/reprogrammable), so the public key hash or boot-configuration bits stored there cannot be altered by any software exploit after manufacturing, only trusted or not trusted from that point forward.
+
+The HSE (Hardware Security Engine) present on more capable S32K variants is a genuinely separate processor core with its own private memory, running independently of the main application core specifically so that cryptographic key material and verification logic are never exposed to application-core memory space or debug access — signature verification (checking the application image's signature against the OTP-anchored public key using a hardware-accelerated ECC or RSA engine) happens entirely inside the HSE's isolated execution environment, and only a pass/fail result (not the key material) crosses back to the boot sequence deciding whether to jump to the application, the same `VTOR`-reprogram-and-jump mechanism covered in the bootloader module.
+
+Anti-rollback protection (preventing a valid-but-old, vulnerable firmware image from being reinstalled) is enforced by a monotonic counter stored in a write-once or write-increment-only region — often battery-backed registers or dedicated OTP fuse rows that can only be incremented, never decremented, by hardware design — so the boot verification logic can reject an image whose embedded version is lower than the counter's current value, and no software path exists to decrement that counter back down.
+
+*(Described from general automotive HSE/secure-boot architecture concepts and NXP S32K security documentation; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Design (and where an S32K3 board with HSE is available, implement) a

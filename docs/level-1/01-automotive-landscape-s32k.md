@@ -153,6 +153,18 @@ them into a designed, reviewable CAN sensor node.
 | S32K144EVB | ~$50 eval board: RGB LED, 2 buttons, potentiometer, CAN transceiver, OpenSDA debugger |
 | Renode | Free open-source emulator with S32K support |
 
+## How It Actually Works
+
+The S32K1xx isn't a random pile of automotive silicon — its floorplan reflects the two jobs an automotive MCU does simultaneously: run application code, and prove to a functional-safety auditor that it hasn't lied about the result.
+
+At the center sits an Arm Cortex-M4F core with a Nested Vectored Interrupt Controller (NVIC). The "F" matters: the FPU is a single-precision unit wired directly into the pipeline, so control-loop math executes in hardware rather than being emulated in software — this is what lets a low-cost automotive MCU do real-time sensor-fusion math at kilohertz rates without a separate DSP.
+
+Surrounding the core is a crossbar switch (AXBS), not a single shared bus. Flash, SRAM, and each peripheral bridge (AIPS-Lite) hang off separate ports of the crossbar, so the CPU fetching an instruction from flash and a DMA channel moving ADC samples into SRAM can happen in the same clock cycle instead of contending for one bus — this is the architectural reason S32K parts can sustain CAN/ADC/PWM workloads concurrently without the core babysitting every byte.
+
+The safety differentiator that separates S32K from a generic Cortex-M4F chip is the Error Correction Code (ECC) on flash and SRAM, plus a hardware CRC module and, on higher members of the family, a lockstep checker core that runs the same instruction stream a few clock cycles behind the main core and compares results, catching a transient bit-flip (for example from a cosmic-ray-induced single-event upset) before it becomes a wrong control output. None of this shows up in a high-level init call — it is a silicon-level answer to ISO 26262's requirement that random hardware faults be detected, not just avoided by careful coding.
+
+*(Described from the S32K reference manual and Arm Cortex-M4 TRM; not measured on physical silicon in this course.)*
+
 ## Exercise
 
 Pick any comfort feature of a car you know (heated seats, auto-dimming
