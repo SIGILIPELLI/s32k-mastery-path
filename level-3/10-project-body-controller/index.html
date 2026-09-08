@@ -1788,6 +1788,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#stretch-goals" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#stretch-goals" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2484,6 +2506,11 @@ inserted before flash-commit that was absent in the Level 2 version.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>A body controller integrating CAN FD, diagnostics, secure flashing, and calibration on one gateway is really a study in how independently-clocked hardware subsystems share the crossbar and interrupt fabric without stepping on each other. FlexCAN's message-buffer matching engine, the eDMA channels feeding LPUART/ADC data, and the HSE's crypto operations for secure flashing all run as separate hardware state machines with their own clock trees (as covered in the clocks module) — the CPU's job in this design is almost entirely to arbitrate <em>software</em> priorities (which task handles which completed hardware event first) rather than to drive any of these operations bit-by-bit itself.</p>
+<p>Running secure flashing (an HSE-verified firmware update) concurrently with live CAN traffic and diagnostics works only because those operations don't actually contend for the same physical resource: HSE's crypto engine runs on its own isolated core, flash programming's high-voltage charge-pump operation is asynchronous once triggered (covered in the flash module) and doesn't stall the main core's bus access to <em>other</em> peripherals, and FlexCAN keeps receiving/transmitting via its own arbitration hardware regardless of what the main core is doing — the actual constraint is usually flash <em>bus</em> access contention (the main core can't execute code from a flash sector currently being erased/programmed), which is why bootloaders typically run the flash-write routine from RAM.</p>
+<p>Partitioning this design by integrity level (as the surrounding text describes) is only meaningful if the MPU regions actually gate every relevant bus master's access — which circles back directly to the DMA/MPU gap discussed in the freedom-from-interference module: a body controller design has to explicitly verify which bus masters the chosen S32K variant's protection hardware actually covers, not assume MPU regions protect against every possible corruption path.</p>
+<p><em>(Described from S32K reference manual chapters on FlexCAN, FTFC, and HSE, synthesized for this project; not measured on physical silicon in this course.)</em></p>
 <h2 id="stretch-goals">Stretch goals<a class="headerlink" href="#stretch-goals" title="Permanent link">&para;</a></h2>
 <p>Extend the project past the baseline design. (1) Add a fourth SWC,
 <code>SeatMemory</code>, storing calibratable seat positions in an XCP-writable RAM

@@ -1553,6 +1553,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2450,6 +2472,11 @@ trace than a linker error would have been.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>NXP's Real-Time Drivers (RTD) MCAL configuration tool doesn't invent new hardware behavior — every generated <code>Port_Init()</code>, <code>Gpt_Init()</code>, or <code>Can_Init()</code> call is code-generating the exact same register writes (PCR MUX fields, FTM MOD/CnV registers, FlexCAN MB setup) you'd write by hand at the register level, just derived from a declarative configuration model instead of manual C. The value RTD adds is generating that configuration <em>consistently</em> across dozens of interdependent registers where a single mismatched clock-divider or interrupt-priority setting between two peripherals would otherwise be an easy manual-coding mistake.</p>
+<p>The configuration tool's dependency-checking (e.g. refusing an ADC sample-time setting that's invalid for the configured ADC clock) exists because those combinations are physically invalid at the silicon level — an ADC clock exceeding the SAR converter's rated switching frequency doesn't produce a software error, it produces conversion results that are subtly wrong (incomplete capacitor-DAC settling), so RTD encodes the same electrical constraints from the reference manual as configuration-time validation rules rather than letting them become field failures.</p>
+<p>Under the hood, RTD-generated MCAL code for interrupt-driven peripherals still installs handlers into the same NVIC vector table and uses the same priority-register bit fields as hand-written code — the generated <code>IntCtrl_Ip_InstallHandler()</code>-style calls are ultimately writing into <code>NVIC-&gt;IPR[]</code> and the vector table exactly as covered in the safety/robustness module, RTD is a code-generation convenience layer, not a different execution model.</p>
+<p><em>(Described from NXP's S32K RTD/MCAL documentation and the S32K reference manual; not measured on physical silicon in this course.)</em></p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Convert a Level 1 bare-metal FlexCAN bring-up into RTD-shaped code,
 without necessarily running S32CT if it isn't installed. (1) Write out,

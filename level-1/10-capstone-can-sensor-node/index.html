@@ -1058,6 +1058,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise-and-course-wrap-up" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2327,6 +2338,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise-and-course-wrap-up" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2709,6 +2731,11 @@ exactly the module 7 "signal timeout" habit made concrete.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>This capstone's real engineering content is in how independent hardware blocks stay synchronized without the CPU stitching them together in software. The ADC's SAR conversion completes and sets a hardware "conversion complete" flag; rather than polling that flag or taking an interrupt for every sample, a properly designed node routes the ADC's DMA request line straight to an eDMA channel, which autonomously copies the result into a SRAM ring buffer using its own bus-master port on the crossbar — the CPU only wakes up (via the DMA's transfer-complete interrupt) once a whole batch is ready.</p>
+<p>Packing that batch into a CAN frame and triggering FlexCAN to send it is also a hardware handoff: writing a message buffer's control/status word and setting the CODE field to "transmit" (0xC) tells FlexCAN's message-buffer arbitration and matching logic to include that buffer in the next arbitration round on the physical bus — the actual bit-by-bit transmission (including the resynchronization and dominant/recessive arbitration described in the CAN fundamentals module) happens entirely in the FlexCAN state machine, clocked independently of the core.</p>
+<p>Timing the whole loop with FTM instead of a busy-wait or RTOS tick means the sample-and-transmit cadence is set by a free-running hardware counter reaching a compare match, not by however long the CPU happens to take executing code — this is what gives an automotive sensor node its jitter guarantee: the <em>sampling instant</em> is hardware-timed even if the <em>processing</em> that follows has some software latency.</p>
+<p><em>(Described from the S32K reference manual's eDMA/FlexCAN/FTM chapters; not measured on physical silicon in this course.)</em></p>
 <h2 id="exercise-and-course-wrap-up">Exercise — and course wrap-up<a class="headerlink" href="#exercise-and-course-wrap-up" title="Permanent link">&para;</a></h2>
 <p>Implement this capstone as a single buildable S32DS (or Makefile) project,
 combining modules 2–9 unchanged where possible. Then write a one-page

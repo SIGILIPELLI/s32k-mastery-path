@@ -913,6 +913,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2492,6 +2514,11 @@ defensive-firmware picture, and the capstone uses this exact pattern.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>The S32K's ADC is a Successive Approximation Register (SAR) converter, and its conversion time is a direct, physical consequence of that architecture: each conversion resolves one bit at a time via a binary search, so a 12-bit conversion takes roughly 12+ internal clock cycles (plus sample time) no matter what the input voltage is — this is fundamentally different from, and faster than, a dual-slope or sigma-delta ADC, but it means resolution and speed trade off in a fixed, computable way (<code>ADC_CLK</code> cycles per bit).</p>
+<p>Internally, a SAR ADC works by charging a capacitor-DAC array to the sampled input voltage, then a comparator tests that charge against a reference voltage produced by successively toggling capacitor-DAC bits from MSB to LSB — each comparator decision either keeps or clears that bit, converging on the digital code in binary-search fashion. This is why "sample time" (<code>ADC_SC1</code>/<code>ADC_CFG</code> sample-time bits) matters: the sampling capacitor needs enough time to actually charge to the source's voltage through the source impedance, and a high-impedance sensor (say, a resistive divider from a thermistor) needs a longer sample window than a low-impedance op-amp buffer output — undersampling shows up as a systematic reading error, not a random one, because the cap never fully charges.</p>
+<p>The reference voltage (VREFH/VREFL or an internal bandgap) sets the LSB step size directly: <code>LSB = (VREFH - VREFL) / 2^N</code>. Any noise or drift on that reference propagates linearly into every conversion — this is the electrical reason automotive designs often add a dedicated, decoupled reference and averaging/oversampling in software rather than trusting a single raw sample.</p>
+<p><em>(Described from the S32K reference manual's ADC chapter; not measured on physical silicon in this course.)</em></p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Write a <code>sensor.c</code> module for a coolant-temperature input: every call to
 <code>sensor_task_100Hz()</code> reads ADC0 SE12, applies plausibility limits (min/max

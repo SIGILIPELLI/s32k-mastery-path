@@ -2097,6 +2097,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2254,6 +2265,17 @@
     <span class="md-ellipsis">
       
         Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
       
     </span>
   </a>
@@ -2447,6 +2469,11 @@ actually implements shutoff without the other.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>A production ECU's PCB layout has to respect real electrical constraints that this course's earlier modules only touched on individually — CAN transceiver placement and trace routing must maintain matched differential-pair impedance (typically 120Ω) because CAN's dominant/recessive arbitration mechanism (covered in the CAN fundamentals module) depends on clean, symmetric signal transitions on CAN_H/CAN_L; an impedance mismatch causes reflections that can corrupt bit-sampling at high bus speeds, especially with CAN FD's faster data-phase timing discussed in the CAN FD module.</p>
+<p>Power supply design for a production ECU typically includes multiple regulated rails feeding the S32K's separate supply domains (core logic, I/O, ADC reference) — the ADC's conversion accuracy (covered in the ADC module) is directly sensitive to noise on its dedicated reference rail, so production designs isolate the ADC reference supply with its own filtering/decoupling specifically because any switching-regulator ripple coupled onto that rail becomes a proportional error in every conversion's LSB step size, not a random glitch.</p>
+<p>EMC (electromagnetic compatibility) compliance connects back to the GPIO slew-rate discussion from the pin-muxing module at production scale: a board with dozens of fast-switching digital I/O lines has to budget its aggregate radiated emissions across the whole automotive frequency spectrum, which is why production firmware often deliberately configures slower slew rates on every non-timing-critical pin even at some switching-speed cost — a decision made at the systems level that individual peripheral modules in isolation wouldn't reveal as necessary.</p>
+<p><em>(Described from general automotive ECU PCB/EMC design practices; not measured on physical silicon in this course.)</em></p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Review a production ECU schematic (a real automotive reference design if
 available — NXP's S32K3 evaluation board schematics are a reasonable

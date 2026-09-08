@@ -1350,6 +1350,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2327,6 +2338,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2723,6 +2745,11 @@ IVT, and your flash tool must program it.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>The jump from S32K1 to S32K3 isn't a peripheral refresh — it's a different silicon safety architecture. S32K1 achieves its safety island largely through software-visible self-test hardware (like flash ECC and a single lockstep option on select parts); S32K3 bakes in a genuine dual-core lockstep pair by default on many variants, where a checker core physically replicates the main core's logic and runs the identical instruction stream offset by a fixed number of clock cycles, with a hardware comparator continuously checking every bus transaction and register result between the two — a mismatch triggers an immediate safety-fault signal at the hardware level, independent of any software fault handler, because the comparator sits in the silicon's control path, not in an interrupt service routine that could itself be corrupted by the same fault.</p>
+<p>S32K3's memory system also adds a hardware MPU (Memory Protection Unit) with finer-grained region control and an ECC scheme that covers more of the internal bus fabric, not just flash/SRAM arrays — this matters for AUTOSAR "freedom from interference" requirements (covered later in this course), because partitioning software into memory regions is only a real safety mechanism if the <em>hardware</em> actually enforces the boundary on every single bus transaction, including ones initiated by DMA, not just CPU loads/stores.</p>
+<p>Clock and power architecture on S32K3 also moves to a more segmented tree with independently gateable domains per peripheral cluster, which is why S32K3 parts can hit substantially higher pin counts and peripheral density than S32K1 while still meeting the same automotive power budgets — more of the chip can be clock-gated off simultaneously because domain boundaries were drawn finer in the silicon.</p>
+<p><em>(Described from the S32K1 and S32K3 reference manuals' architecture overview chapters; not measured on physical silicon in this course.)</em></p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>You do not need an S32K3 board to do the valuable part of this module.
 (1) Take your Level 1 capstone and produce a <strong>port assessment</strong>: go

@@ -1434,6 +1434,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2338,6 +2349,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2892,6 +2914,11 @@ decision, and writing it down is what makes it reviewable.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Coordinating multiple independent ECUs on one CAN bus works because every node's FlexCAN module runs its own free-running bit-timing state machine, and the network only functions as "one bus" through the arbitration and resynchronization mechanisms covered in the fundamentals module — there is no master clock or master node coordinating anything at the electrical level. Each node's bit-timing logic resynchronizes every recessive-to-dominant edge it observes, using the resync jump width, which is precisely what allows nodes with independently drifting oscillators (different crystals, different temperatures) to stay bit-aligned indefinitely as long as the drift per bit stays within the configured tolerance.</p>
+<p>Message-ID allocation across the network is really a <em>priority</em> allocation at the hardware arbitration level: every node's transmit MBs continuously and independently decide "am I highest priority pending" using the same bitwise dominant-wins mechanism, so there is no central arbiter to fail — this is a genuinely distributed real-time scheduling mechanism implemented entirely in each node's comparator hardware, which is why CAN remains deterministic even as nodes are added or removed from the bus live.</p>
+<p>Detecting a node dropping off (bus-off, covered by FlexCAN's transmit/receive error counters) is itself hardware-enforced: FlexCAN increments a TX or RX error counter on every detected form/bit/stuff/CRC/ACK error according to the CAN spec's exact counter rules, and once TEC exceeds 255 the module autonomously transitions to Bus-Off and physically stops driving the bus at all — this self-isolation mechanism is what stops one node with a hardware fault (e.g. a shorted transceiver) from permanently jamming a bus that other, healthy nodes still need.</p>
+<p><em>(Described from the ISO 11898-1 CAN specification and FlexCAN reference manual; not measured on physical silicon in this course.)</em></p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Build the network. (1) Write <code>can_matrix.h</code> and the message catalogue as a
 document <em>before</em> any node code, and have someone read it back to you — if

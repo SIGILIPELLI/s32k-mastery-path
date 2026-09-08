@@ -1008,6 +1008,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2536,6 +2558,11 @@ of it.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>The Cortex-M4F's fault architecture is a hardware safety net that exists below any RTOS or application code: illegal memory accesses, unaligned accesses on strictly-aligned instructions, divide-by-zero (if enabled), and invalid instruction fetches are all detected by dedicated logic in the bus matrix and pipeline decode stage, which raise HardFault/BusFault/UsageFault exceptions through the same NVIC mechanism as a normal interrupt — this is why a well-written fault handler can read <code>SCB-&gt;CFSR</code> and <code>SCB-&gt;HFSR</code> to determine exactly <em>what kind</em> of illegal operation occurred and at what address, because the hardware latches that diagnostic information into fixed registers at the moment of the fault, before software ever runs.</p>
+<p>The independent Watchdog (WDOG) on S32K runs from its own clock domain, separate from the core clock — this is deliberate: if the SCG's PLL loses lock or a software bug hangs the core clock itself, a watchdog sourced from the same clock would hang too and never bite. WDOG's internal counter increments in hardware every tick regardless of CPU state, and if the "refresh" sequence (writing two specific magic values to <code>WDOG-&gt;CNT</code> within a windowed time interval) doesn't happen, WDOG asserts a reset request directly to the reset controller — a purely hardware-timed dead-man's switch that works even if the CPU is fully wedged in an infinite loop with interrupts disabled.</p>
+<p>The windowed refresh requirement (not just "kick it before timeout") exists to catch a specific failure mode: a corrupted program counter that happens to loop through the refresh code too <em>quickly</em> — refreshing too early inside the window is treated as a fault just like refreshing too late, closing that failure path.</p>
+<p><em>(Described from the Arm Cortex-M4 TRM and S32K reference manual's WDOG chapter; not measured on physical silicon in this course.)</em></p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Do a miniature safety analysis of module 8's radiator-fan example (coolant
 sensor → PWM fan): (1) list five distinct faults across sensor, harness,

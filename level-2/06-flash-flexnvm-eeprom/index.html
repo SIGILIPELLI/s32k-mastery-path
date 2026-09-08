@@ -1300,6 +1300,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2587,6 +2609,11 @@ not the cell. The standard answers:</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Program flash on S32K is written and erased through a Flash Memory Controller (FTFC) that performs erase and program operations at the <em>physical charge-storage</em> level: an erase operation applies a high voltage across the flash cell's floating gate for a specified duration to remove trapped charge (returning bits to 1), while programming applies a different voltage profile to inject charge onto specific cells (setting bits to 0) — this is why flash can only be erased in whole sectors and can only ever change 1→0 within a sector without a fresh erase: you cannot selectively remove charge from one cell without erasing the whole physical block it lives in.</p>
+<p>Every flash command (erase sector, program phrase, etc.) is executed by writing a command code and address/data into the FTFC's Command Interface registers and then setting the <code>CCIF</code> bit, which triggers a real hardware state machine inside FTFC to run the high-voltage programming algorithm — this is also why flash writes are asynchronous and take microseconds-to-milliseconds (physically enforced by the charge-pump ramp time), unlike SRAM writes which complete in one clock cycle.</p>
+<p>FlexNVM's split between extra program flash and FlexRAM/EEPROM emulation works by dedicating part of the flash array to be managed by hardware EEPROM emulation logic: writes to the "EEPROM" address range don't directly reprogram flash cells on every write — instead, FlexRAM (a small SRAM buffer) absorbs writes instantly, and the FTFC's internal EEPROM state machine transparently migrates data into flash sectors in the background using wear-leveling logic, which is what gives byte-addressable, high-endurance EEPROM-like behavior out of flash cells that can physically only survive a limited number of erase cycles.</p>
+<p><em>(Described from the S32K reference manual's FTFC/FlexNVM chapters; not measured on physical silicon in this course.)</em></p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Design and implement a non-volatile store that you would defend in a
 design review. (1) List the data your capstone node must persist —

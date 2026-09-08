@@ -1749,6 +1749,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2459,6 +2481,11 @@ build.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>XCP's calibration mechanism (letting an engineer tweak a constant like a PID gain live, without reflashing) works because the calibration variables are placed in RAM at addresses known to both the ECU's build (via an A2L description file mapping symbol names to addresses) and the calibration tool — XCP's <code>SET_MTA</code>/<code>DOWNLOAD</code> commands are, at the silicon level, nothing more than direct memory writes to those RAM addresses over whatever transport (CAN, Ethernet, USB) is carrying XCP; there's no special calibration hardware, the "magic" is entirely in address-book bookkeeping (the A2L file) kept in sync with the actual linked memory layout.</p>
+<p>Measurement (streaming live variable values back to a host tool at high rate) is where the underlying hardware genuinely matters: for tight-jitter measurement, XCP's DAQ (Data Acquisition) lists are typically serviced from a hardware timer interrupt (an FTM compare-match, tying directly back to the timer mechanism covered in the timers/PWM module) so that samples are read at a hardware-timed cadence rather than whenever a background task happens to run — sampling a variable from a lower-priority polling loop instead of a timer ISR reintroduces exactly the kind of scheduling jitter that makes a captured signal useless for tuning a fast control loop.</p>
+<p>Because DOWNLOAD writes go straight to RAM with no bounds checking beyond what the ECU's own code enforces, writing a calibration constant that a running control loop is reading <em>concurrently</em> creates a genuine race condition at the memory level — if the calibration variable spans more bytes than the core's bus can write atomically, a control loop task could read a half-updated (torn) value mid-write; production calibration frameworks address this with double-buffered "page-switching" RAM regions specifically to avoid a torn read at the hardware memory-access level, not just as a software style preference.</p>
+<p><em>(Described from the ASAM XCP and A2L specifications and general automotive calibration tooling concepts; not measured on physical silicon in this course.)</em></p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Implement a minimal XCP slave on an S32K node and connect a real or
 simulated calibration tool to it. (1) Implement <code>CONNECT</code>, <code>SET_MTA</code>,

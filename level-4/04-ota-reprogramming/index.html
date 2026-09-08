@@ -1985,6 +1985,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2472,6 +2494,11 @@ failure surfaces as a failed OTA campaign report, not a stranded vehicle.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>OTA reprogramming on an automotive MCU has to solve a problem the bootloader module only touched on: what happens if power is lost mid-write to the <em>active</em> application flash region? The standard hardware-level answer is a dual-bank or A/B partition scheme — the flash controller (FTFC) programs the <em>inactive</em> bank while the currently-running application, executing entirely out of the <em>active</em> bank, remains untouched and fully functional; only after the new image's integrity is verified (typically via the HSE's hardware crypto engine checking a signature, covered in the secure-boot module) does the bootloader flip a small, separately protected "active bank" selector value and reset — this selector write is deliberately the <em>only</em> step that must be atomic, because everything before it can be safely retried or aborted without bricking the ECU.</p>
+<p>That selector itself needs its own power-loss-safety property: a single-word flash write is not guaranteed atomic if power is cut exactly mid-program (partial charge injection into the floating gate can leave a cell in an indeterminate state) — production designs handle this with redundant/mirrored copies of the selector plus the same CRC/ECC mechanisms covered in the flash module, so the boot ROM or first-stage loader can detect a corrupted, torn selector write and fall back to the known-good bank rather than trusting a self-consistent-looking but actually corrupted value.</p>
+<p>Anti-rollback (covered briefly in secure boot) becomes operationally important here: OTA campaigns must ensure the monotonic version counter only increments after the new image is confirmed running correctly in the field (often via a "confirm valid" mechanism triggered by successful boot + a health check), because incrementing it too early would permanently lock out reverting to the previous known-good image if the new one has a latent defect that only shows up after deployment.</p>
+<p><em>(Described from general automotive OTA/dual-bank update architecture concepts and S32K flash/HSE documentation; not measured on physical silicon in this course.)</em></p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Extend your Level 2 UDS bootloader with a dual-bank OTA-style activation
 scheme. (1) Define a <code>boot_info_t</code> structure and its own dedicated flash

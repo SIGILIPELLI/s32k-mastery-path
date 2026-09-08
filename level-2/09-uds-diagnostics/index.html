@@ -1395,6 +1395,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2305,6 +2316,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2783,6 +2805,11 @@ refused to boot without.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>UDS (ISO 14229) runs on top of CAN's physical arbitration and framing described earlier, but its "actually works" layer that matters here is the underlying transport protocol, ISO-TP (ISO 15765-2), which exists purely to work around CAN's fixed 8-byte (or 64-byte for CAN FD) payload limit at the silicon level. A UDS request larger than one frame gets split by ISO-TP into a First Frame (carrying a length field and the first chunk of data) and Consecutive Frames — and the <em>receiver</em> controls flow using a Flow Control frame that specifies block size and a minimum separation time (<code>STmin</code>), which the sender's hardware/software must physically respect between transmitted frames; this exists because a receiving ECU's FlexCAN RX message buffers and its CPU's ability to drain them via interrupt or DMA are finite, and STmin prevents the sender from overrunning that receive pipeline.</p>
+<p>Security Access (UDS service 0x27) is a real challenge-response cryptographic exchange, not a password check: the ECU's seed generator (frequently backed by a hardware security module or S32K's CSEc/HSE crypto accelerator on higher-end parts) produces a seed, the tester computes a key using a shared algorithm/key material, and the ECU's <em>own</em> hardware crypto engine recomputes the expected key internally to compare — critically, the correct key material never needs to leave the ECU's secure enclave for the comparison to happen, which is what prevents key extraction via bus sniffing.</p>
+<p>Diagnostic Session Control and ECU Reset services interact directly with the silicon reset controller and SMC power-mode hardware discussed earlier — a UDS "hard reset" request ultimately asserts the same physical reset line that NRST or the watchdog would, which is why a successful UDS reset boots through the exact same vector-fetch sequence as a power-on reset, vector table and all.</p>
+<p><em>(Described from ISO 14229/ISO 15765-2 and the S32K reference manual's FlexCAN/security chapters; not measured on physical silicon in this course.)</em></p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Add a UDS server to your Level 1 capstone node and prove it against a real
 tester. (1) Implement ISO-TP on its own first: Single Frame both ways,

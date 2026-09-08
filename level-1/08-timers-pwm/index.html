@@ -969,6 +969,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2498,6 +2520,11 @@ backlight</strong> — PWM dimming, duty from an ambient light sensor.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>FlexTimer (FTM) generates PWM by continuously comparing a free-running counter against per-channel compare registers using dedicated hardware comparators — there's no software loop toggling a pin. The counter (<code>FTM_CNT</code>) increments every prescaled clock tick up to <code>FTM_MOD</code>, and each channel's edge-aligned PWM output flips state the instant the counter equals <code>FTM_CnV</code>, purely through comparator logic wired straight to the pin's output latch. This is why FTM PWM frequency is rock-solid regardless of CPU load — the comparison happens every clock cycle in hardware whether or not the core is even running an interrupt handler.</p>
+<p>Updating <code>FTM_CnV</code> mid-cycle to change duty cycle would normally risk a glitch (a compare value changing while the counter is mid-count could cause the new value to be missed or double-triggered) — FTM avoids this with register-buffering: writes to <code>FTM_CnV</code> land in a shadow register, and the shadow only latches into the active compare register at the counter's next overflow (<code>FTM_MOD</code> match), guaranteeing every PWM period is glitch-free and atomic even though the CPU can write the new value at any arbitrary time.</p>
+<p>Input capture works by the inverse mechanism: an edge detector on the input pin latches the <em>current</em> counter value into <code>FTM_CnV</code> the instant a configured edge (rising/falling/both) occurs, entirely in hardware — this is how FTM measures pulse widths or frequencies with sub-microsecond precision without the CPU needing to service an interrupt fast enough to catch the exact edge; only the <em>processing</em> of the captured value happens in the ISR, not the timestamp itself.</p>
+<p><em>(Described from the S32K reference manual's FlexTimer chapter; not measured on physical silicon in this course.)</em></p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Combine everything so far: using the 10 ms LPIT tick, make the blue LED
 (FTM PWM) "breathe" — duty ramps 0→100% and back over 2 s — while the
