@@ -2086,6 +2086,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#related-lessons-on-other-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Related lessons on other tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2282,6 +2293,17 @@
     <span class="md-ellipsis">
       
         How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-lessons-on-other-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Related lessons on other tracks
       
     </span>
   </a>
@@ -2504,6 +2526,11 @@ nightly schedule, escalating cost only as confidence in a change grows.</p>
 <p>Deterministic, repeatable HIL test execution depends on the HIL rig's own timing hardware being tightly synchronized to the target — a HIL system driving a simulated wheel-speed sensor signal into the S32K's FTM input-capture pins (covered in the timers module) has to generate edges with jitter well below what the FTM's own capture hardware can resolve, otherwise test failures become indistinguishable from rig-induced noise rather than actual firmware defects; this is why HIL rigs use their own FPGA-based or dedicated real-time hardware, not a general-purpose PC's software timing, to generate stimulus signals.</p>
 <p>Continuous integration around HIL testing typically automates flashing the target via the same SWD/debug-probe mechanism covered in the toolchain module, then triggers the HIL rig's stimulus sequences and captures the target's CAN/GPIO/ADC responses for comparison against expected values — because flash programming via SWD takes measurable, non-trivial time (bounded by the FTFC's real programming-algorithm timing, covered in the flash module), CI pipeline timing budgets for HIL-based regression suites have to account for this real hardware latency, not just simulated build/test time.</p>
 <p><em>(Described from general HIL testing architecture concepts for automotive ECU validation; not measured on physical silicon in this course.)</em></p>
+<h2 id="related-lessons-on-other-tracks">🔀 Related lessons on other tracks<a class="headerlink" href="#related-lessons-on-other-tracks" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://sigilipelli.github.io/embedded-mastery-path/level-4/05-hil-testing-ci/">Embedded — HIL Testing &amp; CI for Firmware</a></li>
+<li><a href="https://sigilipelli.github.io/automotive-testing-mastery-path/level-3/05-test-automation-frameworks/">Automotive Testing — 05 · Test Automation Frameworks for ECU Testing</a></li>
+</ul>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Design a HIL test plan for the Level 3 body controller (implement what
 your bench allows; specify the rest). (1) Write out, in the Python-style

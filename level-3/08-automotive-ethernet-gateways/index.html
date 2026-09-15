@@ -1738,6 +1738,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#related-lessons-on-other-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Related lessons on other tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2289,6 +2300,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#related-lessons-on-other-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Related lessons on other tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2487,6 +2509,10 @@ it represents.</p>
 <p>A gateway ECU bridging CAN and Ethernet domains has to solve a real impedance mismatch problem beyond protocol translation: CAN is a broadcast, priority-arbitrated bus where every frame reaches every node in one hop, while Ethernet (especially switched) is point-to-point with store-and-forward switching introducing variable latency at each hop — the gateway's software has to buffer and re-time CAN's low-jitter periodic traffic before it can be carried as, say, SOME/IP-over-UDP packets, because the underlying transport no longer offers CAN's hardware-arbitrated determinism once frames cross onto the switched Ethernet fabric.</p>
 <p>Time synchronization for coordinating CAN-domain determinism across an Ethernet backbone typically requires gPTP (IEEE 802.1AS) hardware timestamping — the Ethernet MAC/PHY hardware timestamps sync packets at the exact instant they cross the physical wire (not when software processes them), because any software-added timestamp latency (interrupt response time, OS scheduling jitter) would be orders of magnitude too imprecise for automotive real-time coordination, which needs sub-microsecond clock alignment across ECUs.</p>
 <p><em>(Described from IEEE 802.3bw/802.1AS specifications and general automotive gateway architecture concepts; not measured on physical silicon in this course.)</em></p>
+<h2 id="related-lessons-on-other-tracks">🔀 Related lessons on other tracks<a class="headerlink" href="#related-lessons-on-other-tracks" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://sigilipelli.github.io/automotive-testing-mastery-path/level-3/03-automotive-ethernet-basics/">Automotive Testing — 03 · Ethernet/Automotive Ethernet Basics</a></li>
+</ul>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Design a CAN-to-Ethernet gateway node, and implement what your hardware
 allows. (1) Define a routing table mapping a small set of CAN IDs to

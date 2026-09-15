@@ -1289,6 +1289,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#related-lessons-on-other-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Related lessons on other tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2311,6 +2322,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#related-lessons-on-other-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Related lessons on other tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2665,6 +2687,12 @@ exposes only a subset of the filter combinations.</p>
 <p>STOP modes go further: after the <code>WFI</code> (Wait For Interrupt) instruction — a real Cortex-M4F pipeline instruction that halts instruction fetch and puts the core in a low-power state at the hardware level — the SMC sequences clock gating to entire domains, and in VLPS (Very Low Power Stop) it can also request the PMC to drop the core's internal supply rail. Waking up isn't instantaneous specifically because of this: the LLWU (Low Leakage Wake-up Unit) is a small always-on block of latches and comparators watching designated wake pins/peripherals even while the rest of the chip is powered down, and on a wake event it triggers the PMC/SMC to re-sequence power rails and re-lock the PLL <em>before</em> releasing the core to fetch its next instruction — this rail-and-clock resequencing, done in a fixed hardware order to avoid glitches, is the real source of STOP-mode wake latency.</p>
 <p>Retention SRAM banks in the deepest low-power states are kept alive by a dedicated low-current retention supply separate from the main SRAM array's read/write supply — this is why some low-power modes preserve RAM contents and others don't: it's determined by which physical supply rail feeds which SRAM bank, not by a configuration bit alone.</p>
 <p><em>(Described from the S32K reference manual's SMC/PMC/LLWU chapters; not measured on physical silicon in this course.)</em></p>
+<h2 id="related-lessons-on-other-tracks">🔀 Related lessons on other tracks<a class="headerlink" href="#related-lessons-on-other-tracks" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://sigilipelli.github.io/edge-ai-mastery-path/level-4/07-ultra-low-power-inference/">Edge AI — Ultra-Low-Power Inference</a></li>
+<li><a href="https://sigilipelli.github.io/embedded-mastery-path/level-3/05-low-power-design/">Embedded — Low-Power Design Deep Dive</a></li>
+<li><a href="https://sigilipelli.github.io/freertos-mastery-path/level-2/03-tickless-idle-low-power/">Freertos — Tickless Idle &amp; Low Power</a></li>
+</ul>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Turn your capstone node into a sleeping ECU with a defensible current
 budget. (1) Write the <strong>pin sleep table</strong>: every pin, its sleep state, and

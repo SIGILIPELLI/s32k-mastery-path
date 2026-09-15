@@ -1710,6 +1710,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#related-lessons-on-other-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Related lessons on other tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2289,6 +2300,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#related-lessons-on-other-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Related lessons on other tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2480,6 +2502,12 @@ secure boot chain is trust-anchoring a system with an unlocked side door.</p>
 <p>The HSE (Hardware Security Engine) present on more capable S32K variants is a genuinely separate processor core with its own private memory, running independently of the main application core specifically so that cryptographic key material and verification logic are never exposed to application-core memory space or debug access — signature verification (checking the application image's signature against the OTP-anchored public key using a hardware-accelerated ECC or RSA engine) happens entirely inside the HSE's isolated execution environment, and only a pass/fail result (not the key material) crosses back to the boot sequence deciding whether to jump to the application, the same <code>VTOR</code>-reprogram-and-jump mechanism covered in the bootloader module.</p>
 <p>Anti-rollback protection (preventing a valid-but-old, vulnerable firmware image from being reinstalled) is enforced by a monotonic counter stored in a write-once or write-increment-only region — often battery-backed registers or dedicated OTP fuse rows that can only be incremented, never decremented, by hardware design — so the boot verification logic can reject an image whose embedded version is lower than the counter's current value, and no software path exists to decrement that counter back down.</p>
 <p><em>(Described from general automotive HSE/secure-boot architecture concepts and NXP S32K security documentation; not measured on physical silicon in this course.)</em></p>
+<h2 id="related-lessons-on-other-tracks">🔀 Related lessons on other tracks<a class="headerlink" href="#related-lessons-on-other-tracks" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://sigilipelli.github.io/embedded-python-mastery-path/level-4/06-security-hardening/">Embedded Python — Security Hardening — TLS &amp; Secure Storage</a></li>
+<li><a href="https://sigilipelli.github.io/embedded-linux-mastery-path/level-4/02-secure-boot-hab-ahab/">Embedded Linux — 02 · Secure Boot Chain (HAB/AHAB)</a></li>
+<li><a href="https://sigilipelli.github.io/embedded-mastery-path/level-4/02-secure-boot-ota-scale/">Embedded — Secure Boot &amp; Encrypted OTA at Scale</a></li>
+</ul>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Design (and where an S32K3 board with HSE is available, implement) a
 secure boot chain for a body controller image. (1) Define the trust

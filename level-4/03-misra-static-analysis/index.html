@@ -1974,6 +1974,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#related-lessons-on-other-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Related lessons on other tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2289,6 +2300,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#related-lessons-on-other-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Related lessons on other tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2505,6 +2527,10 @@ itself is actually safe.</p>
 <p>Rules around volatile-qualified access to memory-mapped registers connect directly to how the CPU's load/store unit and instruction pipeline interact with peripheral registers: without <code>volatile</code>, the compiler is free to cache a register's value in a CPU register across multiple reads, or to reorder/eliminate what it thinks are redundant reads/writes — but a peripheral status register like FlexCAN's <code>IFLAG</code> can change state due to hardware events between two source-level reads that look identical to the compiler, so the <em>hardware's</em> asynchronous state-changing behavior is exactly what makes <code>volatile</code> a correctness requirement rather than a performance hint.</p>
 <p>Static analysis tools catching these violations work by building a control-flow and data-flow graph from the source and checking it against pattern rules — but they fundamentally cannot know that a given memory address is a hardware register with side effects unless it's declared with the right type/volatile qualifiers, which is why MISRA's rules are as much about making hardware-interaction <em>visible</em> to tooling as about the C language itself.</p>
 <p><em>(Described from MISRA C:2012 guideline rationale and Arm Cortex-M4 compiler/architecture behavior; not measured on physical silicon in this course.)</em></p>
+<h2 id="related-lessons-on-other-tracks">🔀 Related lessons on other tracks<a class="headerlink" href="#related-lessons-on-other-tracks" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://sigilipelli.github.io/cpp-testing-mastery-path/level-2/09-static-analysis/">Cpp Testing — 09 · Static Analysis</a></li>
+</ul>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Run a MISRA-style review pass on your own Level 3 body-controller code
 (by hand if no analyzer is available, or with a real static analysis

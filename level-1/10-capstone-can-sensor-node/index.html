@@ -1075,6 +1075,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#related-lessons-on-other-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Related lessons on other tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise-and-course-wrap-up" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2355,6 +2366,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#related-lessons-on-other-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Related lessons on other tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise-and-course-wrap-up" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2742,6 +2764,10 @@ exactly the module 7 "signal timeout" habit made concrete.</p>
 <p>Packing that batch into a CAN frame and triggering FlexCAN to send it is also a hardware handoff: writing a message buffer's control/status word and setting the CODE field to "transmit" (0xC) tells FlexCAN's message-buffer arbitration and matching logic to include that buffer in the next arbitration round on the physical bus — the actual bit-by-bit transmission (including the resynchronization and dominant/recessive arbitration described in the CAN fundamentals module) happens entirely in the FlexCAN state machine, clocked independently of the core.</p>
 <p>Timing the whole loop with FTM instead of a busy-wait or RTOS tick means the sample-and-transmit cadence is set by a free-running hardware counter reaching a compare match, not by however long the CPU happens to take executing code — this is what gives an automotive sensor node its jitter guarantee: the <em>sampling instant</em> is hardware-timed even if the <em>processing</em> that follows has some software latency.</p>
 <p><em>(Described from the S32K reference manual's eDMA/FlexCAN/FTM chapters; not measured on physical silicon in this course.)</em></p>
+<h2 id="related-lessons-on-other-tracks">🔀 Related lessons on other tracks<a class="headerlink" href="#related-lessons-on-other-tracks" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://sigilipelli.github.io/nodemcu-mastery-path/level-1/10-capstone-wifi-sensor-node/">NodeMCU/IoT — 10 · Capstone — WiFi Sensor Node &amp; Web Server</a></li>
+</ul>
 <h2 id="exercise-and-course-wrap-up">Exercise — and course wrap-up<a class="headerlink" href="#exercise-and-course-wrap-up" title="Permanent link">&para;</a></h2>
 <p>Implement this capstone as a single buildable S32DS (or Makefile) project,
 combining modules 2–9 unchanged where possible. Then write a one-page
