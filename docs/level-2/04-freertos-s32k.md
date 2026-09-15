@@ -1,3 +1,7 @@
+---
+description: "FreeRTOS on S32K — Level 1's capstone ran a cooperative scheduler off one LPIT tick: a for(;;) loop calling sensor_task_10ms(), output_task_10ms(), and a…"
+---
+
 # FreeRTOS on S32K
 
 Level 1's capstone ran a cooperative scheduler off one LPIT tick: a

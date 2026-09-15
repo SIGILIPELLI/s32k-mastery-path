@@ -1,3 +1,7 @@
+---
+description: "AUTOSAR Classic — MCAL, BSW & RTE — Every S32K driver you have written so far — FlexCAN, LPUART, FlexTimer — was a hand-rolled register wrapper. That…"
+---
+
 # AUTOSAR Classic — MCAL, BSW & RTE
 
 Every S32K driver you have written so far — FlexCAN, LPUART, FlexTimer —

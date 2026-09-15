@@ -1,3 +1,7 @@
+---
+description: "Clocks, Power & Boot — Every S32K project starts the same way: configure the clocks. Until you do, the chip runs on a fallback internal oscillator…"
+---
+
 # 03 · Clocks, Power & Boot
 
 Every S32K project starts the same way: configure the clocks. Until you do,

@@ -1,3 +1,7 @@
+---
+description: "MPU & Freedom from Interference — A body controller that runs door locks and airbag-adjacent seatbelt pretensioner diagnostics on the same MCU has a…"
+---
+
 # MPU & Freedom from Interference
 
 A body controller that runs door locks and airbag-adjacent seatbelt

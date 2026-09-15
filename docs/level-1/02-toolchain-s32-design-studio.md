@@ -1,3 +1,7 @@
+---
+description: "Toolchain Setup — S32 Design Studio — Automotive firmware is plain C compiled with an ARM cross-compiler — no magic. What the vendor tooling adds is…"
+---
+
 # 02 · Toolchain Setup — S32 Design Studio
 
 Automotive firmware is plain C compiled with an ARM cross-compiler — no

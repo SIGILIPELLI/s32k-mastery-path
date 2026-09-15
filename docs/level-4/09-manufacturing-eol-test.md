@@ -1,3 +1,7 @@
+---
+description: "Manufacturing, EOL Test & Traceability — Every 'provisioned at manufacturing' reference across Level 3 and 4 — HSE keys (module 7), SecOC keys (module 5)…"
+---
+
 # Manufacturing, EOL Test & Traceability
 
 Every "provisioned at manufacturing" reference across Level 3 and 4 —

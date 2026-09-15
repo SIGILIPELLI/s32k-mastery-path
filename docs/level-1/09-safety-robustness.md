@@ -1,3 +1,7 @@
+---
+description: "Safety & Robustness Basics — An infotainment bug is annoying; a brake-controller bug can kill. That asymmetry is why automotive firmware culture is…"
+---
+
 # 09 · Safety & Robustness Basics
 
 An infotainment bug is annoying; a brake-controller bug can kill. That

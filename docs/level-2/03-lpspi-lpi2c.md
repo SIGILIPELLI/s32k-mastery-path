@@ -1,3 +1,7 @@
+---
+description: "LPSPI & LPI2C — Off-Chip Peripherals — An ECU is rarely one chip. Around the S32K sit external EEPROMs holding calibration, pressure and inertial sensors…"
+---
+
 # LPSPI & LPI2C — Off-Chip Peripherals
 
 An ECU is rarely one chip. Around the S32K sit external EEPROMs holding

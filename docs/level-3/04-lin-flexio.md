@@ -1,3 +1,7 @@
+---
+description: "LIN & FlexIO — Not every signal in a vehicle justifies a CAN transceiver, a termination resistor pair, and a dedicated controller. A window switch, a…"
+---
+
 # LIN & FlexIO
 
 Not every signal in a vehicle justifies a CAN transceiver, a termination

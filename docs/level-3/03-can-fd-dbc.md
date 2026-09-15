@@ -1,3 +1,7 @@
+---
+description: "CAN FD Networks & DBC Workflows — Every CAN frame you built in Level 1 was Classic CAN: 8 data bytes, one bit rate for the whole frame. Real vehicle…"
+---
+
 # CAN FD Networks & DBC Workflows
 
 Every CAN frame you built in Level 1 was Classic CAN: 8 data bytes, one

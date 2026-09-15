@@ -1,3 +1,7 @@
+---
+description: "AUTOSAR OS & Timing Analysis — Every module since Level 1 has assumed tasks and interrupts 'just run when they're supposed to.' At ASIL D, that assumption…"
+---
+
 # AUTOSAR OS & Timing Analysis
 
 Every module since Level 1 has assumed tasks and interrupts "just run

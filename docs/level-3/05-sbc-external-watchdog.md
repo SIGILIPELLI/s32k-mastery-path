@@ -1,3 +1,7 @@
+---
+description: "Safety Mechanisms — SBC & External Watchdogs — The S32K has an internal watchdog (WDOG), and you've likely already serviced it in Level 1/2. It is not…"
+---
+
 # Safety Mechanisms — SBC & External Watchdogs
 
 The S32K has an internal watchdog (`WDOG`), and you've likely already

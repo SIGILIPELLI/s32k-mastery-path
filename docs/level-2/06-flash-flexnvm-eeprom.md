@@ -1,3 +1,7 @@
+---
+description: "Flash, FlexNVM & EEPROM Emulation — Some data has to survive a power cycle: end-of-line calibration, the vehicle identification number, learned adaptation…"
+---
+
 # Flash, FlexNVM & EEPROM Emulation
 
 Some data has to survive a power cycle: end-of-line calibration, the

@@ -1,3 +1,7 @@
+---
+description: "Capstone — Production-Grade Zone ECU — This capstone combines the entire course. A zone ECU is the architecture pattern much of the industry is moving…"
+---
+
 # Capstone — Production-Grade Zone ECU
 
 This capstone combines the entire course. A **zone ECU** is the

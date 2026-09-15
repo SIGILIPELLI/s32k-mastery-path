@@ -1,3 +1,7 @@
+---
+description: "Production ECU Hardware Architecture — Every module so far has treated the S32K as a given — a chip on a development board. A production ECU is a PCB, a…"
+---
+
 # Production ECU Hardware Architecture
 
 Every module so far has treated the S32K as a given — a chip on a

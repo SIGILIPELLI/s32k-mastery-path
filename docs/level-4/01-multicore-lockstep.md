@@ -1,3 +1,7 @@
+---
+description: "Multi-Core S32K3 & Lockstep — Everything through Level 3 assumed one core. S32K3-family parts (unlike S32K1) ship with multiple Arm Cortex-M7 cores, and…"
+---
+
 # Multi-Core S32K3 & Lockstep
 
 Everything through Level 3 assumed one core. S32K3-family parts (unlike

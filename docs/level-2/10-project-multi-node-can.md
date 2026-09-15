@@ -1,3 +1,7 @@
+---
+description: "Project — Multi-Node CAN Network — Level 1's capstone was one node talking to a bench tool. Everything in Level 2 — mailboxes and filters, DMA, an RTOS…"
+---
+
 # Project — Multi-Node CAN Network
 
 Level 1's capstone was one node talking to a bench tool. Everything in

@@ -1,3 +1,7 @@
+---
+description: "ASIL-D Development Workflow — Every mechanism from Level 3 — MPU partitioning, secure boot, SBC watchdogs, lockstep — exists to satisfy requirements from…"
+---
+
 # ASIL-D Development Workflow
 
 Every mechanism from Level 3 — MPU partitioning, secure boot, SBC

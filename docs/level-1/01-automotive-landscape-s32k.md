@@ -1,3 +1,7 @@
+---
+description: "The Automotive Embedded Landscape & the S32K Family — A modern car is not one computer — it is a rolling network of 30 to 150+ electronic control units…"
+---
+
 # 01 · The Automotive Embedded Landscape & the S32K Family
 
 A modern car is not one computer — it is a rolling network of **30 to 150+

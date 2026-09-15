@@ -1,3 +1,7 @@
+---
+description: "Project — Diagnostic-Capable Body Controller — This project combines every module of Level 3 into one coherent design: a body control module (BCM) that…"
+---
+
 # Project — Diagnostic-Capable Body Controller
 
 This project combines every module of Level 3 into one coherent design:

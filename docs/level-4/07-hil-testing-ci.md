@@ -1,3 +1,7 @@
+---
+description: "HIL Testing & CI for ECU Firmware — Every exercise so far has ended with 'verify on real hardware.' A production automotive project cannot run its entire…"
+---
+
 # HIL Testing & CI for ECU Firmware
 
 Every exercise so far has ended with "verify on real hardware." A

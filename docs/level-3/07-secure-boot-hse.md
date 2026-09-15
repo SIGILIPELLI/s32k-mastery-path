@@ -1,3 +1,7 @@
+---
+description: "Secure Boot & the HSE Security Engine — Module 4 of Level 2 built a bootloader that flashes new firmware over UDS. That bootloader has an unstated…"
+---
+
 # Secure Boot & the HSE Security Engine
 
 Module 4 of Level 2 built a bootloader that flashes new firmware over

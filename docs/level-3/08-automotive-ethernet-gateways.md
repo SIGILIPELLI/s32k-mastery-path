@@ -1,3 +1,7 @@
+---
+description: "Automotive Ethernet & Gateways — Every bus so far — CAN, CAN FD, LIN — tops out in the low megabits. Camera feeds for surround-view, radar point clouds…"
+---
+
 # Automotive Ethernet & Gateways
 
 Every bus so far — CAN, CAN FD, LIN — tops out in the low megabits.

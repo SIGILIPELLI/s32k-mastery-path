@@ -1,3 +1,7 @@
+---
+description: "UDS Diagnostics Intro (ISO 14229) — When a workshop plugs a tester into the OBD connector and reads a fault code, when an end-of-line station writes a VIN…"
+---
+
 # UDS Diagnostics Intro (ISO 14229)
 
 When a workshop plugs a tester into the OBD connector and reads a fault

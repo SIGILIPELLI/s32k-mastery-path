@@ -1,3 +1,7 @@
+---
+description: "eDMA — Direct Memory Access — Every peripheral lesson so far has moved data with the CPU: poll a flag, read a register, store a byte. That works until the…"
+---
+
 # eDMA — Direct Memory Access
 
 Every peripheral lesson so far has moved data with the CPU: poll a flag,

@@ -1,3 +1,7 @@
+---
+description: "FlexCAN Deep Dive — Mailboxes & Filtering — Level 1's module 7 gave you the CAN protocol and a working TX/RX pair. That is enough for a demo node and…"
+---
+
 # FlexCAN Deep Dive — Mailboxes & Filtering
 
 Level 1's module 7 gave you the CAN protocol and a working TX/RX pair.

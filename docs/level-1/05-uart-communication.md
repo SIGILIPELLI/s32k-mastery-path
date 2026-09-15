@@ -1,3 +1,7 @@
+---
+description: "UART Communication — Before an ECU can talk to the car, it needs to talk to you. A UART serial console is the firmware engineer's stethoscope: boot…"
+---
+
 # 05 · UART Communication
 
 Before an ECU can talk to the car, it needs to talk to *you*. A UART serial

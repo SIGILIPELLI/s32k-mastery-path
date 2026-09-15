@@ -1,3 +1,7 @@
+---
+description: "GPIO & Pin Muxing — Time to make the chip do something visible. On the S32K, driving a pin involves two separate hardware modules — a split that confuses…"
+---
+
 # 04 · GPIO & Pin Muxing
 
 Time to make the chip *do* something visible. On the S32K, driving a pin

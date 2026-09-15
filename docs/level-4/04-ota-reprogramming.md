@@ -1,3 +1,7 @@
+---
+description: "OTA & Reprogramming Stacks — Level 2's bootloader flashed firmware over a wired UDS session; Level 3 module 7 added a signature check before commit. A…"
+---
+
 # OTA & Reprogramming Stacks
 
 Level 2's bootloader flashed firmware over a wired UDS session; Level 3

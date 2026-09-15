@@ -1,3 +1,7 @@
+---
+description: "Timers & PWM — Real ECU firmware doesn't delay(). It runs on a heartbeat: read sensors every 10 ms, transmit CAN every 100 ms, blink an indicator at 1.5…"
+---
+
 # 08 · Timers & PWM
 
 Real ECU firmware doesn't `delay()`. It runs on a heartbeat: read sensors

@@ -1,3 +1,7 @@
+---
+description: "Low-Power Modes & Wakeup Sources — A parked car's battery is not switched off. Dozens of ECUs stay connected to the 12 V rail for weeks, and the vehicle…"
+---
+
 # Low-Power Modes & Wakeup Sources
 
 A parked car's battery is not switched off. Dozens of ECUs stay connected

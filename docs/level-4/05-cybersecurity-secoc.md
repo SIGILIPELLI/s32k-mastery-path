@@ -1,3 +1,7 @@
+---
+description: "Cybersecurity — ISO/SAE 21434 & SecOC — Level 3 module 7 secured the boot chain; module 4 of this level secured reprogramming. Neither protects the thing…"
+---
+
 # Cybersecurity — ISO/SAE 21434 & SecOC
 
 Level 3 module 7 secured the boot chain; module 4 of this level secured

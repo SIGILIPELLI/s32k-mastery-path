@@ -1,3 +1,7 @@
+---
+description: "CAN Fundamentals — If one module in this course is 'the automotive one,' this is it. CAN (Controller Area Network), invented by Bosch in the 1980s, is…"
+---
+
 # 07 · CAN Fundamentals
 
 If one module in this course is "the automotive one," this is it. **CAN**

@@ -1,3 +1,7 @@
+---
+description: "ADC & Sensor Inputs — Cars are full of analog: coolant temperature, throttle position, battery voltage, pedal position, current through a motor. The ADC…"
+---
+
 # 06 · ADC & Sensor Inputs
 
 Cars are full of analog: coolant temperature, throttle position,

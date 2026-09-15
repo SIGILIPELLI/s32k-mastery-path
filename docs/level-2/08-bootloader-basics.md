@@ -1,3 +1,7 @@
+---
+description: "Bootloader Basics & Reprogramming — Every ECU on a vehicle can be reflashed without opening the housing. That is not a convenience feature — it is a…"
+---
+
 # Bootloader Basics & Reprogramming
 
 Every ECU on a vehicle can be reflashed without opening the housing. That

@@ -1,3 +1,7 @@
+---
+description: "MISRA C & Static Analysis in Practice — Module 2 listed MISRA C compliance as mandatory at ASIL D. This module is the practical side: what MISRA rules…"
+---
+
 # MISRA C & Static Analysis in Practice
 
 Module 2 listed MISRA C compliance as mandatory at ASIL D. This module

@@ -1,3 +1,7 @@
+---
+description: "Real-Time Drivers (RTD) & MCAL Config — Module 1 drew the AUTOSAR layer diagram; this module lives entirely in its bottom layer. NXP's Real-Time Drivers…"
+---
+
 # Real-Time Drivers (RTD) & MCAL Config
 
 Module 1 drew the AUTOSAR layer diagram; this module lives entirely in
