@@ -346,6 +346,10 @@ Diagnostic Session Control and ECU Reset services interact directly with the sil
 
 *(Described from ISO 14229/ISO 15765-2 and the S32K reference manual's FlexCAN/security chapters; not measured on physical silicon in this course.)*
 
+## 🔀 Related lessons on other tracks
+
+- [Automotive Testing — 06 · UDS Diagnostics Basics](https://sigilipelli.github.io/automotive-testing-mastery-path/level-1/06-uds-diagnostics-basics/)
+
 ## Exercise
 
 Add a UDS server to your Level 1 capstone node and prove it against a real

@@ -167,6 +167,10 @@ Because DOWNLOAD writes go straight to RAM with no bounds checking beyond what t
 
 *(Described from the ASAM XCP and A2L specifications and general automotive calibration tooling concepts; not measured on physical silicon in this course.)*
 
+## 🔀 Related lessons on other tracks
+
+- [Automotive Testing — 02 · CANape & Measurement/Calibration Basics](https://sigilipelli.github.io/automotive-testing-mastery-path/level-3/02-canape-measurement-calibration/)
+
 ## Exercise
 
 Implement a minimal XCP slave on an S32K node and connect a real or

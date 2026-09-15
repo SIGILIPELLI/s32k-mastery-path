@@ -154,6 +154,12 @@ Anti-rollback protection (preventing a valid-but-old, vulnerable firmware image 
 
 *(Described from general automotive HSE/secure-boot architecture concepts and NXP S32K security documentation; not measured on physical silicon in this course.)*
 
+## 🔀 Related lessons on other tracks
+
+- [Embedded Python — Security Hardening — TLS & Secure Storage](https://sigilipelli.github.io/embedded-python-mastery-path/level-4/06-security-hardening/)
+- [Embedded Linux — 02 · Secure Boot Chain (HAB/AHAB)](https://sigilipelli.github.io/embedded-linux-mastery-path/level-4/02-secure-boot-hab-ahab/)
+- [Embedded — Secure Boot & Encrypted OTA at Scale](https://sigilipelli.github.io/embedded-mastery-path/level-4/02-secure-boot-ota-scale/)
+
 ## Exercise
 
 Design (and where an S32K3 board with HSE is available, implement) a

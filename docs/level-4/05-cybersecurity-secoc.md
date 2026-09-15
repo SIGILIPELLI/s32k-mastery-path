@@ -156,6 +156,10 @@ Because SecOC authentication is layered *on top of* CAN's existing arbitration a
 
 *(Described from the AUTOSAR SecOC specification and general automotive HSM/crypto-accelerator concepts; not measured on physical silicon in this course.)*
 
+## 🔀 Related lessons on other tracks
+
+- [Automotive Testing — 04 · Cybersecurity Testing for Vehicles (ISO 21434)](https://sigilipelli.github.io/automotive-testing-mastery-path/level-4/04-cybersecurity-testing/)
+
 ## Exercise
 
 Add SecOC-style authentication to one signal from your Level 3 body

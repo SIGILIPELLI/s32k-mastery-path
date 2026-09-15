@@ -182,6 +182,10 @@ At the silicon level, LPUART's FIFO and DMA request lines let the transmit/recei
 
 *(Described from the S32K reference manual's LPUART chapter; not measured on physical silicon in this course.)*
 
+## 🔀 Related lessons on other tracks
+
+- [Embedded — 05 · Serial/UART Communication](https://sigilipelli.github.io/embedded-mastery-path/level-1/05-serial-uart/)
+
 ## Exercise
 
 Build a tiny command console: your firmware prints a `> ` prompt, reads a

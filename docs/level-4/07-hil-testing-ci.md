@@ -165,6 +165,11 @@ Continuous integration around HIL testing typically automates flashing the targe
 
 *(Described from general HIL testing architecture concepts for automotive ECU validation; not measured on physical silicon in this course.)*
 
+## 🔀 Related lessons on other tracks
+
+- [Embedded — HIL Testing & CI for Firmware](https://sigilipelli.github.io/embedded-mastery-path/level-4/05-hil-testing-ci/)
+- [Automotive Testing — 05 · Test Automation Frameworks for ECU Testing](https://sigilipelli.github.io/automotive-testing-mastery-path/level-3/05-test-automation-frameworks/)
+
 ## Exercise
 
 Design a HIL test plan for the Level 3 body controller (implement what

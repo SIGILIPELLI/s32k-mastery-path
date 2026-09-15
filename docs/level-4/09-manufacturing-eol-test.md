@@ -171,6 +171,12 @@ Traceability requirements (associating a specific silicon die's test results wit
 
 *(Described from general automotive EOL/manufacturing test concepts and ISO 26262 Part 7; not measured on physical silicon in this course.)*
 
+## 🔀 Related lessons on other tracks
+
+- [Automotive Testing — 08 · Requirements-Based Test Traceability](https://sigilipelli.github.io/automotive-testing-mastery-path/level-3/08-requirements-based-traceability/)
+- [Embedded — Manufacturing, DFM & Factory Test](https://sigilipelli.github.io/embedded-mastery-path/level-4/08-manufacturing-dfm-test/)
+- [Embedded Python — Manufacturing & Factory Test](https://sigilipelli.github.io/embedded-python-mastery-path/level-4/09-manufacturing-factory-test/)
+
 ## Exercise
 
 Design an EOL test sequence for the Level 3 body controller. (1)

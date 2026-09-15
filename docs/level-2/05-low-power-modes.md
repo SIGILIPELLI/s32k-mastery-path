@@ -228,6 +228,12 @@ Retention SRAM banks in the deepest low-power states are kept alive by a dedicat
 
 *(Described from the S32K reference manual's SMC/PMC/LLWU chapters; not measured on physical silicon in this course.)*
 
+## 🔀 Related lessons on other tracks
+
+- [Edge AI — Ultra-Low-Power Inference](https://sigilipelli.github.io/edge-ai-mastery-path/level-4/07-ultra-low-power-inference/)
+- [Embedded — Low-Power Design Deep Dive](https://sigilipelli.github.io/embedded-mastery-path/level-3/05-low-power-design/)
+- [Freertos — Tickless Idle & Low Power](https://sigilipelli.github.io/freertos-mastery-path/level-2/03-tickless-idle-low-power/)
+
 ## Exercise
 
 Turn your capstone node into a sleeping ECU with a defensible current

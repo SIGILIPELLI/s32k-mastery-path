@@ -159,6 +159,10 @@ Time synchronization for coordinating CAN-domain determinism across an Ethernet 
 
 *(Described from IEEE 802.3bw/802.1AS specifications and general automotive gateway architecture concepts; not measured on physical silicon in this course.)*
 
+## 🔀 Related lessons on other tracks
+
+- [Automotive Testing — 03 · Ethernet/Automotive Ethernet Basics](https://sigilipelli.github.io/automotive-testing-mastery-path/level-3/03-automotive-ethernet-basics/)
+
 ## Exercise
 
 Design a CAN-to-Ethernet gateway node, and implement what your hardware

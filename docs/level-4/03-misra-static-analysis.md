@@ -164,6 +164,10 @@ Static analysis tools catching these violations work by building a control-flow 
 
 *(Described from MISRA C:2012 guideline rationale and Arm Cortex-M4 compiler/architecture behavior; not measured on physical silicon in this course.)*
 
+## 🔀 Related lessons on other tracks
+
+- [Cpp Testing — 09 · Static Analysis](https://sigilipelli.github.io/cpp-testing-mastery-path/level-2/09-static-analysis/)
+
 ## Exercise
 
 Run a MISRA-style review pass on your own Level 3 body-controller code

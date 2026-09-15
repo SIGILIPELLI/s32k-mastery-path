@@ -276,6 +276,10 @@ Timing the whole loop with FTM instead of a busy-wait or RTOS tick means the sam
 
 *(Described from the S32K reference manual's eDMA/FlexCAN/FTM chapters; not measured on physical silicon in this course.)*
 
+## 🔀 Related lessons on other tracks
+
+- [NodeMCU/IoT — 10 · Capstone — WiFi Sensor Node & Web Server](https://sigilipelli.github.io/nodemcu-mastery-path/level-1/10-capstone-wifi-sensor-node/)
+
 ## Exercise — and course wrap-up
 
 Implement this capstone as a single buildable S32DS (or Makefile) project,

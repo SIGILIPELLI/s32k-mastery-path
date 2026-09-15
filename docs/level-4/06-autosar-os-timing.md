@@ -167,6 +167,10 @@ Interrupt latency analysis for AUTOSAR OS timing has to account for the actual C
 
 *(Described from AUTOSAR OS specification concepts and the Arm Cortex-M4 NVIC/interrupt-latency architecture; not measured on physical silicon in this course.)*
 
+## 🔀 Related lessons on other tracks
+
+- [Freertos — Formal Timing Analysis (RMA & WCET)](https://sigilipelli.github.io/freertos-mastery-path/level-4/02-formal-timing-analysis/)
+
 ## Exercise
 
 Perform a schedulability analysis on the Level 3 body-controller's task
