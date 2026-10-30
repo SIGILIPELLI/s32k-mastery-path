@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sigilipelli.github.io/s32k-mastery-path/sitemap.xml
