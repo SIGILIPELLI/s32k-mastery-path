@@ -158,7 +158,7 @@ Because SecOC authentication is layered *on top of* CAN's existing arbitration a
 
 ## 🔀 Related lessons on other tracks
 
-- [Automotive Testing — 04 · Cybersecurity Testing for Vehicles (ISO 21434)](https://sigilipelli.github.io/automotive-testing-mastery-path/level-4/04-cybersecurity-testing/)
+- [Automotive Testing — 04 · Cybersecurity Testing for Vehicles (ISO 21434)](https://learnmasterypath.com/automotive-testing-mastery-path/level-4/04-cybersecurity-testing/)
 
 ## Exercise
 

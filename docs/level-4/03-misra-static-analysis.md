@@ -166,7 +166,7 @@ Static analysis tools catching these violations work by building a control-flow 
 
 ## 🔀 Related lessons on other tracks
 
-- [Cpp Testing — 09 · Static Analysis](https://sigilipelli.github.io/cpp-testing-mastery-path/level-2/09-static-analysis/)
+- [Cpp Testing — 09 · Static Analysis](https://learnmasterypath.com/cpp-testing-mastery-path/level-2/09-static-analysis/)
 
 ## Exercise
 

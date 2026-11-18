@@ -156,9 +156,9 @@ Anti-rollback protection (preventing a valid-but-old, vulnerable firmware image 
 
 ## 🔀 Related lessons on other tracks
 
-- [Embedded Python — Security Hardening — TLS & Secure Storage](https://sigilipelli.github.io/embedded-python-mastery-path/level-4/06-security-hardening/)
-- [Embedded Linux — 02 · Secure Boot Chain (HAB/AHAB)](https://sigilipelli.github.io/embedded-linux-mastery-path/level-4/02-secure-boot-hab-ahab/)
-- [Embedded — Secure Boot & Encrypted OTA at Scale](https://sigilipelli.github.io/embedded-mastery-path/level-4/02-secure-boot-ota-scale/)
+- [Embedded Python — Security Hardening — TLS & Secure Storage](https://learnmasterypath.com/embedded-python-mastery-path/level-4/06-security-hardening/)
+- [Embedded Linux — 02 · Secure Boot Chain (HAB/AHAB)](https://learnmasterypath.com/embedded-linux-mastery-path/level-4/02-secure-boot-hab-ahab/)
+- [Embedded — Secure Boot & Encrypted OTA at Scale](https://learnmasterypath.com/embedded-mastery-path/level-4/02-secure-boot-ota-scale/)
 
 ## Exercise
 

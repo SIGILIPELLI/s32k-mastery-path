@@ -348,7 +348,7 @@ Diagnostic Session Control and ECU Reset services interact directly with the sil
 
 ## 🔀 Related lessons on other tracks
 
-- [Automotive Testing — 06 · UDS Diagnostics Basics](https://sigilipelli.github.io/automotive-testing-mastery-path/level-1/06-uds-diagnostics-basics/)
+- [Automotive Testing — 06 · UDS Diagnostics Basics](https://learnmasterypath.com/automotive-testing-mastery-path/level-1/06-uds-diagnostics-basics/)
 
 ## Exercise
 

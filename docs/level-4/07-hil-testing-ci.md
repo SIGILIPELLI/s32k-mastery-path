@@ -167,8 +167,8 @@ Continuous integration around HIL testing typically automates flashing the targe
 
 ## 🔀 Related lessons on other tracks
 
-- [Embedded — HIL Testing & CI for Firmware](https://sigilipelli.github.io/embedded-mastery-path/level-4/05-hil-testing-ci/)
-- [Automotive Testing — 05 · Test Automation Frameworks for ECU Testing](https://sigilipelli.github.io/automotive-testing-mastery-path/level-3/05-test-automation-frameworks/)
+- [Embedded — HIL Testing & CI for Firmware](https://learnmasterypath.com/embedded-mastery-path/level-4/05-hil-testing-ci/)
+- [Automotive Testing — 05 · Test Automation Frameworks for ECU Testing](https://learnmasterypath.com/automotive-testing-mastery-path/level-3/05-test-automation-frameworks/)
 
 ## Exercise
 

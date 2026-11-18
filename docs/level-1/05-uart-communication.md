@@ -184,7 +184,7 @@ At the silicon level, LPUART's FIFO and DMA request lines let the transmit/recei
 
 ## 🔀 Related lessons on other tracks
 
-- [Embedded — 05 · Serial/UART Communication](https://sigilipelli.github.io/embedded-mastery-path/level-1/05-serial-uart/)
+- [Embedded — 05 · Serial/UART Communication](https://learnmasterypath.com/embedded-mastery-path/level-1/05-serial-uart/)
 
 ## Exercise
 

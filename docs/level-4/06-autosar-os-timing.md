@@ -169,7 +169,7 @@ Interrupt latency analysis for AUTOSAR OS timing has to account for the actual C
 
 ## 🔀 Related lessons on other tracks
 
-- [Freertos — Formal Timing Analysis (RMA & WCET)](https://sigilipelli.github.io/freertos-mastery-path/level-4/02-formal-timing-analysis/)
+- [Freertos — Formal Timing Analysis (RMA & WCET)](https://learnmasterypath.com/freertos-mastery-path/level-4/02-formal-timing-analysis/)
 
 ## Exercise
 

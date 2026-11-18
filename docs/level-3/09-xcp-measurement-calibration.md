@@ -169,7 +169,7 @@ Because DOWNLOAD writes go straight to RAM with no bounds checking beyond what t
 
 ## 🔀 Related lessons on other tracks
 
-- [Automotive Testing — 02 · CANape & Measurement/Calibration Basics](https://sigilipelli.github.io/automotive-testing-mastery-path/level-3/02-canape-measurement-calibration/)
+- [Automotive Testing — 02 · CANape & Measurement/Calibration Basics](https://learnmasterypath.com/automotive-testing-mastery-path/level-3/02-canape-measurement-calibration/)
 
 ## Exercise
 

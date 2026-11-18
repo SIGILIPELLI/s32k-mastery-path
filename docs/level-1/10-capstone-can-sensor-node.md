@@ -278,7 +278,7 @@ Timing the whole loop with FTM instead of a busy-wait or RTOS tick means the sam
 
 ## 🔀 Related lessons on other tracks
 
-- [NodeMCU/IoT — 10 · Capstone — WiFi Sensor Node & Web Server](https://sigilipelli.github.io/nodemcu-mastery-path/level-1/10-capstone-wifi-sensor-node/)
+- [NodeMCU/IoT — 10 · Capstone — WiFi Sensor Node & Web Server](https://learnmasterypath.com/nodemcu-mastery-path/level-1/10-capstone-wifi-sensor-node/)
 
 ## Exercise — and course wrap-up
 

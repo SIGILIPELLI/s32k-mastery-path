@@ -161,7 +161,7 @@ Time synchronization for coordinating CAN-domain determinism across an Ethernet 
 
 ## 🔀 Related lessons on other tracks
 
-- [Automotive Testing — 03 · Ethernet/Automotive Ethernet Basics](https://sigilipelli.github.io/automotive-testing-mastery-path/level-3/03-automotive-ethernet-basics/)
+- [Automotive Testing — 03 · Ethernet/Automotive Ethernet Basics](https://learnmasterypath.com/automotive-testing-mastery-path/level-3/03-automotive-ethernet-basics/)
 
 ## Exercise
 
