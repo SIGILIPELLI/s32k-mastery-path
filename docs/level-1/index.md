@@ -1,3 +1,7 @@
+---
+description: "Level 1 (Entry) of the free S32K Automotive Embedded Mastery Path. Get productive on NXP's S32K automotive microcontroller family in plain C — understand…"
+---
+
 # Level 1 · Entry <span class="level-badge">Foundations</span>
 
 Goal: get productive on NXP's S32K automotive microcontroller family in

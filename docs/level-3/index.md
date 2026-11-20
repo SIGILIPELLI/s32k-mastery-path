@@ -1,3 +1,7 @@
+---
+description: "Level 3 (Advanced) of the free S32K Automotive Embedded Mastery Path. Work the way production automotive teams work — AUTOSAR-layered software, configured…"
+---
+
 # Level 3 · Advanced <span class="level-badge">Advanced</span>
 
 Goal: work the way production automotive teams work — AUTOSAR-layered

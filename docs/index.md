@@ -1,6 +1,6 @@
 ---
 title: "Learn NXP S32K Free: Automotive MCU Course"
-description: "Free NXP S32K automotive microcontroller course from beginner to advanced, with hands-on projects. Part of a 37-course free learning library."
+description: "Free NXP S32K automotive microcontroller course from beginner to advanced, with hands-on projects. Part of a 100+ course free learning library."
 ---
 
 # S32K Automotive Embedded Mastery Path

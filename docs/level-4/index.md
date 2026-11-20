@@ -1,3 +1,7 @@
+---
+description: "Level 4 (Master) of the free S32K Automotive Embedded Mastery Path. Operate at production level — lockstep multi-core safety MCUs, ASIL-D processes…"
+---
+
 # Level 4 · Master <span class="level-badge">Master</span>
 
 Goal: operate at production level — lockstep multi-core safety MCUs,

@@ -1,3 +1,7 @@
+---
+description: "Level 2 (Intermediate) of the free S32K Automotive Embedded Mastery Path. Go from \"I can bring up a peripheral\" to building real ECU firmware — master the…"
+---
+
 # Level 2 · Intermediate <span class="level-badge">Intermediate</span>
 
 Goal: go from "I can bring up a peripheral" to building real ECU
