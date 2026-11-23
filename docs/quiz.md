@@ -21,7 +21,7 @@ you can retake it as many times as you like. Your best result is saved in this b
       "44 300 200"
     ],
     "correctIndex": 0,
-    "explanation": "uint8_t arithmetic wraps modulo 256; casting 200 to int8_t gives -56 on two's complement targets. (Host-C model of the arithmetic; no S32K hardware was used.) Verified by compiling and running it."
+    "explanation": "uint8_t arithmetic wraps modulo 256; casting 200 to int8_t gives -56 on two's complement targets. (Host-C model of the arithmetic; no S32K hardware was used.) The code was compiled, run and its output checked."
   },
   {
     "question": "What does this print?\n```c\n#include <stdio.h>\n#include <stdint.h>\n#define BIT(n) (1u<<(n))\nint main(void){uint32_t reg=0xF0; reg&=~(BIT(7)|BIT(4)); reg|=BIT(1); printf(\"0x%02X %d\\n\",reg,(reg&BIT(5))!=0);}\n```\n",
@@ -32,7 +32,7 @@ you can retake it as many times as you like. Your best result is saved in this b
       "0x62 1"
     ],
     "correctIndex": 3,
-    "explanation": "Clear bits 7 and 4, set bit 1; bit 5 remains set. (Host-C model of the arithmetic; no S32K hardware was used.) Verified by compiling and running it."
+    "explanation": "Clear bits 7 and 4, set bit 1; bit 5 remains set. (Host-C model of the arithmetic; no S32K hardware was used.) The code was compiled, run and its output checked."
   },
   {
     "question": "What is the CAN bus load for this schedule at 500 kbit/s? (frames are 111 bits, 10 per 10 ms)\n```c\n#include <stdio.h>\n#include <stdint.h>\nint main(void){double bits=111*10; double cap=500000*0.010; printf(\"%.1f%%\\n\",100*bits/cap);}\n```\n",
@@ -43,7 +43,7 @@ you can retake it as many times as you like. Your best result is saved in this b
       "22.2%"
     ],
     "correctIndex": 3,
-    "explanation": "1110 bits in a 10 ms window with 5000 bits of capacity. (Host-C model of the arithmetic; no S32K hardware was used.) Verified by compiling and running it."
+    "explanation": "1110 bits in a 10 ms window with 5000 bits of capacity. (Host-C model of the arithmetic; no S32K hardware was used.) The code was compiled, run and its output checked."
   },
   {
     "question": "How many bits is the CAN bit time for 500 kbit/s, and how many time quanta at an 8 MHz time-quantum clock?\n```c\n#include <stdio.h>\n#include <stdint.h>\nint main(void){double t=1e6/500000.0; printf(\"%.0f us %.0f tq\\n\",t,t*8);}\n```\n",
@@ -54,7 +54,7 @@ you can retake it as many times as you like. Your best result is saved in this b
       "1 us 8 tq"
     ],
     "correctIndex": 1,
-    "explanation": "Bit time = 1/baud; tq count = bit time x tq clock. (Host-C model of the arithmetic; no S32K hardware was used.) Verified by compiling and running it."
+    "explanation": "Bit time = 1/baud; tq count = bit time x tq clock. (Host-C model of the arithmetic; no S32K hardware was used.) The code was compiled, run and its output checked."
   },
   {
     "question": "What is the sample point for 16 tq with sync 1, PROP+PS1 = 12 and PS2 = 3?\n```c\n#include <stdio.h>\n#include <stdint.h>\nint main(void){printf(\"%.1f%%\\n\",100.0*(1+12)/16);}\n```\n",
@@ -65,7 +65,7 @@ you can retake it as many times as you like. Your best result is saved in this b
       "81.2%"
     ],
     "correctIndex": 3,
-    "explanation": "Sample point = (sync + seg1) / total, here 13/16 (81.25%, printed as 81.2% by round-half-even). (Host-C model of the arithmetic; no S32K hardware was used.) Verified by compiling and running it."
+    "explanation": "Sample point = (sync + seg1) / total, here 13/16 (81.25%, printed as 81.2% by round-half-even). (Host-C model of the arithmetic; no S32K hardware was used.) The code was compiled, run and its output checked."
   },
   {
     "question": "Why is a CRC alone not enough to secure a CAN message?",
