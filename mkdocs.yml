@@ -81,8 +81,8 @@ not_in_nav: |
 
 nav:
   - Home: index.md
-  - "💼 Interview Questions": interview-questions.md
-  - "📋 Cheat Sheet": cheat-sheet.md
+  - Interview Questions: interview-questions.md
+  - Cheat Sheet: cheat-sheet.md
   - "Level 1 · Entry":
       - Overview: level-1/index.md
       - "01 · Automotive Embedded & the S32K Family": level-1/01-automotive-landscape-s32k.md
@@ -131,5 +131,5 @@ nav:
       - "Production ECU Hardware Architecture": level-4/08-production-ecu-architecture.md
       - "Manufacturing, EOL Test & Traceability": level-4/09-manufacturing-eol-test.md
       - "Capstone — Production-Grade Zone ECU": level-4/10-capstone-zone-ecu.md
-  - "🎯 Final Quiz": quiz.md
+  - Final Quiz: quiz.md
 
