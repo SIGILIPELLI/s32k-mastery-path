@@ -21,8 +21,3 @@ protocols every production ECU must support.
 8. [Bootloader Basics & Reprogramming](08-bootloader-basics.md)
 9. [UDS Diagnostics Intro (ISO 14229)](09-uds-diagnostics.md)
 10. [Project — Multi-Node CAN Network](10-project-multi-node-can.md)
-
-!!! info "Content status"
-    Level 2 module content is being written — every page below has its
-    scope defined and will be filled in next. [Level 1](../level-1/index.md)
-    is complete and is the prerequisite for everything here.
