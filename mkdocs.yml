@@ -94,7 +94,7 @@ nav:
       - "07 · CAN Fundamentals": level-1/07-can-fundamentals.md
       - "08 · Timers & PWM": level-1/08-timers-pwm.md
       - "09 · Safety & Robustness Basics": level-1/09-safety-robustness.md
-      - "10 · Capstone — CAN Sensor Node": level-1/10-capstone-can-sensor-node.md
+      - "10 · Project — CAN Sensor Node": level-1/10-capstone-can-sensor-node.md
   - "Level 2 · Intermediate":
       - Overview: level-2/index.md
       - "FlexCAN Deep Dive — Mailboxes & Filtering": level-2/01-flexcan-deep-dive.md

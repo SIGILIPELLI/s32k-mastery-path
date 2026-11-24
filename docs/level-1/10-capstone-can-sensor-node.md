@@ -2,7 +2,7 @@
 description: "Capstone — Design a CAN Sensor Node — Every module so far gave you one capability: clocks, GPIO, UART, ADC, CAN, timers/PWM, safety habits. Real ECU work…"
 ---
 
-# 10 · Capstone — Design a CAN Sensor Node
+# 10 · Project — Design a CAN Sensor Node
 
 Every module so far gave you one capability: clocks, GPIO, UART, ADC, CAN,
 timers/PWM, safety habits. Real ECU work is combining all of them into one
