@@ -35,8 +35,7 @@ lesson 1 covers all three options honestly.
   **SDK-style** (NXP S32 SDK / RTD API shapes) or **register-level**
   (straight out of the reference manual) so you always know what layer
   you're looking at.
-- Each level ends with a project that combines everything learned in that
-  level.
+- Levels 1–3 each end with a project that combines everything learned in that level, and Level 4 ends with the course capstone.
 - Use the search bar (top of the page) to jump straight to a topic.
 
 New to microcontrollers entirely? The
